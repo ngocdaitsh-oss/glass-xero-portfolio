@@ -1,0 +1,174 @@
+/* SAPP — Component library + Design anatomy (Figma 250:15806, 247:15301).
+   Hover motion uses transform / opacity / box-shadow only. */
+
+.cl-ease {
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease;
+}
+
+/* Dashed library cards (#fafafa, purple dashed outline). */
+.cl-card:hover {
+  transform: translateY(-6px) scale(1.006);
+  box-shadow: 0 22px 48px -12px rgba(76, 20, 120, 0.18), 0 2px 6px rgba(15, 23, 41, 0.05);
+}
+
+/* Specimen tiles inside the cards. */
+.cl-spec:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+
+.cl-toast {
+  box-shadow: 0 2.861px 5.722px rgba(0, 0, 0, 0.08);
+}
+
+.cl-toast:hover {
+  transform: translateY(-4px) scale(1.025);
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 41, 0.22), 0 2px 6px rgba(15, 23, 41, 0.06);
+}
+
+/* Buttons: lift + the library hover state (darker veil) via an opacity layer. */
+.cl-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.cl-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.14);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.cl-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 20px -6px rgba(15, 23, 41, 0.28);
+}
+
+.cl-btn.cl-btn-outline:hover {
+  box-shadow: inset 0 0 0 1px #9ca3af, 0 10px 20px -6px rgba(15, 23, 41, 0.22);
+}
+
+.cl-btn:hover::after {
+  opacity: 1;
+}
+
+/* Tertiary button: underline grows in on hover. */
+.cl-btn-text {
+  position: relative;
+}
+
+.cl-btn-text::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cl-btn-text:hover {
+  transform: translateY(-2px);
+}
+
+.cl-btn-text:hover::before {
+  transform: scaleX(1);
+}
+
+/* Inputs: hover shows the brand "Active" ring as a box-shadow. */
+.cl-field {
+  box-shadow: inset 0 0 0 1px #d1d5db;
+}
+
+.cl-field:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1px #ffb700, 0 0 0 3px rgba(255, 183, 0, 0.18), 0 12px 24px -10px rgba(15, 23, 41, 0.2);
+}
+
+/* Icon tiles. */
+.cl-icon {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.cl-icon:hover {
+  transform: translateY(-6px) scale(1.08);
+  box-shadow: 0 16px 30px -6px rgba(15, 23, 41, 0.16);
+}
+
+/* Cursor cells. */
+.cl-cursor:hover {
+  transform: scale(1.18) rotate(-4deg);
+}
+
+/* Slot-content demo modals. */
+.cl-modal-sm {
+  box-shadow: 0 4.4px 12.265px rgba(0, 0, 0, 0.1);
+}
+
+.cl-modal-sm:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 36px -6px rgba(0, 0, 0, 0.18);
+}
+
+.cl-modal-lg {
+  box-shadow: 0 5.94px 16.115px rgba(0, 0, 0, 0.2);
+}
+
+.cl-modal-lg:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 22px 44px -6px rgba(0, 0, 0, 0.26);
+}
+
+/* Anatomy: hovered callout highlights, everything else dims. */
+.an-item,
+.an-mark {
+  transition:
+    opacity 220ms ease,
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.an-dim .an-item:not(.is-on),
+.an-dim .an-mark:not(.is-on) {
+  opacity: 0.22;
+}
+
+.an-item.is-on {
+  transform: translateX(4px);
+}
+
+.an-badge.is-on {
+  transform: scale(1.22);
+  box-shadow: 0 0 0 4px rgba(255, 183, 0, 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-ease,
+  .an-item,
+  .an-mark {
+    transition: opacity 200ms ease;
+  }
+
+  .cl-card:hover,
+  .cl-spec:hover,
+  .cl-toast:hover,
+  .cl-btn:hover,
+  .cl-btn-text:hover,
+  .cl-field:hover,
+  .cl-icon:hover,
+  .cl-cursor:hover,
+  .cl-modal-sm:hover,
+  .cl-modal-lg:hover,
+  .an-item.is-on,
+  .an-badge.is-on {
+    transform: none;
+  }
+}

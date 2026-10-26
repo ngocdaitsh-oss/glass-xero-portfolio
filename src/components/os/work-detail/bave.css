@@ -1,0 +1,120 @@
+/* bave case study — section motion. Transform / opacity only; no filters on anything that moves. */
+
+/* Average end-user: bar fill is driven from JS (scaleX) together with the % count-up. */
+.bv-fill {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/*
+ * Line "drawing" without stroke animation: the clip box slides in from one side
+ * while its content counter-slides, so the line is uncovered along its main axis.
+ * Starts when the nearest `.bv-draw` Reveal has entered.
+ */
+.bv-wipe,
+.bv-wipe > * {
+  transition: transform var(--bv-draw-ms, 1400ms) cubic-bezier(0.45, 0.05, 0.25, 1) var(--bv-draw-delay, 250ms);
+}
+.bv-wipe {
+  overflow: hidden;
+}
+.bv-wipe-y {
+  transform: translate3d(0, -100%, 0);
+}
+.bv-wipe-y > * {
+  transform: translate3d(0, 100%, 0);
+}
+.bv-wipe-x {
+  transform: translate3d(-100%, 0, 0);
+}
+.bv-wipe-x > * {
+  transform: translate3d(100%, 0, 0);
+}
+.bv-draw.is-in .bv-wipe,
+.bv-draw.is-in .bv-wipe > * {
+  transform: none;
+}
+
+/* Emojis / dots pop in along the line; `--d` is the delay at which the line reaches them. */
+.bv-pop {
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 320ms ease var(--d, 0ms),
+    transform 560ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0ms);
+}
+.bv-draw.is-in .bv-pop {
+  opacity: 1;
+  transform: none;
+}
+/* Rotated emojis keep their tilt (Tailwind v4 `rotate` is its own property, so it composes). */
+
+/* User flow: zoom buttons. */
+.bv-zbtn {
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+}
+.bv-zbtn:hover {
+  transform: scale(1.08);
+}
+.bv-zbtn:active {
+  transform: scale(0.94);
+}
+.bv-zbtn:disabled {
+  opacity: 0.4;
+  transform: none;
+}
+
+/* The popup's overlay only blurs once it has settled (never while it fades). */
+.bv-overlay {
+  background: rgba(10, 10, 10, 0.5);
+}
+.bv-overlay.is-settled {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bv-wipe,
+  .bv-wipe > *,
+  .bv-pop,
+  .bv-zbtn {
+    transition: none;
+  }
+  .bv-wipe,
+  .bv-wipe > *,
+  .bv-pop {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * White boxes that also scroll-reveal: the hover lift moves to the `translate`
+ * property so it never fights the reveal's `transform` transition.
+ */
+.bave-detail .wd-hover {
+  transition:
+    translate 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bave-detail .wd-hover.reveal {
+  transition:
+    opacity 700ms cubic-bezier(0.25, 0.8, 0.35, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    translate 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bave-detail .wd-hover:hover {
+  transform: none;
+  translate: -3px -4px;
+}
+.reveal-arm .bave-detail .wd-hover.reveal:not(.is-in) {
+  translate: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bave-detail .wd-hover:hover {
+    translate: none;
+  }
+}

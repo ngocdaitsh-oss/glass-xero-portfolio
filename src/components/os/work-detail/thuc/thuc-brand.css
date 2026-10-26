@@ -1,0 +1,161 @@
+/* Thực Vị Thiên · Brand group (hero, overview, vision, phase 01, positioning, the logo, logo versions). transform / opacity only. */
+
+/* ---------- Hero: the mark settles in after the cover ---------- */
+.tb-hero-logo {
+  transition:
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 180ms,
+    opacity 700ms ease 180ms;
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .tb-hero-logo {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.96);
+}
+
+/* ---------- Overview: the connector arrow nudges when the row is hovered ---------- */
+.tb-ov-arrow {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-ov-row:hover .tb-ov-arrow {
+  transform: translate3d(4px, 0, 0);
+}
+.tb-tool {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-tool:hover {
+  transform: translate3d(0, -3px, 0);
+}
+
+/* ---------- Vision: the faint signboard drifts in from the right edge ---------- */
+.tb-vis-deco {
+  transition: transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-root.reveal-arm #wd-vision:has(.reveal:not(.is-in)) .tb-vis-deco {
+  transform: translate3d(40px, 0, 0);
+}
+
+/* ---------- Positioning: rows highlight, photos zoom a touch ---------- */
+.tb-shift-arrow,
+.tb-shift-after {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-shift:hover .tb-shift-arrow {
+  transform: translate3d(6px, 0, 0);
+}
+.tb-shift:hover .tb-shift-after {
+  transform: translate3d(4px, 0, 0);
+}
+.tb-photo img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-photo:hover img {
+  transform: scale(1.03);
+}
+
+/* ---------- The logo stage: callouts enter one by one, then their leader draws and the pin pops ---------- */
+.tb-call {
+  transition:
+    opacity 600ms ease,
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(260ms + var(--i, 0) * 420ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .tb-call {
+  opacity: 0;
+  transform: translate3d(18px, 0, 0);
+}
+
+/* Transform-only wipe: the window slides left over the line while the line is held still. */
+.tb-wipe,
+.tb-wipe-in {
+  transition: transform 820ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(420ms + var(--i, 0) * 420ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .tb-wipe {
+  transform: translate3d(100%, 0, 0);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .tb-wipe-in {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.tb-pin {
+  transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(1150ms + var(--i, 0) * 420ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .tb-pin {
+  transform: scale(0);
+}
+
+/* Hover: the hovered callout's leader turns solid and its pin grows; the others step back. */
+.tb-lead,
+.tb-pin-in,
+.tb-call-in {
+  transition:
+    opacity 260ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-lead-solid {
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.tb-lead.is-on .tb-lead-solid {
+  opacity: 1;
+}
+.tb-pin.is-on .tb-pin-in {
+  transform: scale(1.5);
+}
+.tb-lead.is-dim,
+.tb-pin.is-dim .tb-pin-in,
+.tb-call-in.is-dim {
+  opacity: 0.35;
+}
+.tb-call-in.is-on {
+  transform: translate3d(4px, 0, 0);
+}
+.tb-call-n {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-call-in.is-on .tb-call-n {
+  transform: scale(1.12);
+}
+
+/* ---------- Logo versions: the mark scales up a touch on its tile ---------- */
+.tb-ver-logo {
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tb-ver:hover .tb-ver-logo {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-hero-logo,
+  .tb-vis-deco,
+  .tb-call,
+  .tb-wipe,
+  .tb-wipe-in,
+  .tb-pin,
+  .tb-photo img,
+  .tb-ver-logo,
+  .tb-ov-arrow,
+  .tb-tool,
+  .tb-shift-arrow,
+  .tb-shift-after {
+    transition: none;
+  }
+  .reveal-root.reveal-arm .reveal:not(.is-in) .tb-hero-logo,
+  .reveal-root.reveal-arm #wd-vision:has(.reveal:not(.is-in)) .tb-vis-deco,
+  .reveal-root.reveal-arm .reveal:not(.is-in) .tb-call,
+  .reveal-root.reveal-arm .reveal:not(.is-in) .tb-wipe,
+  .reveal-root.reveal-arm .reveal:not(.is-in) .tb-wipe-in,
+  .reveal-root.reveal-arm .reveal:not(.is-in) .tb-pin {
+    opacity: 1;
+    transform: none;
+  }
+  .tb-photo:hover img,
+  .tb-ver:hover .tb-ver-logo,
+  .tb-ov-row:hover .tb-ov-arrow,
+  .tb-tool:hover,
+  .tb-shift:hover .tb-shift-arrow,
+  .tb-shift:hover .tb-shift-after,
+  .tb-call-in.is-on {
+    transform: none;
+  }
+}

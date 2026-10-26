@@ -1,0 +1,68 @@
+/* SAPP · Design solution — design-goal cards (transform / opacity only). */
+.sol-goal {
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease;
+}
+
+.sol-goal-img,
+.sol-goal-copy {
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sol-goal-desc {
+  opacity: 0.78;
+  transition: opacity 320ms ease;
+}
+
+.sol-goals:hover .sol-goal:not(:hover) {
+  opacity: 0.6;
+}
+
+.sol-goal:hover {
+  transform: translateY(-10px);
+}
+
+.sol-goal:hover .sol-goal-img {
+  transform: scale(1.045);
+}
+
+.sol-goal:hover .sol-goal-copy {
+  transform: translateY(-6px);
+}
+
+.sol-goal:hover .sol-goal-desc {
+  opacity: 1;
+}
+
+/* User flow — zoom buttons. */
+.sol-zbtn {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
+}
+
+.sol-zbtn:hover {
+  transform: scale(1.08);
+}
+
+.sol-zbtn:active {
+  transform: scale(0.94);
+}
+
+.sol-zbtn:disabled {
+  opacity: 0.4;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sol-goal,
+  .sol-goal-img,
+  .sol-goal-copy,
+  .sol-zbtn {
+    transition: none;
+  }
+  .sol-goal:hover,
+  .sol-goal:hover .sol-goal-img,
+  .sol-goal:hover .sol-goal-copy {
+    transform: none;
+  }
+}

@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="181.386" height="394.199" viewBox="0 0 181.386 394.199" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="screen mask">
+<mask id="mask0_0_295" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="182" height="395">
+<path id="mask layer" d="M0 24.6731C0 11.0465 11.02 0 24.6139 0H156.772C170.366 0 181.386 11.0465 181.386 24.673V369.526C181.386 383.153 170.366 394.199 156.772 394.199H24.6139C11.02 394.199 0 383.153 0 369.526V24.6731Z" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_0_295)">
+</g>
+</g>
+</svg>

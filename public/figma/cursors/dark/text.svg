@@ -1,0 +1,22 @@
+<svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Cursors">
+<g id="Cursor">
+<g id="Type=Text, Theme=Dark">
+<g id="Glyph" filter="url(#filter0_d_14_128)">
+<path id="Vector" d="M19.3998 5.35034C20.3762 5.35034 21.1007 5.94587 21.348 6.73218C21.5897 7.50101 21.3577 8.39781 20.6215 8.97046C20.6152 8.9753 20.6093 8.98044 20.6029 8.98511C19.0233 10.1435 18.4496 10.6997 18.4496 11.6003V20.4001C18.4497 21.1881 18.8891 21.7116 20.057 22.6062L20.6029 23.0144L20.6215 23.0291C21.3577 23.6017 21.5897 24.4985 21.348 25.2673C21.1008 26.0538 20.3764 26.6501 19.3998 26.6501C17.8685 26.6501 16.7756 26.1942 16.0004 25.4939C15.2251 26.1945 14.1317 26.6501 12.6 26.6501C11.6234 26.6501 10.899 26.0538 10.6517 25.2673C10.4101 24.4985 10.642 23.6017 11.3783 23.0291L11.3969 23.0144C12.9763 21.8561 13.5501 21.3007 13.5502 20.4001V11.6003C13.5502 10.6997 12.9764 10.1435 11.3969 8.98511C11.3905 8.98047 11.3845 8.97527 11.3783 8.97046C10.6421 8.39781 10.4101 7.50097 10.6517 6.73218C10.8991 5.94584 11.6235 5.35035 12.6 5.35034C14.1316 5.35034 15.2251 5.80516 16.0004 6.50562C16.7756 5.8054 17.8686 5.35038 19.3998 5.35034Z" fill="#E2E2E2" stroke="#1C1C1C" stroke-width="1.7" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_14_128" x="8.50972" y="3.9" width="16.5806" height="27" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="0.8" dy="1.4"/>
+<feGaussianBlur stdDeviation="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.32 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_14_128"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_14_128" result="shape"/>
+</filter>
+</defs>
+</svg>

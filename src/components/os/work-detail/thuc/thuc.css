@@ -1,0 +1,7 @@
+/* Thực Vị Thiên case study tokens. Section CSS lives in thuc-<group>.css files. */
+.thuc-detail {
+  /* Figma variable brand/tvt. */
+  --brand-thuc: #cc242b;
+  /* Figma "Main" (332:15796) page fill: flat #f7f7f7 on the left half, lifting to white at the right edge. */
+  background: linear-gradient(90deg, #f7f7f7 0%, #f7f7f7 55%, #f9f9f9 64%, #fbfbfb 74%, #fdfdfd 84%, #fefefe 92%, #ffffff 100%);
+}

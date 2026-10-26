@@ -1,0 +1,7 @@
+/* 98rum case study tokens. Section CSS lives in rum-<group>.css files. */
+.rum-detail {
+  /* Figma variable brand/rum (headings, eyebrow dots). The phase-01 band / tiles use #00aeef (phase/rum-identity-solid). */
+  --brand-rum: #0087c2;
+  /* Figma "Main" (343:90411) page fill: flat #f7f7f7 on the left half, lifting to white toward the right edge. */
+  background: linear-gradient(90deg, #f7f7f7 0%, #f7f7f7 56%, #f9f9f9 60%, #fbfbfb 70%, #fdfdfd 80%, #ffffff 90%, #ffffff 100%);
+}

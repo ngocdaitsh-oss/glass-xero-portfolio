@@ -1,0 +1,8 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon/Text">
+<g id="Shape">
+<path d="M7 2H17C19.76 2 22 4.24 22 7V17C22 19.76 19.76 22 17 22H7C4.24 22 2 19.76 2 17V7C2 4.24 4.24 2 7 2ZM7 3.5H17C18.93 3.5 20.5 5.07 20.5 7V17C20.5 18.93 18.93 20.5 17 20.5H7C5.07 20.5 3.5 18.93 3.5 17V7C3.5 5.07 5.07 3.5 7 3.5Z" fill-rule="evenodd" clip-rule="evenodd" fill="#1A1A1C"/>
+<path d="M7 7H17V8.75H12.9V17H11.1V8.75H7V7Z" fill="#1A1A1C"/>
+</g>
+</g>
+</svg>

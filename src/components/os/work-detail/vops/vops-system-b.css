@@ -1,0 +1,258 @@
+/* vOps · Design system B (architecture → elevation): hover / scroll micro-motion.
+   Only transform / opacity / box-shadow animate (small text gets colour too). No filters. */
+
+.vb-ease {
+  --vb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Figma "Card/Soft". */
+  --vb-card-soft: 0 1px 3px rgba(15, 23, 41, 0.04), 0 12px 32px -4px rgba(15, 23, 41, 0.06);
+}
+
+/* Token pills inside hoverable rows. */
+.vb-token {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+/* System architecture: layers slide right, the elbow arrows nudge up toward the layer they feed. */
+.vb-layer {
+  transition: transform 320ms var(--vb-ease);
+}
+.vb-layer-n {
+  transition: transform 320ms var(--vb-ease);
+}
+.vb-layer:hover {
+  transform: translateX(8px);
+}
+.vb-layer:hover .vb-layer-n {
+  transform: scale(1.25);
+}
+.vb-arch-arrow {
+  transition: transform 520ms var(--vb-ease);
+}
+.vb-arch:hover .vb-arch-arrow {
+  transform: translateY(-4px);
+}
+
+/* Token architecture. */
+.vb-chip {
+  transition: transform 220ms var(--vb-ease);
+}
+.vb-chip:hover {
+  transform: translateY(-2px) scale(1.06);
+}
+.vb-tier-arrow {
+  transition: transform 420ms var(--vb-ease);
+}
+.vb-tiers:hover .vb-tier-arrow {
+  transform: translateX(6px);
+}
+.vb-tok {
+  transition: transform 260ms var(--vb-ease);
+}
+.vb-tok-sw {
+  transition:
+    transform 260ms var(--vb-ease),
+    box-shadow 260ms var(--vb-ease);
+}
+.vb-tok:hover {
+  transform: translateX(6px);
+}
+.vb-tok:hover .vb-tok-sw {
+  transform: scale(1.18) rotate(-6deg);
+  box-shadow: 0 6px 14px -4px rgba(15, 23, 41, 0.28);
+}
+.vb-tok:hover .vb-token,
+.vb-space:hover .vb-token,
+.vb-motion:hover .vb-token,
+.vb-radius-item:hover .vb-token {
+  background-color: #fed7df;
+  color: #14141a;
+}
+
+/* Collections table rows: soft red band on hover. */
+.vb-tr::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: #fff7f9;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+.vb-tr:hover::before {
+  opacity: 1;
+}
+
+/* Colour ramps: each swatch lifts with a glow in its own colour and its hex value comes forward. */
+.vb-ramp-name {
+  transition: color 200ms ease;
+}
+.vb-ramp:hover .vb-ramp-name {
+  color: #ee0033;
+}
+.vb-sw-chip {
+  transform-origin: 50% 100%;
+  transition:
+    transform 320ms var(--vb-ease),
+    box-shadow 320ms var(--vb-ease);
+}
+.vb-sw-hex {
+  transition:
+    color 200ms ease,
+    transform 320ms var(--vb-ease);
+}
+.vb-sw:hover .vb-sw-chip {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow:
+    0 12px 20px -10px var(--sw),
+    0 2px 6px rgba(15, 23, 41, 0.12);
+}
+.vb-sw:hover .vb-sw-hex {
+  color: #14141a;
+  transform: translateY(-2px);
+}
+
+/* Semantic cards: the colour band stretches a little (clipped by the card). */
+.vb-sem-band {
+  transform-origin: 50% 0;
+  transition: transform 420ms var(--vb-ease);
+}
+.vb-sem:hover .vb-sem-band {
+  transform: scale(1.04);
+}
+
+/* Do / Don't: the sample button pops. */
+.vb-dd-btn {
+  transition:
+    transform 320ms var(--vb-ease),
+    box-shadow 320ms var(--vb-ease);
+}
+.vb-dd:hover .vb-dd-btn {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 22px -10px rgba(238, 0, 51, 0.7);
+}
+
+/* Typography specimens. */
+.vb-aa {
+  transform-origin: 0 60%;
+  transition: transform 520ms var(--vb-ease);
+}
+.vb-spec:hover .vb-aa {
+  transform: scale(1.08) rotate(-2deg);
+}
+.vb-type {
+  position: relative;
+}
+.vb-type::before {
+  content: "";
+  position: absolute;
+  inset: 0 -16px;
+  border-radius: 12px;
+  background: #fff7f9;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+.vb-type:hover::before {
+  opacity: 1;
+}
+.vb-type-sample {
+  transform-origin: 0 50%;
+  transition: transform 360ms var(--vb-ease);
+}
+.vb-type:hover .vb-type-sample {
+  transform: scale(1.04);
+}
+
+/* Spacing bars grow in on scroll, and further on hover. */
+.vb-bar {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 900ms var(--vb-ease) 180ms;
+}
+.reveal.is-in .vb-bar {
+  transform: scaleX(1);
+}
+.vb-space:hover .vb-bar {
+  transform: scaleX(1.18);
+  transition-delay: 0ms;
+  transition-duration: 360ms;
+}
+
+/* Breakpoint columns rise in one after another, and ripple on hover. */
+.vb-col {
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  transition: transform 640ms var(--vb-ease) calc(160ms + var(--i, 0) * 40ms);
+}
+.reveal.is-in .vb-col {
+  transform: scaleY(1);
+}
+.vb-bp:hover .vb-col {
+  transform: translateY(-3px);
+  transition-duration: 300ms;
+  transition-delay: calc(var(--i, 0) * 22ms);
+}
+
+/* Elevation: hover raises the card's own shadow. */
+.vb-elev {
+  box-shadow: var(--e);
+  transition:
+    transform 380ms var(--vb-ease),
+    box-shadow 380ms var(--vb-ease);
+}
+.vb-elev:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--e-hover);
+}
+
+/* Radius samples: corner morphs on hover. */
+.vb-radius {
+  border-radius: var(--r);
+  transition:
+    border-radius 420ms var(--vb-ease),
+    transform 420ms var(--vb-ease),
+    background-color 200ms ease;
+}
+.vb-radius-item:hover .vb-radius {
+  border-radius: var(--r-hover);
+  transform: scale(1.1) rotate(8deg);
+  background-color: #ff859f;
+}
+
+/* Motion rows slide with their own duration and easing. */
+.vb-motion {
+  transition: transform var(--d, 200ms) var(--ease, ease);
+}
+.vb-motion:hover {
+  transform: translateX(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vb-layer,
+  .vb-layer-n,
+  .vb-arch-arrow,
+  .vb-chip,
+  .vb-tier-arrow,
+  .vb-tok,
+  .vb-tok-sw,
+  .vb-sw-chip,
+  .vb-sw-hex,
+  .vb-sem-band,
+  .vb-dd-btn,
+  .vb-aa,
+  .vb-type-sample,
+  .vb-bar,
+  .vb-col,
+  .vb-elev,
+  .vb-radius,
+  .vb-motion {
+    transition: none;
+  }
+  .vb-bar,
+  .vb-col {
+    transform: none;
+  }
+}

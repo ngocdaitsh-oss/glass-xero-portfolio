@@ -1,0 +1,6 @@
+/* BSC case study tokens and shared rules. Section-specific CSS lives in bsc-<group>.css files. */
+.bsc-detail {
+  --brand-bsc: #295ca9;
+  /* Figma "Main" (223:13360) page fill, sampled from the render: flat #f7f7f7 to ~54%, cooling to a pale blue at the right edge. */
+  background: linear-gradient(90deg, #f7f7f7 0%, #f7f7f7 54%, #f2f5f7 61%, #ebf3f9 72%, #e4f1fa 83%, #e1f0fa 88%, #e1f0fa 100%);
+}

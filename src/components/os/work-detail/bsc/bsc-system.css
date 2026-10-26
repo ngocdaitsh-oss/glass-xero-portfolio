@@ -1,0 +1,94 @@
+/* BSC · UI Kit, Phase 03 band, outcome sections. transform/opacity only, no filters. */
+
+.bsc-system,
+.bsc-outro {
+  /* Figma `phase/bsc-back` (light): offset shadow under white cards. */
+  --bsys-back: #295ca952;
+}
+
+/* ---------- Offset-shadow cards: the shadow grows as the card lifts, so its corner stays put ---------- */
+.bsys-card {
+  box-shadow:
+    6px 6px 0 0 var(--bsys-back),
+    inset 0 1px 0 0 var(--cmd-edge);
+}
+.bsys-card.wd-hover:hover {
+  box-shadow:
+    9px 10px 0 0 var(--bsys-back),
+    inset 0 1px 0 0 var(--cmd-edge);
+}
+
+/* ---------- Colour swatches: the hovered chip rises above its overlapping neighbours ---------- */
+.bsys-swatch {
+  position: relative;
+  z-index: 0;
+  box-shadow: 0 5.2px 6.25px 0 rgba(0, 0, 0, 0.2);
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bsys-swatch:hover {
+  z-index: 2;
+  transform: translate3d(0, -8px, 0);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.22);
+}
+
+/* ---------- Icon pack: each icon pops a little on hover ---------- */
+.bsys-icon {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bsys-icon:hover {
+  transform: scale(1.18);
+}
+
+/* ---------- Laptop: hovering scrolls the live page screenshot to its foot, and back ---------- */
+.bsys-screen img {
+  transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bsys-mac:hover .bsys-screen img {
+  transform: translate3d(0, calc(-100% + 359.974px), 0);
+  transition: transform 5200ms cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* ---------- Takeaways: the hovered row's text nudges right, its check pops ---------- */
+.bsys-row > p,
+.bsys-row > span {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bsys-row:hover > p {
+  transform: translate3d(4px, 0, 0);
+}
+.bsys-row:hover > span {
+  transform: scale(1.1);
+}
+
+/* ---------- Visit button: arrow slips up-right ---------- */
+.bsys-btn {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bsys-btn:hover {
+  transform: translate3d(0, -3px, 0);
+  box-shadow: 0 10px 24px -8px rgba(41, 92, 169, 0.55);
+}
+.bsys-btn img {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bsys-btn:hover img {
+  transform: translate3d(2px, -2px, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bsys-swatch:hover,
+  .bsys-icon:hover,
+  .bsys-row:hover > p,
+  .bsys-row:hover > span,
+  .bsys-btn:hover,
+  .bsys-btn:hover img {
+    transform: none;
+  }
+  .bsys-mac:hover .bsys-screen img {
+    transform: none;
+  }
+}

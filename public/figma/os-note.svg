@@ -1,0 +1,46 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="55.617" height="54" viewBox="0 0 55.617 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 4">
+<path id="Paper" d="M36 4H12C5.37258 4 0 8.47715 0 14V44C0 49.5228 5.37258 54 12 54H36C42.6274 54 48 49.5228 48 44V14C48 8.47715 42.6274 4 36 4Z" fill="url(#paint0_linear_0_980)"/>
+<path id="Header" d="M12 4H36C39.1826 4 42.2348 5.05357 44.4853 6.92893C46.7357 8.8043 48 11.3478 48 14V17H0V14C0 11.3478 1.26428 8.8043 3.51472 6.92893C5.76516 5.05357 8.8174 4 12 4Z" fill="url(#paint1_linear_0_980)"/>
+<path id="Ring 1" d="M15 2C15 0.89543 14.1046 0 13 0C11.8954 0 11 0.89543 11 2V8C11 9.10457 11.8954 10 13 10C14.1046 10 15 9.10457 15 8V2Z" fill="#13385A"/>
+<path id="Ring 2" d="M26 2C26 0.89543 25.1046 0 24 0C22.8954 0 22 0.89543 22 2V8C22 9.10457 22.8954 10 24 10C25.1046 10 26 9.10457 26 8V2Z" fill="#13385A"/>
+<path id="Ring 3" d="M37 2C37 0.89543 36.1046 0 35 0C33.8954 0 33 0.89543 33 2V8C33 9.10457 33.8954 10 35 10C36.1046 10 37 9.10457 37 8V2Z" fill="#13385A"/>
+<path id="Line 1" d="M34 24H12C10.8954 24 10 24.8954 10 26C10 27.1046 10.8954 28 12 28H34C35.1046 28 36 27.1046 36 26C36 24.8954 35.1046 24 34 24Z" fill="url(#paint2_linear_0_980)"/>
+<path id="Line 2" d="M34 32H12C10.8954 32 10 32.8954 10 34C10 35.1046 10.8954 36 12 36H34C35.1046 36 36 35.1046 36 34C36 32.8954 35.1046 32 34 32Z" fill="url(#paint3_linear_0_980)"/>
+<path id="Line 3" d="M22 40H12C10.8954 40 10 40.8954 10 42C10 43.1046 10.8954 44 12 44H22C23.1046 44 24 43.1046 24 42C24 40.8954 23.1046 40 22 40Z" fill="url(#paint4_linear_0_980)"/>
+<path id="Pencil Eraser" d="M53.8492 23.9792L51.0208 21.1508C50.0445 20.1745 48.4616 20.1745 47.4853 21.1508L46.0711 22.565C45.0948 23.5413 45.0948 25.1242 46.0711 26.1005L48.8995 28.9289C49.8758 29.9052 51.4587 29.9052 52.435 28.9289L53.8492 27.5147C54.8256 26.5384 54.8256 24.9555 53.8492 23.9792Z" fill="#FF8FB1"/>
+<path id="Pencil Body" d="M50.6673 27.8683L47.1317 24.3327C46.3507 23.5517 45.0844 23.5517 44.3033 24.3327L30.1612 38.4749C29.3801 39.2559 29.3801 40.5222 30.1612 41.3033L33.6967 44.8388C34.4778 45.6199 35.7441 45.6199 36.5251 44.8388L50.6673 30.6967C51.4483 29.9156 51.4483 28.6493 50.6673 27.8683Z" fill="url(#paint5_linear_0_980)"/>
+<path id="Pencil Tip" d="M28.7469 39.8891L35.1109 46.253L25.565 49.435L28.7469 39.8891Z" fill="url(#paint6_linear_0_980)"/>
+<path id="Pencil Lead" d="M26.6964 46.0409L28.9591 48.3037L25.565 49.435L26.6964 46.0409Z" fill="#13385A"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_980" x1="0" y1="4" x2="0" y2="54" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFF8E6"/>
+<stop offset="1" stop-color="#FFE2A6"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_980" x1="0" y1="4" x2="48" y2="4" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFB52E"/>
+<stop offset="1" stop-color="#FF6A00"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_980" x1="10" y1="24" x2="36" y2="24" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFC46B"/>
+<stop offset="1" stop-color="#FF9A3C"/>
+</linearGradient>
+<linearGradient id="paint3_linear_0_980" x1="10" y1="32" x2="36" y2="32" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFC46B"/>
+<stop offset="1" stop-color="#FF9A3C"/>
+</linearGradient>
+<linearGradient id="paint4_linear_0_980" x1="10" y1="40" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFC46B"/>
+<stop offset="1" stop-color="#FF9A3C"/>
+</linearGradient>
+<linearGradient id="paint5_linear_0_980" x1="45.7175" y1="22.9185" x2="52.0815" y2="29.2825" gradientUnits="userSpaceOnUse">
+<stop stop-color="#9B8CFF"/>
+<stop offset="1" stop-color="#5468FF"/>
+</linearGradient>
+<linearGradient id="paint6_linear_0_980" x1="28.7469" y1="39.8891" x2="22.383" y2="46.253" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFD199"/>
+<stop offset="1" stop-color="#F5A35C"/>
+</linearGradient>
+</defs>
+</svg>

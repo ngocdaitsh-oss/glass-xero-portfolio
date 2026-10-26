@@ -1,0 +1,118 @@
+/* Thực Vị Thiên — Visual system + Applications (applications.tsx). Transform/opacity only. */
+.thuc-detail {
+  --ta-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Phase bands: the glow drifts a little toward the copy on hover. */
+.ta-band-glow {
+  transition: transform 900ms var(--ta-ease);
+}
+.ta-band:hover .ta-band-glow {
+  transform: translate(-40px, 16px);
+}
+
+/* Large photos: settle from a slight zoom when revealed, then zoom slowly on hover. */
+.ta-photo-img {
+  transform: scale(1.06);
+  transition: transform 1400ms var(--ta-ease);
+}
+.reveal.is-in .ta-photo-img {
+  transform: scale(1);
+}
+.reveal.is-in .ta-photo:hover .ta-photo-img {
+  transform: scale(1.035);
+}
+
+/* Signboard panel: the motif lifts, the watermark characters slide the other way. */
+.ta-panel-sign,
+.ta-panel-chars {
+  transition: transform 700ms var(--ta-ease);
+}
+.ta-panel:hover .ta-panel-sign {
+  transform: translateY(-10px) scale(1.03);
+}
+.ta-panel:hover .ta-panel-chars {
+  transform: translateY(24px);
+}
+
+/* Usage rows: the tile mark grows a touch. */
+.ta-use-mark {
+  transition: transform 420ms var(--ta-ease);
+}
+.ta-use:hover .ta-use-mark {
+  transform: scale(1.08);
+}
+.ta-use-tile {
+  transition: transform 320ms var(--ta-ease);
+}
+.ta-use:hover .ta-use-tile {
+  transform: translate(-2px, -3px);
+}
+
+/* Colour cards: watermark drifts; each code line offers a quiet copy hint. */
+.ta-sw-chars {
+  transition: transform 700ms var(--ta-ease);
+}
+.ta-sw:hover .ta-sw-chars {
+  transform: translate(-14px, 18px);
+}
+.ta-code {
+  cursor: pointer;
+  text-align: left;
+}
+.ta-code-v {
+  transition: opacity 200ms ease;
+}
+.ta-sw:hover .ta-code-v {
+  opacity: 0.7;
+}
+.ta-sw .ta-code:hover .ta-code-v,
+.ta-sw .ta-code:focus-visible .ta-code-v {
+  opacity: 1;
+}
+.ta-code-hint {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 200ms ease,
+    transform 260ms var(--ta-ease);
+}
+.ta-code:hover .ta-code-hint,
+.ta-code:focus-visible .ta-code-hint,
+.ta-code-hint.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* Menu notes: the number nudges forward. */
+.ta-note-n {
+  transition: transform 260ms var(--ta-ease);
+}
+.ta-note:hover .ta-note-n {
+  transform: translateX(3px);
+}
+
+/* Social logo. */
+.ta-social-logo {
+  transition: transform 520ms var(--ta-ease);
+}
+.ta-social-logo:hover {
+  transform: rotate(-3deg) scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ta-photo-img,
+  .reveal.is-in .ta-photo-img,
+  .reveal.is-in .ta-photo:hover .ta-photo-img {
+    transform: none;
+  }
+  .ta-band:hover .ta-band-glow,
+  .ta-panel:hover .ta-panel-sign,
+  .ta-panel:hover .ta-panel-chars,
+  .ta-use:hover .ta-use-mark,
+  .ta-use:hover .ta-use-tile,
+  .ta-sw:hover .ta-sw-chars,
+  .ta-social-logo:hover {
+    transform: none;
+  }
+}

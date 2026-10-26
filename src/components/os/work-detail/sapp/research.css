@@ -1,0 +1,125 @@
+/* SAPP · Research (Proto-persona carousel + Heuristic evaluation hover). transform/opacity only. */
+
+/* ---------- Persona carousel ---------- */
+.rp-pane {
+  grid-area: 1 / 1;
+}
+
+.rp-pane.is-idle {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rp-pane.is-in-next {
+  animation: rp-in-next 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rp-pane.is-in-prev {
+  animation: rp-in-prev 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rp-pane.is-out-next {
+  animation: rp-out-next 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  pointer-events: none;
+}
+.rp-pane.is-out-prev {
+  animation: rp-out-prev 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  pointer-events: none;
+}
+
+/* The avatar travels further inside its clipped circle than the text column. */
+.rp-pane {
+  --rp-shift: 56px;
+}
+.rp-avatar .rp-pane {
+  --rp-shift: 197px;
+}
+
+@keyframes rp-in-next {
+  from { opacity: 0; transform: translate3d(var(--rp-shift), 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rp-in-prev {
+  from { opacity: 0; transform: translate3d(calc(var(--rp-shift) * -1), 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rp-out-next {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translate3d(calc(var(--rp-shift) * -1), 0, 0); }
+}
+@keyframes rp-out-prev {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translate3d(var(--rp-shift), 0, 0); }
+}
+
+.rp-dot {
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rp-btn {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rp-btn:hover {
+  transform: scale(1.08);
+}
+.rp-btn:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Heuristic evaluation ---------- */
+/* The board ignores the pointer; only cards take it, so :hover on the board means "a card is hovered". */
+.hx-board {
+  pointer-events: none;
+}
+
+.hx-board .hx-card {
+  pointer-events: auto;
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hx-board .hx-deco {
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hx-board:hover .hx-card:not(:hover) {
+  opacity: 0.7;
+}
+.hx-board:hover .hx-deco {
+  opacity: 0.6;
+}
+
+.hx-board .hx-card:hover {
+  z-index: 20;
+  box-shadow: 0 18px 40px -12px rgba(15, 23, 41, 0.18);
+}
+
+.hx-board .hx-art {
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hx-board .hx-card:hover .hx-art {
+  transform: translate3d(0, -8px, 0) scale(1.12) rotate(-4deg);
+}
+
+.hx-board .hx-desc {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: left top;
+}
+.hx-board .hx-card:hover .hx-desc {
+  transform: translate3d(2px, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rp-pane.is-in-next,
+  .rp-pane.is-in-prev,
+  .rp-pane.is-out-next,
+  .rp-pane.is-out-prev {
+    animation-duration: 1ms;
+  }
+  .hx-board .hx-card:hover .hx-art,
+  .hx-board .hx-card:hover .hx-desc,
+  .rp-btn:hover {
+    transform: none;
+  }
+}

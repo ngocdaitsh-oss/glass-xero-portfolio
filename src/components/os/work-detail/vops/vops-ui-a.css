@@ -1,0 +1,139 @@
+/* vOps · ui-a: iconography, component library, button deep dive, vOps layer, phase 03, user flows.
+   Motion is transform / opacity only. */
+
+/* VIC specimens (buttons, chips, inputs, toasts, …) pop slightly under the pointer. */
+.uia-pop {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-pop:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* Spec-sheet cell: its stage eases forward while the cell is hovered. */
+.uia-stage {
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-cell:hover .uia-stage {
+  transform: scale(1.02);
+}
+
+/* Illustration: slow zoom inside its rounded clip. */
+.uia-illus > img {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-illus:hover > img {
+  transform: scale(1.04);
+}
+
+/* Anatomy rows and pattern-path steps nudge right; step numbers grow. */
+.uia-anat,
+.uia-step {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-anat:hover,
+.uia-step:hover {
+  transform: translateX(4px);
+}
+.uia-step-num {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-step:hover .uia-step-num {
+  transform: scale(1.12);
+}
+
+/* vOps-layer specimens (white boxes on the pink stage) and their callouts. */
+.uia-spec,
+.uia-callout {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-spec:hover {
+  transform: translate(-3px, -4px);
+}
+.uia-callout:hover {
+  transform: translateY(-2px);
+}
+.uia-btn {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Streaming caret blinks. */
+.uia-caret {
+  animation: uia-blink 1s steps(1, end) infinite;
+}
+@keyframes uia-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.uia-link {
+  transition: opacity 200ms ease;
+}
+.uia-link:hover {
+  opacity: 0.75;
+}
+
+/* User flow: nodes lift a little; zoom buttons; viewer backdrop. */
+.uia-fnode {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uia-fnode:hover {
+  transform: translateY(-3px);
+}
+
+.uia-zbtn {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
+}
+.uia-zbtn:hover {
+  transform: scale(1.08);
+}
+.uia-zbtn:active {
+  transform: scale(0.94);
+}
+.uia-zbtn:disabled {
+  opacity: 0.4;
+  transform: none;
+}
+
+.uia-overlay {
+  background: rgba(10, 10, 10, 0.5);
+}
+/* Blur is switched on only once the panel has finished moving (nothing animates under it). */
+.uia-overlay.is-settled {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uia-pop,
+  .uia-stage,
+  .uia-illus > img,
+  .uia-anat,
+  .uia-step,
+  .uia-step-num,
+  .uia-spec,
+  .uia-callout,
+  .uia-btn,
+  .uia-fnode,
+  .uia-zbtn {
+    transition: none;
+  }
+  .uia-pop:hover,
+  .uia-cell:hover .uia-stage,
+  .uia-illus:hover > img,
+  .uia-anat:hover,
+  .uia-step:hover,
+  .uia-step:hover .uia-step-num,
+  .uia-spec:hover,
+  .uia-callout:hover,
+  .uia-btn:hover,
+  .uia-fnode:hover {
+    transform: none;
+  }
+  .uia-caret {
+    animation: none;
+  }
+}

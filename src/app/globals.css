@@ -1,0 +1,2264 @@
+@import "tailwindcss";
+
+/* Tablet layout (768 ≤ width < 1280, 1194×834 stage): `tablet:` utilities only apply under <html data-layout="tablet">. */
+@custom-variant tablet (&:where([data-layout="tablet"] *));
+/* Mobile layout (width < 768, iOS shell in src/components/mobile): `mobile:` utilities only apply under <html data-layout="mobile">. */
+@custom-variant mobile (&:where([data-layout="mobile"] *));
+
+/*
+ * Glass Xero OS tokens, mirrored from the Figma variable collection
+ * ("Color + Theme" mode). Dark Glass is the default; Light Glass values
+ * are kept here so the light screens can be switched on via data-theme.
+ */
+@property --text-primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff;
+}
+@property --text-secondary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 255, 255, 0.85);
+}
+@property --text-tertiary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 255, 255, 0.6);
+}
+@property --text-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b5d9ff;
+}
+@property --surface-desktop {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #060e1f;
+}
+@property --surface-glass-bar {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(8, 21, 48, 0.34);
+}
+@property --surface-overlay-default {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 255, 255, 0.1);
+}
+@property --surface-overlay-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 255, 255, 0.14);
+}
+@property --border-divider {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 255, 255, 0.12);
+}
+
+:root {
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --text-tertiary: rgba(255, 255, 255, 0.6);
+  --text-disabled: rgba(255, 255, 255, 0.35);
+  --text-accent: #b5d9ff;
+
+  --surface-desktop: #060e1f;
+  --surface-glass-bar: rgba(8, 21, 48, 0.34);
+  --surface-overlay-subtle: rgba(255, 255, 255, 0.06);
+  --surface-overlay-default: rgba(255, 255, 255, 0.1);
+  --surface-overlay-strong: rgba(255, 255, 255, 0.14);
+  --surface-track: rgba(255, 255, 255, 0.16);
+  --surface-inverse: rgba(255, 255, 255, 0.92);
+  --border-divider: rgba(255, 255, 255, 0.12);
+
+  --white-alpha-16: rgba(255, 255, 255, 0.16);
+  --white-alpha-6: rgba(255, 255, 255, 0.06);
+  --glass-tint-rgb: 8, 21, 48;
+  /* surface/glass-window (Figma): app window fill under the white sheen. */
+  --glass-window-rgb: 0, 0, 0;
+  --glass-window-alpha: 0.5;
+
+  --icon-secondary: rgba(255, 255, 255, 0.75);
+  --icon-accent: #b5d9ff;
+
+  --terminal-software: #8ee6b5;
+  --terminal-hardware: #7fe3f0;
+  --terminal-uptime: #ff8db8;
+  --effect-shadow: rgba(3, 10, 31, 0.35);
+
+  --azure-300: #8cc4ff;
+  --azure-600: #2272d6;
+
+  --dock-divider: rgba(255, 255, 255, 0.32);
+  --overlay-hover: rgba(255, 255, 255, 0.2);
+
+  --c-default: url("/figma/cursors/dark/arrow.svg") 6 6, auto;
+  --c-pointer: url("/figma/cursors/dark/pointer.svg") 7 3, pointer;
+  --c-text: url("/figma/cursors/dark/text.svg") 11 11, text;
+  --c-wait: url("/figma/cursors/dark/wait.svg") 11 11, wait;
+  --c-progress: url("/figma/cursors/dark/progress.svg") 11 11, progress;
+  --c-help: url("/figma/cursors/dark/help.svg") 6 6, help;
+  --c-not-allowed: url("/figma/cursors/dark/not-allowed.svg") 11 11, not-allowed;
+  --c-move: url("/figma/cursors/dark/move.svg") 11 11, move;
+  --c-crosshair: url("/figma/cursors/dark/crosshair.svg") 11 11, crosshair;
+  --c-ew: url("/figma/cursors/dark/ew.svg") 11 11, ew-resize;
+  --c-ns: url("/figma/cursors/dark/ns.svg") 11 11, ns-resize;
+  --c-nesw: url("/figma/cursors/dark/nesw.svg") 11 11, nesw-resize;
+  --c-nwse: url("/figma/cursors/dark/nwse.svg") 11 11, nwse-resize;
+}
+
+[data-theme="light"] {
+  --text-primary: #060e1f;
+  --text-secondary: rgba(8, 21, 48, 0.78);
+  --text-tertiary: rgba(8, 21, 48, 0.55);
+  --text-disabled: rgba(8, 21, 48, 0.3);
+  --text-accent: #1a5bb0;
+
+  --surface-desktop: #d9ecff;
+  --surface-glass-bar: rgba(255, 255, 255, 0.62);
+  --surface-overlay-subtle: rgba(8, 21, 48, 0.04);
+  --surface-overlay-default: rgba(8, 21, 48, 0.06);
+  --surface-overlay-strong: rgba(8, 21, 48, 0.1);
+  --surface-track: rgba(8, 21, 48, 0.12);
+  --surface-inverse: #2272d6;
+  --border-divider: rgba(8, 21, 48, 0.08);
+
+  --glass-tint-rgb: 255, 255, 255;
+  --glass-window-rgb: 255, 255, 255;
+  --glass-window-alpha: 0.72;
+
+  --icon-secondary: rgba(8, 21, 48, 0.7);
+  --icon-accent: #2272d6;
+
+  --terminal-software: #16a34a;
+  --terminal-hardware: #0e9384;
+  --terminal-uptime: #db2777;
+  --effect-shadow: rgba(10, 33, 71, 0.14);
+  --dock-divider: rgba(8, 21, 48, 0.16);
+  --overlay-hover: rgba(8, 21, 48, 0.16);
+}
+
+/* cursor-split: cursor color is chosen on its own and does not follow the interface theme. */
+[data-cursor="dark"] {
+  --c-default: url("/figma/cursors/dark/arrow.svg") 6 6, auto;
+  --c-pointer: url("/figma/cursors/dark/pointer.svg") 7 3, pointer;
+  --c-text: url("/figma/cursors/dark/text.svg") 11 11, text;
+  --c-wait: url("/figma/cursors/dark/wait.svg") 11 11, wait;
+  --c-progress: url("/figma/cursors/dark/progress.svg") 11 11, progress;
+  --c-help: url("/figma/cursors/dark/help.svg") 6 6, help;
+  --c-not-allowed: url("/figma/cursors/dark/not-allowed.svg") 11 11, not-allowed;
+  --c-move: url("/figma/cursors/dark/move.svg") 11 11, move;
+  --c-crosshair: url("/figma/cursors/dark/crosshair.svg") 11 11, crosshair;
+  --c-ew: url("/figma/cursors/dark/ew.svg") 11 11, ew-resize;
+  --c-ns: url("/figma/cursors/dark/ns.svg") 11 11, ns-resize;
+  --c-nesw: url("/figma/cursors/dark/nesw.svg") 11 11, nesw-resize;
+  --c-nwse: url("/figma/cursors/dark/nwse.svg") 11 11, nwse-resize;
+}
+
+[data-cursor="light"] {
+  --c-default: url("/figma/cursors/light/arrow.svg") 6 6, auto;
+  --c-pointer: url("/figma/cursors/light/pointer.svg") 7 3, pointer;
+  --c-text: url("/figma/cursors/light/text.svg") 11 11, text;
+  --c-wait: url("/figma/cursors/light/wait.svg") 11 11, wait;
+  --c-progress: url("/figma/cursors/light/progress.svg") 11 11, progress;
+  --c-help: url("/figma/cursors/light/help.svg") 6 6, help;
+  --c-not-allowed: url("/figma/cursors/light/not-allowed.svg") 11 11, not-allowed;
+  --c-move: url("/figma/cursors/light/move.svg") 11 11, move;
+  --c-crosshair: url("/figma/cursors/light/crosshair.svg") 11 11, crosshair;
+  --c-ew: url("/figma/cursors/light/ew.svg") 11 11, ew-resize;
+  --c-ns: url("/figma/cursors/light/ns.svg") 11 11, ns-resize;
+  --c-nesw: url("/figma/cursors/light/nesw.svg") 11 11, nesw-resize;
+  --c-nwse: url("/figma/cursors/light/nwse.svg") 11 11, nwse-resize;
+}
+
+@theme inline {
+  --color-fg: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-tertiary: var(--text-tertiary);
+  --color-fg-disabled: var(--text-disabled);
+  --color-accent: var(--text-accent);
+
+  --color-desktop: var(--surface-desktop);
+  --color-glass-bar: var(--surface-glass-bar);
+  --color-overlay-subtle: var(--surface-overlay-subtle);
+  --color-overlay: var(--surface-overlay-default);
+  --color-overlay-strong: var(--surface-overlay-strong);
+  --color-track: var(--surface-track);
+  --color-inverse: var(--surface-inverse);
+  --color-divider: var(--border-divider);
+  --color-icon-secondary: var(--icon-secondary);
+  --color-icon-accent: var(--icon-accent);
+
+  --font-sans: var(--font-open-sans);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background-color: var(--surface-desktop);
+}
+
+/*
+ * Theme switch. With View Transitions the new theme is revealed as a circle
+ * over a frozen snapshot of the old one (see lib/theme.ts), so nothing else
+ * animates. Browsers without them get a short whole-page crossfade instead.
+ */
+/*
+ * Window transitions capture only the window (window-manager adds .vt-win): the
+ * desktop is not snapshotted at all and stays live underneath, instead of being
+ * rendered into two full-stage bitmaps (wallpaper canvas and glass blur included).
+ */
+:root.vt-win {
+  view-transition-name: none;
+}
+
+/*
+ * A captured element is its own backdrop root, so inside the snapshot the window's
+ * backdrop blur samples nothing and looks exactly like no blur — but it is still
+ * re-rendered every frame of the morph. Measured: About maximize p50 87 → ~5 ms
+ * frames on a software GPU. Turning it off while named changes no pixel.
+ */
+:root.vt-win [data-window][style*="view-transition-name"],
+:root.vt-win [data-window][style*="view-transition-name"] * {
+  backdrop-filter: none !important;
+}
+
+/*
+ * Glass stand-in while a window is captured (window-manager fakeGlass): the blurred
+ * wallpaper under the content and the window's own tint over it — what the real
+ * backdrop blur shows at rest — so the snapshot never reads as see-through. It
+ * fades out over the real blur when the transition ends.
+ */
+[data-window][data-glassfake]::before,
+[data-window][data-glassfake]::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 260ms ease-out;
+}
+
+[data-window][data-glassfake]::before {
+  inset: -40px;
+  background-image: var(--gf-wall);
+  background-size: var(--gf-size);
+  background-position: var(--gf-pos);
+  background-repeat: no-repeat;
+  filter: var(--gf-blur);
+}
+
+[data-window][data-glassfake]::after {
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--gf-tint);
+}
+
+[data-window][data-glassfake="out"]::before,
+[data-window][data-glassfake="out"]::after {
+  opacity: 0;
+}
+
+/*
+ * The case study pre-rendered hidden inside Works (~4k layout objects) skips layout
+ * while a big transition runs; otherwise a maximize/restore re-lays it out at the
+ * new fit zoom before the morph can start. It catches up once the motion is over.
+ */
+html[data-motion] .wd-drawer:not(.is-in) {
+  content-visibility: hidden;
+}
+
+/*
+ * The root box never changes size or place, but the UA still runs its group
+ * animation (width / height / transform — not compositable) on it, which drags
+ * every frame of the theme and language wipes through the main thread.
+ */
+::view-transition-group(root) {
+  animation: none;
+}
+
+/*
+ * The new theme is revealed as a snapshot, so the bar / dock colour transitions it
+ * would start only make the live new snapshot repaint (and re-blur) every frame.
+ */
+html.theme-vt-light *,
+html.theme-vt-dark * {
+  transition: none !important;
+}
+
+/* Window transitions animate only the window; the page itself must not crossfade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* Theme switch: a slanted wipe. The old page stays still underneath; the new one is clipped open along a diagonal edge. */
+.theme-vt-light::view-transition-old(root),
+.theme-vt-dark::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+.theme-vt-light::view-transition-new(root),
+.theme-vt-dark::view-transition-new(root) {
+  z-index: 2;
+  will-change: clip-path;
+}
+
+.theme-vt-light::view-transition-new(root) {
+  animation: theme-wipe-right 860ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.theme-vt-dark::view-transition-new(root) {
+  animation: theme-wipe-left 860ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes theme-wipe-right {
+  from { clip-path: polygon(0 0, 0 0, -22% 100%, 0 100%); }
+  to { clip-path: polygon(0 0, 122% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes theme-wipe-left {
+  from { clip-path: polygon(100% 0, 100% 0, 122% 100%, 100% 100%); }
+  to { clip-path: polygon(100% 0, -22% 0, 0 100%, 100% 100%); }
+}
+
+@keyframes theme-out {
+  to { opacity: 0; }
+}
+
+@keyframes theme-in {
+  from { opacity: 0; }
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+
+
+html.theme-fading body {
+  animation: theme-fade 520ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes theme-fade {
+  0% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.wallpaper-light {
+  opacity: 0;
+}
+
+[data-theme="light"] .wallpaper-dark {
+  opacity: 0;
+}
+
+[data-theme="light"] .wallpaper-light {
+  opacity: 1;
+}
+
+body {
+  background: var(--surface-desktop);
+  color: var(--text-primary);
+  font-family: var(--font-open-sans), system-ui, sans-serif;
+  overflow: hidden;
+}
+
+html {
+  cursor: var(--c-default);
+}
+
+button,
+a,
+[role="button"],
+label,
+summary,
+select {
+  cursor: var(--c-pointer);
+}
+
+input,
+textarea {
+  cursor: var(--c-text);
+}
+
+input[type="range"] {
+  cursor: var(--c-ew);
+}
+
+@layer components {
+  /* Glass/Panel · Glass/Soft — gradient sheen over a tinted, blurred base. */
+  .glass {
+    --glass-alpha: 0.3;
+    --glass-blur: 20px;
+    background-image:
+      linear-gradient(180deg, var(--white-alpha-16) 0%, var(--white-alpha-6) 100%),
+      linear-gradient(rgba(var(--glass-tint-rgb), var(--glass-alpha)), rgba(var(--glass-tint-rgb), var(--glass-alpha)));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+
+  /* Inner 1px hairline + top highlight shared by every glass surface. */
+  .glass-edge {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+  }
+
+  .shadow-panel {
+    box-shadow: 0 24px 60px 0 var(--effect-shadow);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 8px 24px 0 var(--effect-shadow);
+  }
+
+  /* App windows: surface/glass-window (black 50% in Dark Glass, white 72% in Light Glass). */
+  .glass-panel {
+    --glass-tint-rgb: var(--glass-window-rgb);
+    --glass-alpha: var(--glass-window-alpha);
+  }
+
+  .glass-dock {
+    --glass-alpha: 0.3;
+  }
+
+  /* Flyouts are 86–90% opaque, so a backdrop blur adds almost nothing visible but costs a full-screen blur per frame while they animate. */
+  .glass-flyout,
+  .glass-flyout-soft {
+    background-color: rgba(16, 30, 58, 0.9);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+    backdrop-filter: none;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .glass-tooltip {
+    --glass-alpha: 0.34;
+    --glass-blur: 12px;
+  }
+}
+
+[data-theme="light"] .glass-flyout,
+[data-theme="light"] .glass-flyout-soft {
+  background-color: rgba(255, 255, 255, 0.94);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(8, 21, 48, 0.06);
+}
+
+[data-theme="light"] .glass-dock {
+  --glass-alpha: 0.8;
+}
+
+[data-theme="light"] .glass-tooltip {
+  --glass-alpha: 0.92;
+}
+
+[data-theme="light"] .glass-edge {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(8, 21, 48, 0.06);
+}
+
+.theme-light-only {
+  display: none;
+}
+
+[data-theme="light"] .theme-dark-only {
+  display: none;
+}
+
+[data-theme="light"] .theme-light-only {
+  display: block;
+}
+
+[data-theme="light"] .desktop-label {
+  text-shadow: none;
+}
+
+.term-user {
+  color: var(--terminal-software);
+}
+
+.term-cyan {
+  color: var(--terminal-hardware);
+}
+
+.term-pink {
+  color: var(--terminal-uptime);
+}
+
+.term-caret {
+  width: 9px;
+  height: 16px;
+  flex: none;
+  border-radius: 2px;
+  background: var(--icon-accent);
+  animation: term-blink 1.06s steps(1, end) infinite;
+}
+
+@keyframes term-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.term-thinking-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--text-tertiary);
+  animation: term-thinking-dot 900ms cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.term-thinking-dot:nth-child(2) { animation-delay: 120ms; }
+.term-thinking-dot:nth-child(3) { animation-delay: 240ms; }
+
+@keyframes term-thinking-dot {
+  0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-thinking-dot {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+
+/* Works index follows the Command theme: near-black in Dark Glass, paper in Light Glass. */
+[data-theme="light"] .works .logo-ink {
+  filter: brightness(0);
+}
+
+.works {
+  --w-bg: #0a0a0a;
+  --w-card: #141414;
+  --w-well: #1e1e1e;
+  --w-toggle-on: #2a2a2a;
+  --w-accent: #6798ff;
+  --w-text: #ffffff;
+  --w-secondary: #a7a7a7;
+  --w-muted: #7c7c7c;
+  --w-chip: #1e1e1e;
+  --w-line: rgba(255, 255, 255, 0.1);
+  --w-active-bg: #ffffff;
+  --w-active-fg: #0a0a0a;
+  --w-hover: #1b1b1b;
+  background: var(--w-bg);
+  color: var(--w-text);
+}
+
+[data-theme="light"] .works,
+.works-light {
+  --w-bg: #f6f6f7;
+  --w-card: #ffffff;
+  --w-well: #efeff1;
+  --w-text: #0a0a0a;
+  --w-secondary: #4b4f58;
+  --w-muted: #8a8f98;
+  --w-chip: #ececee;
+  --w-line: rgba(10, 10, 10, 0.08);
+  --w-active-bg: #0a0a0a;
+  --w-active-fg: #ffffff;
+  --w-hover: #f3f3f4;
+  --w-toggle-on: #ffffff;
+  --w-accent: #3d6fe8;
+}
+
+/*
+ * Work Detail case study. Figma codegen reads the Command tokens below with
+ * dark fallbacks; the light block mirrors the "Work Detail · bave (Light)" frame.
+ * The Related projects band and footer stay dark in both themes, as in Figma.
+ */
+.work-detail,
+.works-ink {
+  --cmd-bg: #0a0a0a;
+  --cmd-bg-related: #0a0a0a;
+  --cmd-surface-1: #141414;
+  --cmd-surface-2: #1e1e1e;
+  --cmd-surface-3: #2a2a2a;
+  --cmd-text-primary: #ffffff;
+  --cmd-text-secondary: #a7a7a7;
+  --cmd-text-muted: #7c7c7c;
+  --cmd-text-on-primary: #0a0a0a;
+  --cmd-edge: rgba(255, 255, 255, 0.07);
+  --cmd-shadow: rgba(0, 0, 0, 0.5);
+  --cmd-accent: #6798ff;
+  --brand-bave: #2ed3dc;
+  --brand-bave-tint: rgba(46, 211, 220, 0.14);
+  --brand-bave-deep: #06343a;
+  --color-text-on-light: #a7a7a7;
+  --wd-research-back: rgba(46, 211, 220, 0.32);
+  --wd-system-back: rgba(103, 152, 255, 0.32);
+  --wd-next-back: rgba(255, 163, 194, 0.32);
+  --wd-ink: #e6e6e6;
+  --wd-feel-bg: #13303a;
+  --wd-dash: rgba(46, 211, 220, 0.22);
+  --wd-logo: #e6e6e6;
+  --wd-sprint-top: rgba(46, 211, 220, 0.18);
+  --wd-sprint-bottom: rgba(46, 211, 220, 0);
+  background: var(--cmd-bg);
+  color: var(--cmd-text-primary);
+}
+
+.work-detail {
+  --cmd-bg: #f7f7f7;
+  --cmd-surface-1: #ffffff;
+  --cmd-surface-2: #f0f1f3;
+  --cmd-surface-3: #e4e6ea;
+  --cmd-text-primary: #0a0a0a;
+  --cmd-text-secondary: #4b4f58;
+  --cmd-text-muted: #8a8f98;
+  --cmd-text-on-primary: #ffffff;
+  --cmd-edge: rgba(10, 10, 10, 0.04);
+  --cmd-shadow: rgba(16, 24, 40, 0.12);
+  --cmd-accent: #3d6fe8;
+  --brand-bave: #02c3ea;
+  --brand-bave-tint: rgba(2, 195, 234, 0.12);
+  --brand-bave-deep: #dff7fb;
+  --color-text-on-light: #060e1f;
+  --wd-ink: #1b1b1b;
+  --wd-feel-bg: #dff2ff;
+  --wd-dash: rgba(2, 195, 234, 0.18);
+  --wd-logo: #4b4a4b;
+  --wd-sprint-top: #dff2ff;
+  --wd-sprint-bottom: #f7f7f7;
+}
+
+.work-detail .works-ink {
+  --cmd-surface-1: #141414;
+  --cmd-surface-2: #1e1e1e;
+  --cmd-text-primary: #ffffff;
+  --cmd-text-secondary: #a7a7a7;
+  --cmd-text-muted: #7c7c7c;
+  --cmd-edge: rgba(255, 255, 255, 0.07);
+  --w-card: #141414;
+  --w-hover: #1b1b1b;
+  --w-well: #1e1e1e;
+  --w-chip: #1e1e1e;
+  --w-text: #ffffff;
+  --w-secondary: #a7a7a7;
+  --w-muted: #7c7c7c;
+  --w-line: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.desktop-stage {
+  zoom: var(--desk-scale, 1);
+  width: calc(100vw / var(--desk-scale, 1));
+  height: calc(100dvh / var(--desk-scale, 1));
+}
+
+/* Tablet window screens (Figma 359:92283 …) show only the wallpaper behind a window:
+   Intro, desktop icons and home widgets fade out while one is on screen. */
+[data-layout="tablet"] .desktop-stage {
+  -webkit-touch-callout: none;
+}
+
+[data-layout="tablet"] .tablet-home {
+  transition: opacity 280ms ease, visibility 0s linear 0s;
+}
+
+[data-layout="tablet"] [data-covered] .tablet-home {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease, visibility 0s linear 220ms;
+}
+
+/* Portrait tablets use a readable 834px stage instead of shrinking the 1194px
+   landscape composition. Home content stacks, while windows fill the area
+   beneath the shared top bar. */
+[data-layout="tablet"][data-tablet-orientation="portrait"] .tablet-intro-wrap {
+  top: 96px;
+  left: 48px;
+}
+
+[data-layout="tablet"][data-tablet-orientation="portrait"] .tablet-widgets {
+  top: 650px;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Keep this portrait block explicit so OneDrive/Turbopack recompiles the responsive sheet. */
+
+@keyframes flyout-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flyout-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.panel-in {
+  animation: flyout-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.panel-out {
+  animation: flyout-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+.os-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+.os-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+.os-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.os-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+  border: 3px solid transparent;
+  border-radius: 99px;
+  background-clip: padding-box;
+}
+
+[data-theme="light"] .os-scroll {
+  scrollbar-color: rgba(8, 21, 48, 0.28) transparent;
+}
+
+[data-theme="light"] .os-scroll::-webkit-scrollbar-thumb {
+  background: rgba(8, 21, 48, 0.28);
+  background-clip: padding-box;
+}
+
+.is-resetting .desktop-intro {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.is-booting .desktop-intro {
+  animation: boot-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes boot-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  .wallpaper,
+  .panel-in,
+  .panel-out,
+  .is-booting .desktop-intro,
+  .is-resetting .desktop-intro {
+    transition: none;
+    animation: none;
+  }
+}
+
+.aiw-swap {
+  animation: aiw-swap 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes aiw-swap {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aiw-swap {
+    animation: none;
+  }
+}
+
+/* Scroll reveal: armed only after the observer runs, so the first paint stays visible. */
+.reveal-root.reveal-arm .reveal:not(.is-in) {
+  opacity: 0;
+  transform: translate3d(0, 72px, 0) scale(0.96);
+}
+
+.reveal-root.reveal-arm .reveal.reveal-fade:not(.is-in) {
+  transform: none;
+}
+
+.reveal {
+  transition:
+    opacity 700ms cubic-bezier(0.25, 0.8, 0.35, 1),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: 50% 0;
+  backface-visibility: hidden;
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-root.reveal-arm .reveal:not(.is-in) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal {
+    transition: none;
+  }
+}
+
+/* Control Center — playing row equalizer (Figma Icon/Bar Chart, 16px). */
+.eq {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1px 1.5px;
+}
+
+.eq > span {
+  width: 2.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transform-origin: bottom;
+  height: 100%;
+}
+
+.eq > span:nth-child(1) { transform: scaleY(0.45); }
+.eq > span:nth-child(2) { transform: scaleY(0.85); }
+.eq > span:nth-child(3) { transform: scaleY(0.6); }
+.eq > span:nth-child(4) { transform: scaleY(1); }
+
+.eq.is-playing > span {
+  animation: eq-bounce 900ms ease-in-out infinite alternate;
+}
+
+.eq.is-playing > span:nth-child(2) { animation-duration: 640ms; animation-delay: -220ms; }
+.eq.is-playing > span:nth-child(3) { animation-duration: 780ms; animation-delay: -480ms; }
+.eq.is-playing > span:nth-child(4) { animation-duration: 560ms; animation-delay: -120ms; }
+
+@keyframes eq-bounce {
+  0% { transform: scaleY(0.22); }
+  50% { transform: scaleY(0.95); }
+  100% { transform: scaleY(0.4); }
+}
+
+.eq:not(.is-playing) {
+  opacity: 0.6;
+}
+
+.cc-art {
+  animation: cc-swap 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(0.94);
+}
+
+.cc-art.is-playing {
+  transform: none;
+}
+
+.cc-meta {
+  animation: cc-swap 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cc-swap {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq.is-playing > span,
+  .cc-art,
+  .cc-meta {
+    animation: none;
+  }
+}
+
+/* About Me — tab panes slide in from the side of the picked tab. */
+.about-pane {
+  animation: about-pane-right 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.about-pane-left {
+  animation-name: about-pane-left;
+}
+
+.about-pane > * {
+  animation: about-rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.about-pane > *:nth-child(2) { animation-delay: 50ms; }
+.about-pane > *:nth-child(3) { animation-delay: 100ms; }
+.about-pane > *:nth-child(4) { animation-delay: 150ms; }
+
+@keyframes about-pane-right {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes about-pane-left {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes about-rise {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+.about-card {
+  transition: background-color 200ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-card:hover {
+  background-color: var(--surface-overlay-strong);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-pane,
+  .about-pane > * {
+    animation: none;
+  }
+}
+
+/*
+ * Window motion (genie, open/close, maximize FLIP). Backdrop blur is re-rendered
+ * on every frame of a transform, which is what made these stutter; while a
+ * window animates its glass is a slightly denser tint without the blur.
+ */
+.win-anim {
+  will-change: transform, clip-path, opacity;
+}
+
+.win-anim {
+  backdrop-filter: none !important;
+}
+
+/* Same tint as the resting window (glass-window), just denser while the blur is off. */
+.win-anim.glass {
+  --glass-alpha: 0.88;
+}
+
+[data-theme="light"] .win-anim.glass {
+  --glass-alpha: 0.94;
+}
+
+/* Documents that stay light in both OS themes (AI Workflow) keep a dark thumb. */
+.os-scroll.os-scroll-ink {
+  scrollbar-color: rgba(8, 21, 48, 0.28) transparent;
+}
+
+.os-scroll.os-scroll-ink::-webkit-scrollbar-thumb {
+  background: rgba(8, 21, 48, 0.28);
+  background-clip: padding-box;
+}
+
+/* Works — grid ⇄ list: the old view fades down, the new one rises in. */
+.works-view {
+  animation: works-view-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.works-view.is-leaving {
+  animation: works-view-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes works-view-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes works-view-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(12px); }
+}
+
+/* Works — pinned filter bar over the scroller, fading in once the real bar leaves. */
+.works-pin {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 220ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  background: linear-gradient(180deg, var(--w-bg) 0%, var(--w-bg) 55%, transparent 100%);
+}
+
+.works-pin.is-stuck {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .works-view,
+  .works-view.is-leaving {
+    animation: none;
+  }
+}
+
+/*
+ * AI Workflow — white boxes lift on hover (phase title cards excluded).
+ * Soft-shadow boxes rise and deepen their shadow; the hard-offset cards
+ * (role, step, gate) slide toward the light and push their offset shadow out.
+ */
+.aiw-hover {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms ease;
+}
+
+.aiw-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(16, 24, 40, 0.12);
+}
+
+.aiw-hard {
+  box-shadow: 6px 6px 0 0 var(--hard, rgba(153, 133, 255, 0.3));
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aiw-hard:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 0 var(--hard, rgba(153, 133, 255, 0.3));
+}
+
+.aiw-row {
+  transition: background-color 200ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aiw-row:hover {
+  background-color: #e8eaef;
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aiw-hover:hover,
+  .aiw-hard:hover,
+  .aiw-row:hover {
+    transform: none;
+  }
+}
+
+/*
+ * Maximize / restore: a View Transition on the window alone. The frame morphs
+ * between the two snapshots; content stays pinned top-left and is clipped by
+ * the moving frame instead of being stretched.
+ */
+::view-transition-group(.win) {
+  animation-duration: 460ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  overflow: clip;
+  border-radius: 20px;
+}
+
+::view-transition-image-pair(.win) {
+  isolation: auto;
+}
+
+::view-transition-old(.win),
+::view-transition-new(.win) {
+  width: 100%;
+  height: 100%;
+  object-fit: none;
+  object-position: 0 0;
+  animation-duration: 460ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+::view-transition-old(.win) {
+  animation: win-old-out 160ms ease-out both;
+}
+
+::view-transition-new(.win) {
+  animation: none;
+}
+
+/*
+ * JS morph (window-manager morphFrame): the clip-path does the clipping and the
+ * rounding, so the group must not crop to its (new) box — on restore the old frame
+ * starts larger than it. The snapshots keep their own size, pinned top-left.
+ */
+:root.vt-morph::view-transition-group(.win) {
+  overflow: visible;
+  border-radius: 0;
+  will-change: transform, clip-path;
+}
+
+:root.vt-morph::view-transition-old(.win),
+:root.vt-morph::view-transition-new(.win) {
+  width: auto;
+  height: auto;
+}
+
+@keyframes win-old-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Generic hover for clickable surfaces that have no hover of their own. */
+.hover-lift {
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms ease,
+    filter 200ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-lift:active {
+  transform: translateY(0) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift:hover,
+  .hover-lift:active {
+    transform: none;
+  }
+}
+
+/* Notes — the opened note rises in; list rows cascade when the folder or search changes. */
+.notes-pane > * {
+  animation: notes-rise 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.notes-pane > *:nth-child(2) { animation-delay: 40ms; }
+.notes-pane > *:nth-child(3) { animation-delay: 80ms; }
+.notes-pane > *:nth-child(4) { animation-delay: 110ms; }
+.notes-pane > *:nth-child(5) { animation-delay: 140ms; }
+.notes-pane > *:nth-child(n + 6) { animation-delay: 170ms; }
+
+.notes-item {
+  animation: notes-rise 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.notes-sus {
+  animation: notes-fill 900ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+  transform-origin: left;
+}
+
+@keyframes notes-rise {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes notes-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notes-pane > *,
+  .notes-item,
+  .notes-sus {
+    animation: none;
+  }
+}
+
+/* AI Workflow orbit — the dashed ring drifts slowly so the diagram feels alive. */
+.aiw-spin {
+  animation: aiw-spin 60s linear infinite;
+}
+
+@keyframes aiw-spin {
+  to { rotate: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aiw-spin {
+    animation: none;
+  }
+}
+
+/* Work Detail is a light document in both OS themes (header included). */
+.works-light .theme-dark-only {
+  display: none;
+}
+
+.works-light .theme-light-only {
+  display: block;
+}
+
+.works-light .work-detail .works-ink .logo-ink {
+  filter: none;
+}
+
+.works-light {
+  color: var(--w-text);
+  background: var(--w-bg);
+}
+
+/* Works ⇄ Work Detail: the case study is a drawer over the list (compositor-only transforms). */
+.wd-drawer {
+  transform: translate3d(100%, 0, 0);
+  transition: transform 640ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.22);
+  backface-visibility: hidden;
+}
+
+.wd-drawer.is-in {
+  transform: translate3d(0, 0, 0);
+}
+
+.works-list {
+  transition:
+    transform 640ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 640ms cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform, opacity;
+}
+
+.works-list.is-covered {
+  transform: translate3d(-6%, 0, 0) scale(0.985);
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wd-drawer,
+  .works-list {
+    transition: none;
+  }
+}
+
+/*
+ * Work Detail progress tracker. Collapsed: 15 bars, 28×4, gap 4, groups 12 apart.
+ * Open: a black 256px panel; every bar stretches into its row (indicator 10×3,
+ * 16×3 when active) while the label fades in beside it.
+ */
+.pt {
+  --pt-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  contain: layout style;
+  display: flex;
+  width: 48px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  border-radius: 14px;
+  padding: 14px 10px;
+  background: rgba(30, 30, 30, 0);
+  transition:
+    width 420ms var(--pt-ease),
+    gap 420ms var(--pt-ease),
+    border-radius 420ms var(--pt-ease),
+    background-color 300ms ease,
+    box-shadow 420ms var(--pt-ease);
+}
+
+.pt.is-open {
+  width: 256px;
+  gap: 0;
+  border-radius: 18px;
+  background: #1e1e1e;
+  box-shadow: 0 16px 20px rgba(0, 0, 0, 0.5);
+}
+
+.pt-head,
+.pt-label {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 20px;
+  opacity: 0;
+  max-height: 0;
+  transition: max-height 420ms var(--pt-ease), opacity 200ms ease, padding 420ms var(--pt-ease);
+}
+
+.pt-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.pt-label {
+  padding: 0 0 0 8px;
+  color: #7c7c7c;
+}
+
+.pt.is-open .pt-head {
+  max-height: 28px;
+  opacity: 1;
+  padding-bottom: 6px;
+  transition-delay: 0ms, 120ms, 0ms;
+}
+
+.pt.is-open .pt-label {
+  max-height: 40px;
+  opacity: 1;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  transition-delay: 0ms, 140ms, 0ms;
+}
+
+.pt-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pt.is-open .pt-group {
+  gap: 4px;
+}
+
+.pt.is-open .pt-group + .pt-group {
+  margin-top: 4px;
+}
+
+.pt-row {
+  display: flex;
+  height: 4px;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 0;
+  text-align: left;
+  white-space: nowrap;
+  transition:
+    height 420ms var(--pt-ease),
+    padding 420ms var(--pt-ease),
+    gap 420ms var(--pt-ease),
+    background-color 200ms ease;
+}
+
+.pt.is-open .pt-row {
+  height: 36px;
+  gap: 10px;
+  padding: 6px 8px;
+}
+
+.pt.is-open .pt-row.is-active {
+  background: #2a2a2a;
+}
+
+.pt.is-open .pt-row:not(.is-active):hover {
+  background: #2a2a2a;
+}
+
+.pt-ind {
+  flex: none;
+  width: 28px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--cmd-surface-3);
+  transition: width 420ms var(--pt-ease), height 420ms var(--pt-ease), background-color 300ms ease;
+}
+
+.pt-row.is-active .pt-ind {
+  background: var(--brand-bave);
+}
+
+.pt.on-dark:not(.is-open) .pt-ind {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.pt.on-dark:not(.is-open) .pt-row.is-active .pt-ind {
+  background: #ffffff;
+}
+
+.pt.is-open .pt-ind {
+  width: 10px;
+  height: 3px;
+  background: #7c7c7c;
+}
+
+.pt.is-open .pt-row.is-active .pt-ind {
+  width: 16px;
+  background: #2ed3dc;
+}
+
+.pt-text {
+  max-width: 0;
+  opacity: 0;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: #a7a7a7;
+  transition: max-width 420ms var(--pt-ease), opacity 220ms ease, color 200ms ease;
+}
+
+.pt.is-open .pt-text {
+  max-width: 220px;
+  opacity: 1;
+  transition-delay: 0ms, 120ms, 0ms;
+}
+
+.pt-row.is-active .pt-text,
+.pt.is-open .pt-row:hover .pt-text {
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt,
+  .pt *,
+  .pt-row {
+    transition: none !important;
+  }
+}
+
+/* Work Detail — white boxes lift toward the light on hover. */
+.wd-hover {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wd-hover:hover {
+  transform: translate(-3px, -4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wd-hover:hover {
+    transform: none;
+  }
+}
+
+/* Open / close / minimize / restore snapshots: animated from JS (window-manager), no UA crossfade. */
+::view-transition-group(.win-pop),
+::view-transition-image-pair(.win-pop),
+::view-transition-old(.win-pop),
+::view-transition-new(.win-pop) {
+  animation: none;
+}
+
+::view-transition-old(.win-pop),
+::view-transition-new(.win-pop) {
+  will-change: transform, clip-path, opacity;
+}
+
+/* Layout inside a window never reflows the desktop around it. */
+[data-window] {
+  contain: layout style;
+}
+
+/*
+ * Flyouts. Date & Weather unfolds down out of the clock pill like a card
+ * tipping forward; the Control Center swings out of the tray button. Both
+ * settle with a small spring, then their sections cascade in. Transforms and
+ * opacity only, so the motion stays on the compositor.
+ */
+.pop-date-in,
+.pop-date-out {
+  transform-origin: 50% 0;
+}
+
+.pop-cc-in,
+.pop-cc-out {
+  transform-origin: 100% 0;
+}
+
+.pop-date-in {
+  animation: pop-date-in 720ms cubic-bezier(0.3, 0.75, 0.3, 1) both;
+}
+
+.pop-cc-in {
+  animation: pop-cc-in 740ms cubic-bezier(0.3, 0.75, 0.3, 1) both;
+}
+
+.pop-date-out {
+  animation: pop-date-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+.pop-cc-out {
+  animation: pop-cc-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+
+@keyframes pop-date-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0) scale(0.9, 0.7);
+  }
+  45% {
+    opacity: 1;
+  }
+  62% {
+    transform: translate3d(0, 2px, 0) scale(1.01, 1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop-cc-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(24px, -18px, 0) scale(0.82);
+  }
+  45% {
+    opacity: 1;
+  }
+  64% {
+    transform: translate3d(-2px, 1px, 0) scale(1.012);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop-date-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.97);
+  }
+}
+
+@keyframes pop-cc-out {
+  to {
+    opacity: 0;
+    transform: translate3d(10px, -6px, 0) scale(0.95);
+  }
+}
+
+/* Sections cascade in after the shell lands. */
+.pop-date-in > * > :not([aria-hidden]) {
+  animation: pop-rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pop-cc-in > * > :not([aria-hidden]) {
+  animation: pop-slide 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pop-date-in > * > :nth-child(1),
+.pop-cc-in > * > :nth-child(1) { animation-delay: 90ms; }
+.pop-date-in > * > :nth-child(2),
+.pop-cc-in > * > :nth-child(2) { animation-delay: 150ms; }
+.pop-date-in > * > :nth-child(3),
+.pop-cc-in > * > :nth-child(3) { animation-delay: 210ms; }
+.pop-date-in > * > :nth-child(4),
+.pop-cc-in > * > :nth-child(4) { animation-delay: 270ms; }
+.pop-date-in > * > :nth-child(n + 5),
+.pop-cc-in > * > :nth-child(n + 5) { animation-delay: 320ms; }
+
+@keyframes pop-rise {
+  from { opacity: 0; transform: translate3d(0, -10px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pop-slide {
+  from { opacity: 0; transform: translate3d(18px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop-date-in,
+  .pop-cc-in,
+  .pop-date-out,
+  .pop-cc-out,
+  .pop-date-in > * > *,
+  .pop-cc-in > * > * {
+    animation-duration: 1ms !important;
+  }
+}
+
+
+/* Window drag: a promoted layer that only translates. */
+.win-dragging {
+  will-change: transform;
+}
+
+/* SAPP LMS case study tokens (Figma 247:14573, light only). */
+.sapp-detail {
+  --brand-sapp: #f5a300;
+  --sapp-brand-500: #ffb700;
+  --sapp-back: rgba(255, 183, 0, 0.45);
+  --sapp-research-solid: #ff8a1f;
+  --sapp-research-deep: #c25400;
+  --sapp-research-ink: #2b1300;
+  --sapp-system-solid: #c98af2;
+  --sapp-system-deep: #7e3fb5;
+  --sapp-system-ink: #2a0f3f;
+  --sapp-ui-solid: #cfea1f;
+  --sapp-ui-deep: #7c8f00;
+  --sapp-ui-ink: #1e2600;
+  --sapp-test-solid: #3fa9ff;
+  --sapp-test-deep: #146699;
+  --sapp-test-ink: #06243b;
+  --sapp-card-soft: 0 1px 3px rgba(15, 23, 41, 0.04), 0 12px 32px -4px rgba(15, 23, 41, 0.06);
+}
+
+/* ───────── Boot: loading screen (GenBI comet N logo) ───────── */
+.boot-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(42% 38% at 80% 30%, rgba(31, 141, 242, 0.3) 0%, rgba(31, 141, 242, 0) 100%),
+    radial-gradient(60% 26% at 18% 22%, rgba(12, 37, 208, 0.38) 0%, rgba(12, 37, 208, 0) 100%),
+    radial-gradient(70% 50% at 65% 100%, rgba(10, 47, 168, 0.3) 0%, rgba(10, 47, 168, 0) 100%),
+    #02061a;
+  transition: opacity 620ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.boot-screen.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.boot-logo {
+  position: relative;
+  z-index: 1;
+  width: 200px;
+  height: 200px;
+  will-change: transform;
+}
+
+.boot-logo canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Phones: a smaller mark and glow on the loading screen (200 → 150). */
+[data-layout="mobile"] .boot-logo { width: 150px; height: 150px; }
+[data-layout="mobile"] .boot-glow { width: 255px; height: 255px; margin: -127.5px 0 0 -127.5px; }
+
+.boot-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  height: 340px;
+  margin: -170px 0 0 -170px;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: opacity, transform;
+  background: radial-gradient(closest-side, rgba(70, 140, 255, 0.34), rgba(70, 140, 255, 0.12) 45%, rgba(70, 140, 255, 0.04) 75%, rgba(70, 140, 255, 0));
+}
+
+/* While leaving, the logo drifts toward the viewer and the glow blooms as the screen dissolves. */
+.boot-screen.is-leaving .boot-glow {
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(2.2) !important;
+}
+
+/* ───────── Boot: desktop entrance (data-phase on the stage) ───────── */
+[data-phase="boot"] .boot-top {
+  opacity: 0;
+  transform: translate3d(0, -76px, 0);
+}
+
+[data-phase="boot"] .boot-dock {
+  opacity: 0;
+  transform: translate3d(0, 120px, 0) scale(0.92);
+}
+
+[data-phase="boot"] .boot-item,
+[data-phase="boot"] .boot-icon {
+  opacity: 0;
+}
+
+[data-phase="boot"] .wallpaper {
+  transform: scale(1.14);
+}
+
+[data-phase="enter"] .wallpaper {
+  animation: boot-wall 2400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+[data-phase="enter"] .boot-top {
+  animation: boot-top 900ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+}
+
+[data-phase="enter"] .boot-dock {
+  animation: boot-dock 1000ms cubic-bezier(0.22, 1.1, 0.36, 1) 380ms both;
+}
+
+[data-phase="enter"] .boot-dock-items > *,
+[data-phase="enter"] .boot-dock > [data-dock-app] {
+  animation: boot-dock-item 640ms cubic-bezier(0.34, 1.5, 0.5, 1) both;
+}
+
+[data-phase="enter"] .boot-dock > [data-dock-app] { animation-delay: 640ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(1) { animation-delay: 720ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(2) { animation-delay: 780ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(3) { animation-delay: 840ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(4) { animation-delay: 900ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(5) { animation-delay: 960ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(6) { animation-delay: 1020ms; }
+[data-phase="enter"] .boot-dock-items > :nth-child(7) { animation-delay: 1080ms; }
+
+[data-phase="enter"] .boot-item {
+  animation: boot-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(260ms + var(--bi, 0) * 85ms);
+}
+
+[data-phase="enter"] .boot-icon {
+  animation: boot-pop 760ms cubic-bezier(0.34, 1.45, 0.5, 1) both;
+  animation-delay: calc(760ms + var(--bi, 0) * 80ms);
+}
+
+@keyframes boot-wall {
+  from { transform: scale(1.14); }
+  to { transform: scale(1); }
+}
+
+@keyframes boot-top {
+  from { opacity: 0; transform: translate3d(0, -76px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-dock {
+  from { opacity: 0; transform: translate3d(0, 120px, 0) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-dock-item {
+  from { opacity: 0; transform: translate3d(0, 34px, 0) scale(0.5); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-rise {
+  from { opacity: 0; transform: translate3d(0, 34px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes boot-pop {
+  from { opacity: 0; transform: translate3d(0, 46px, 0) scale(0.62); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-phase="boot"] .boot-top,
+  [data-phase="boot"] .boot-dock,
+  [data-phase="boot"] .boot-item,
+  [data-phase="boot"] .boot-icon {
+    opacity: 1;
+    transform: none;
+  }
+  [data-phase="boot"] .wallpaper {
+    transform: none;
+  }
+  [data-phase="enter"] .wallpaper,
+  [data-phase="enter"] .boot-top,
+  [data-phase="enter"] .boot-dock,
+  [data-phase="enter"] .boot-dock-items > *,
+  [data-phase="enter"] .boot-dock > [data-dock-app],
+  [data-phase="enter"] .boot-item,
+  [data-phase="enter"] .boot-icon {
+    animation: none;
+  }
+}
+
+
+
+
+/* Intro "Hello" emoji: a short wave from the wrist, then a rest, looping. */
+.wave-hand {
+  transform-origin: 70% 85%;
+  animation: wave-hand 2.6s ease-in-out 1.6s infinite;
+}
+@keyframes wave-hand {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  8% { transform: rotate(16deg); }
+  16% { transform: rotate(-8deg); }
+  24% { transform: rotate(14deg); }
+  32% { transform: rotate(-4deg); }
+  40% { transform: rotate(10deg); }
+  50% { transform: rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wave-hand { animation: none; }
+}
+
+/*
+ * Language switch (lib/i18n): the new language opens as a circle from the
+ * switch that was clicked, while the old text settles back a touch. Distinct
+ * from the theme's diagonal wipe. clip-path / transform / opacity only.
+ */
+.lang-vt::view-transition-old(root) {
+  z-index: 1;
+  animation: lang-old 520ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.lang-vt::view-transition-new(root) {
+  z-index: 2;
+  will-change: clip-path;
+  animation: lang-reveal 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes lang-reveal {
+  from { clip-path: circle(0 at var(--lang-x, 90%) var(--lang-y, 36px)); }
+  to { clip-path: circle(150vmax at var(--lang-x, 90%) var(--lang-y, 36px)); }
+}
+
+@keyframes lang-old {
+  to { opacity: 0.4; transform: scale(0.985); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-vt::view-transition-old(root),
+  .lang-vt::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/*
+ * Language switch (lib/i18n): the new language opens as a circle from the
+ * switch that was clicked, while the old text settles back a touch. Distinct
+ * from the theme's diagonal wipe. clip-path / transform / opacity only.
+ */
+.lang-vt::view-transition-old(root) {
+  z-index: 1;
+  animation: lang-old 520ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.lang-vt::view-transition-new(root) {
+  z-index: 2;
+  will-change: clip-path;
+  animation: lang-reveal 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes lang-reveal {
+  from { clip-path: circle(0 at var(--lang-x, 90%) var(--lang-y, 36px)); }
+  to { clip-path: circle(150vmax at var(--lang-x, 90%) var(--lang-y, 36px)); }
+}
+
+@keyframes lang-old {
+  to { opacity: 0.4; transform: scale(0.985); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-vt::view-transition-old(root),
+  .lang-vt::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* ───────── Mobile shell (width < 768, src/components/mobile) ─────────
+ * A real 390-wide iOS layout, zoomed by --m-zoom (layout.tsx). Pages flow and
+ * the document scrolls. Tokens are the mobile Figma values (section 353:16502).
+ */
+:root {
+  --m-panel: rgba(0, 0, 0, 0.5);          /* surface/glass-panel */
+  --m-bar: rgba(8, 21, 48, 0.478);        /* surface/glass-bar */
+  --m-window: rgba(0, 0, 0, 0.5);         /* surface/glass-window */
+  --m-accent: #2272d6;                    /* surface/accent */
+  --m-success: #5ee38f;
+  --m-warning: #ffc857;
+  --m-danger: #ff6b81;
+  --m-muted: #a7a7a7;                     /* cmd/text-secondary */
+  --m-chip: rgba(255, 255, 255, 0.5);     /* iOS/Chip, unselected */
+  --m-role: var(--text-tertiary);         /* Widget — Profile role line */
+}
+
+[data-theme="light"] {
+  --m-panel: rgba(255, 255, 255, 0.55);
+  --m-bar: rgba(255, 255, 255, 0.62);
+  --m-window: rgba(255, 255, 255, 0.72);
+  --m-muted: #4b4f58;
+}
+
+html[data-layout="mobile"],
+html[data-layout="mobile"] body {
+  height: auto;
+  min-height: 100%;
+}
+
+html[data-layout="mobile"] body {
+  overflow-x: clip;
+  overflow-y: visible;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.m-root {
+  zoom: var(--m-zoom, 1);
+  position: relative;
+  width: var(--m-w, 390px);
+  min-height: calc(100dvh / var(--m-zoom, 1));
+  overflow-x: clip;
+}
+
+/* The 390 design column; wider phones (zoom capped at 1.15) centre it on the wallpaper. */
+.m-col {
+  position: relative;
+  width: 390px;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.m-wall {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.m-screen {
+  min-height: calc(100dvh / var(--m-zoom, 1));
+}
+
+.m-panel { background-color: var(--m-panel); }
+.m-bar { background-color: var(--m-bar); }
+.m-window { background-color: var(--m-window); }
+
+/* The white sheen Figma paints over widgets, nav buttons and the terminal card (white 16% → 6%). */
+.m-sheen {
+  background-image: linear-gradient(180deg, var(--white-alpha-16) 0%, var(--white-alpha-6) 100%);
+}
+
+/* Glass inner shadows (Glass/Soft): 1px top highlight + hairline. */
+.m-edge {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.m-shadow { box-shadow: 0 8px 24px 0 var(--effect-shadow); }
+.m-shadow-lg { box-shadow: 0 24px 60px 0 var(--effect-shadow); }
+
+/* Background blur only on things that do not move: home widgets, dock, toolbars, overlays. */
+.m-blur {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.m-blur-20 {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.m-root,
+.m-overlay {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.m-root input,
+.m-root textarea,
+.m-selectable {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.m-root button,
+.m-root a,
+.m-overlay button {
+  touch-action: manipulation;
+}
+
+.m-press {
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease;
+}
+
+.m-press:active {
+  transform: scale(0.96);
+}
+
+/* Fixed bottom bars sit 8px above the real device safe area. */
+.m-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(8px + env(safe-area-inset-bottom) / var(--m-zoom, 1));
+  z-index: 40;
+  pointer-events: none;
+}
+
+.m-bottom > * {
+  pointer-events: auto;
+}
+
+.m-safe-top { padding-top: calc(env(safe-area-inset-top) / var(--m-zoom, 1)); }
+.m-safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) / var(--m-zoom, 1)); }
+
+.m-hscroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.m-hscroll::-webkit-scrollbar { display: none; }
+
+/* App open / close: View Transition snapshots driven from MobileOS (transform + opacity only).
+   The page is clipped to the viewport while the snapshots are taken. */
+.m-vt .m-wall { view-transition-name: m-wall; }
+.m-vt .m-page { view-transition-name: m-page; }
+
+.m-clip {
+  height: calc(100dvh / var(--m-zoom, 1));
+  overflow: clip;
+  contain: paint;
+}
+
+.m-clip > .m-page-body {
+  margin-top: calc(-1 * var(--m-scroll, 0px));
+}
+
+.m-vt::view-transition-group(m-wall) { z-index: 0; animation: none; }
+.m-vt::view-transition-group(root) { z-index: 1; }
+.m-vt::view-transition-group(m-page) { z-index: 2; animation: none; }
+::view-transition-old(m-wall),
+::view-transition-new(m-wall),
+::view-transition-old(m-page),
+::view-transition-new(m-page) {
+  animation: none;
+}
+
+.m-vt-open::view-transition-old(root) {
+  z-index: 2;
+  transform-origin: var(--m-origin, 50% 50%);
+  animation: m-home-out 380ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.m-vt-open::view-transition-new(root) {
+  z-index: 1;
+  animation: none;
+  opacity: 0;
+}
+
+.m-vt-close::view-transition-old(root) {
+  z-index: 1;
+  animation: none;
+  opacity: 0;
+}
+
+.m-vt-close::view-transition-new(root) {
+  z-index: 2;
+  transform-origin: var(--m-origin, 50% 50%);
+  animation: m-home-in 440ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes m-home-out {
+  to { opacity: 0; transform: scale(1.08); }
+}
+
+@keyframes m-home-in {
+  from { opacity: 0; transform: scale(1.08); }
+}
+
+/* Long-press menu and search. */
+.m-fade-in { animation: m-fade 240ms ease both; }
+.m-fade-out { animation: m-fade-out 200ms ease both; }
+@keyframes m-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes m-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.m-menu-in {
+  transform-origin: var(--m-menu-origin, 50% 0);
+  animation: m-menu 320ms cubic-bezier(0.34, 1.3, 0.5, 1) both;
+}
+
+.m-menu-out {
+  transform-origin: var(--m-menu-origin, 50% 0);
+  animation: m-menu-out 180ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes m-menu {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Exit animations have their own names: swapping to the same name with `reverse` does not restart it. */
+@keyframes m-menu-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: scale(0.6); }
+}
+
+.m-lift-in { animation: m-lift 320ms cubic-bezier(0.34, 1.4, 0.5, 1) both; }
+
+@keyframes m-lift {
+  from { transform: none; }
+  to { transform: scale(1.08); }
+}
+
+.m-search-in { animation: m-search 360ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.m-search-out { animation: m-search-out 200ms cubic-bezier(0.4, 0, 1, 1) both; }
+/* A separate name: re-using m-search with `reverse` would not restart the animation. */
+@keyframes m-search-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translate3d(0, 24px, 0) scale(0.98); }
+}
+
+@keyframes m-search {
+  from { opacity: 0; transform: translate3d(0, 24px, 0) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Segmented control: the selected pill slides (transform only). */
+.m-seg-pill {
+  transition: transform 380ms cubic-bezier(0.34, 1.2, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-vt-open::view-transition-old(root),
+  .m-vt-close::view-transition-new(root),
+  .m-fade-in, .m-fade-out, .m-menu-in, .m-menu-out, .m-lift-in, .m-search-in, .m-search-out {
+    animation: none;
+  }
+  .m-seg-pill, .m-press { transition: none; }
+}
+
+/* Boot on mobile: the loading overlay covers the viewport. */
+.m-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+/* Works / AI Workflow on mobile (EmbedPage): the desktop window without its frame and title bar. */
+[data-embedded] {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-embedded] > header,
+[data-embedded] .works-list > header {
+  display: none;
+}
+
+
+
+
+/* Mobile — Works page (src/components/mobile/WorksPage.tsx, Figma 675:36910).
+   Command tokens from the frames' variables; --w-* aliases feed the shared covers and logos (os/work-cover.tsx). */
+.m-works {
+  --cmd-bg: #0a0a0a;
+  --cmd-surface-1: #141414;
+  --cmd-surface-2: #1e1e1e;
+  --cmd-surface-3: #2a2a2a;
+  --cmd-text-primary: #ffffff;
+  --cmd-text-secondary: #a7a7a7;
+  --cmd-text-muted: #7c7c7c;
+  --cmd-accent: #6798ff;
+  --w-bg: var(--cmd-bg);
+  --w-text: var(--cmd-text-primary);
+}
+
+[data-theme="light"] .m-works {
+  --cmd-bg: #f7f7f7;
+  --cmd-surface-1: #ffffff;
+  --cmd-surface-2: #f0f1f4;
+  --cmd-surface-3: #e9ebf0;
+  --cmd-text-primary: #0a0a0a;
+  --cmd-text-secondary: #4b4f58;
+  --cmd-text-muted: #8a8f98;
+  --cmd-accent: #3d6fe8;
+}
+
+[data-theme="light"] .m-works .logo-ink {
+  filter: brightness(0);
+}
+
+.m-works-pin-bar {
+  box-shadow: 0 12px 32px var(--effect-shadow);
+}
+
+
+/* Mobile "not optimized" notice: a near-clear veil that frosts the static wallpaper. */
+.m-not-optimized-veil {
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(12px);
+}
+[data-theme="light"] .m-not-optimized-veil {
+  backdrop-filter: blur(6px);
+}
+
+/* Mobile Works ⇄ case study: iOS-style push (new screen slides in from the right) and pop. */
+.m-vt-push::view-transition-old(root),
+.m-vt-pop::view-transition-old(root),
+.m-vt-push::view-transition-new(root),
+.m-vt-pop::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  animation-fill-mode: both;
+  mix-blend-mode: normal;
+}
+.m-vt-push::view-transition-old(root) { animation-name: m-push-old; }
+.m-vt-push::view-transition-new(root) { animation-name: m-push-new; }
+.m-vt-pop::view-transition-old(root) { animation-name: m-pop-old; z-index: 2; }
+.m-vt-pop::view-transition-new(root) { animation-name: m-pop-new; }
+@keyframes m-push-old { to { transform: translateX(-28%); opacity: 0.6; } }
+@keyframes m-push-new { from { transform: translateX(100%); } }
+@keyframes m-pop-old { to { transform: translateX(100%); } }
+@keyframes m-pop-new { from { transform: translateX(-28%); opacity: 0.6; } }
+@media (prefers-reduced-motion: reduce) {
+  .m-vt-push::view-transition-old(root),
+  .m-vt-pop::view-transition-old(root),
+  .m-vt-push::view-transition-new(root),
+  .m-vt-pop::view-transition-new(root) { animation: none; }
+}
+
+/* Staged pre-rendered window (window-manager stage): laid out and styled, not yet shown. */
+[data-window][data-staged] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

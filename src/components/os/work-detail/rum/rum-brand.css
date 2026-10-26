@@ -1,0 +1,297 @@
+/* 98rum · Brand group (hero, overview, vision, phase 01, naming, logo structure, brand character). transform / opacity only. */
+
+/* Hidden state shared by every staged child: only while its Reveal is armed and not yet in. */
+
+/* ---------- Hero: logo settles, facts rise, Cap'n Rum hops in from the right ---------- */
+.rb-hero-logo {
+  transition:
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 180ms,
+    opacity 700ms ease 180ms;
+}
+.rb-hero-facts {
+  transition:
+    transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 380ms,
+    opacity 600ms ease 380ms;
+}
+.rb-hero-capn {
+  transition:
+    transform 1000ms cubic-bezier(0.34, 1.4, 0.64, 1) 560ms,
+    opacity 500ms ease 560ms;
+  transform-origin: 50% 100%;
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-hero-logo {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.96);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-hero-facts {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-hero-capn {
+  opacity: 0;
+  transform: translate3d(80px, 40px, 0) rotate(8deg);
+}
+
+/* Mascots wobble a little on hover. */
+.rb-capn-hover {
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: 50% 100%;
+}
+.rb-capn-hover:hover {
+  transform: rotate(-3deg) scale(1.03);
+}
+
+/* ---------- Overview ---------- */
+.rb-ov-arrow {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rb-ov-row:hover .rb-ov-arrow {
+  transform: translate3d(4px, 0, 0);
+}
+.rb-tool {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rb-tool:hover {
+  transform: translate3d(0, -3px, 0);
+}
+
+/* ---------- Vision: the logo tilts in like a sticker ---------- */
+.rb-vis-logo {
+  transition: transform 1000ms cubic-bezier(0.34, 1.3, 0.64, 1) 120ms;
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-vis-logo {
+  transform: rotate(-6deg) scale(0.9);
+}
+
+/* ---------- Naming: 98 → + → rum → = → logo, one after another ---------- */
+.rb-eq,
+.rb-eq-op {
+  transition:
+    opacity 600ms ease,
+    transform 800ms cubic-bezier(0.34, 1.35, 0.64, 1);
+  transition-delay: calc(120ms + var(--i, 0) * 240ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-eq {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0) scale(0.92);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-eq-op {
+  opacity: 0;
+  transform: scale(0.3) rotate(-90deg);
+}
+/* The finished logo stamps in after its tile lands. */
+.rb-eq-logo {
+  transition:
+    opacity 400ms ease,
+    transform 700ms cubic-bezier(0.34, 1.7, 0.64, 1);
+  transition-delay: calc(120ms + 5 * 240ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-eq-logo {
+  opacity: 0;
+  transform: scale(0.6) rotate(-6deg);
+}
+/* Hover: a logo inside a white box lifts a touch (inner wrapper, so the entrance delays never apply). */
+.rb-lift {
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.rb-lift-host:hover .rb-lift {
+  transform: scale(1.03) rotate(-1.5deg);
+}
+
+.rb-photo img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rb-photo:hover img {
+  transform: scale(1.03);
+}
+
+/* ---------- Logo structure: grid draws in, clear space and logo appear, then the dimensions ---------- */
+.rb-gv,
+.rb-gh {
+  transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(100ms + var(--i, 0) * 28ms);
+}
+.rb-gv {
+  transform-origin: 50% 0;
+}
+.rb-gh {
+  transform-origin: 0 50%;
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-gv {
+  transform: scaleY(0);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-gh {
+  transform: scaleX(0);
+}
+.rb-clear {
+  transition: opacity 500ms ease 700ms;
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-clear {
+  opacity: 0;
+}
+.rb-grid-logo,
+.rb-min-logo {
+  transition:
+    opacity 600ms ease 820ms,
+    transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 820ms;
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-grid-logo,
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-min-logo {
+  opacity: 0;
+  transform: scale(0.94);
+}
+.rb-dim-x,
+.rb-dim-y {
+  transition:
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 300ms ease;
+  transition-delay: calc(1250ms + var(--i, 0) * 200ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-dim-x {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-dim-y {
+  opacity: 0;
+  transform: scaleY(0);
+}
+.rb-dim-label {
+  transition: opacity 400ms ease;
+  transition-delay: calc(1550ms + var(--i, 0) * 200ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-dim-label {
+  opacity: 0;
+}
+.rb-dim-tag {
+  transition:
+    opacity 400ms ease,
+    transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(1250ms + var(--i, 0) * 200ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-dim-tag {
+  opacity: 0;
+  transform: translate3d(0, -14px, 0);
+}
+
+/* ---------- Brand character: ingredients pop in, Cap'n Rum bounces in last ---------- */
+.rb-ing,
+.rb-ing-op {
+  transition:
+    opacity 500ms ease,
+    transform 700ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(140ms + var(--i, 0) * 200ms);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-ing {
+  opacity: 0;
+  transform: scale(0.7);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-ing-op {
+  opacity: 0;
+  transform: scale(0.3);
+}
+.reveal-root.reveal-arm .reveal:not(.is-in) .rb-mascot {
+  opacity: 0;
+}
+.reveal-root.reveal-arm .reveal.is-in .rb-mascot {
+  animation: rb-bounce 1100ms cubic-bezier(0.22, 1, 0.36, 1) 1360ms both;
+}
+.rb-mascot {
+  transform-origin: 50% 100%;
+}
+@keyframes rb-bounce {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -160px, 0) scale(0.9, 1.08);
+  }
+  12% {
+    opacity: 1;
+  }
+  40% {
+    transform: translate3d(0, 0, 0) scale(1.08, 0.9);
+  }
+  58% {
+    transform: translate3d(0, -36px, 0) scale(0.97, 1.03);
+  }
+  76% {
+    transform: translate3d(0, 0, 0) scale(1.03, 0.97);
+  }
+  88% {
+    transform: translate3d(0, -8px, 0) scale(1, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rb-ing-img {
+  transition: transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.rb-ing-box:hover .rb-ing-img {
+  transform: scale(1.07) rotate(-3deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-hero-logo,
+  .rb-hero-facts,
+  .rb-hero-capn,
+  .rb-capn-hover,
+  .rb-ov-arrow,
+  .rb-tool,
+  .rb-vis-logo,
+  .rb-eq,
+  .rb-eq-op,
+  .rb-eq-logo,
+  .rb-photo img,
+  .rb-gv,
+  .rb-gh,
+  .rb-clear,
+  .rb-grid-logo,
+  .rb-min-logo,
+  .rb-dim-x,
+  .rb-dim-y,
+  .rb-dim-label,
+  .rb-dim-tag,
+  .rb-ing,
+  .rb-ing-op,
+  .rb-ing-img,
+  .rb-lift {
+    transition: none;
+  }
+  .reveal-root.reveal-arm .reveal.is-in .rb-mascot {
+    animation: none;
+  }
+  .reveal-root.reveal-arm
+    .reveal:not(.is-in)
+    :is(
+      .rb-hero-logo,
+      .rb-hero-facts,
+      .rb-hero-capn,
+      .rb-vis-logo,
+      .rb-eq,
+      .rb-eq-op,
+      .rb-eq-logo,
+      .rb-gv,
+      .rb-gh,
+      .rb-clear,
+      .rb-grid-logo,
+      .rb-min-logo,
+      .rb-dim-x,
+      .rb-dim-y,
+      .rb-dim-label,
+      .rb-dim-tag,
+      .rb-ing,
+      .rb-ing-op,
+      .rb-mascot
+    ) {
+    opacity: 1;
+    transform: none;
+  }
+  .rb-capn-hover:hover,
+  .rb-ov-row:hover .rb-ov-arrow,
+  .rb-tool:hover,
+  .rb-lift-host:hover .rb-lift,
+  .rb-photo:hover img,
+  .rb-ing-box:hover .rb-ing-img {
+    transform: none;
+  }
+}

@@ -1,0 +1,21 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="45.5" height="45.5" viewBox="0 0 45.5 45.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 7">
+<path id="Base" d="M33.25 0H12.25C5.48451 0 0 5.48451 0 12.25V33.25C0 40.0155 5.48451 45.5 12.25 45.5H33.25C40.0155 45.5 45.5 40.0155 45.5 33.25V12.25C45.5 5.48451 40.0155 0 33.25 0Z" fill="url(#paint0_linear_0_1183)"/>
+<path id="Sparkle" d="M22.75 11.375C23.975 20.65 26.6 23.275 35.875 24.5C26.6 25.725 23.975 28.35 22.75 37.625C21.525 28.35 18.9 25.725 9.625 24.5C18.9 23.275 21.525 20.65 22.75 11.375Z" fill="url(#paint1_linear_0_1183)"/>
+<path id="Sparkle Small" d="M34.125 4.8125C34.7375 9.45 36.05 10.7625 40.6875 11.375C36.05 11.9875 34.7375 13.3 34.125 17.9375C33.5125 13.3 32.2 11.9875 27.5625 11.375C32.2 10.7625 33.5125 9.45 34.125 4.8125Z" fill="url(#paint2_linear_0_1183)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_1183" x1="0" y1="0" x2="45.5" y2="45.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#8E7CFF"/>
+<stop offset="1" stop-color="#3D6BF5"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_1183" x1="17.9375" y1="19.6875" x2="27.125" y2="28.875" gradientUnits="userSpaceOnUse">
+<stop stop-color="#EFA1FF"/>
+<stop offset="1" stop-color="#99F0FF"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_1183" x1="27.5625" y1="4.8125" x2="40.6875" y2="17.9375" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFCF4A"/>
+<stop offset="1" stop-color="#FF7A1A"/>
+</linearGradient>
+</defs>
+</svg>

@@ -1,0 +1,6 @@
+/* vOps case study tokens and shared rules. Section-specific CSS lives in vops-<group>.css files. */
+.vops-detail {
+  --brand-vops: #ee0033;
+  /* Figma "Main" (272:14590) page fill: flat #f7f7f7 on the left half, warming to a faint pink at the right edge. */
+  background: linear-gradient(90deg, #f7f7f7 0%, #f7f7f7 52%, #faf6f6 70%, #fef5f5 86%, #fff5f5 100%);
+}

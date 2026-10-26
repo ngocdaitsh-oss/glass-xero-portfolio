@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Deco icon &#226;&#128;&#148; Dialogue">
+<g id="Shape">
+<path d="M20 12H48C54.64 12 60 17.36 60 24V40C60 46.64 54.64 52 48 52H20C13.36 52 8 46.64 8 40V24C8 17.36 13.36 12 20 12ZM20 18H48C51.32 18 54 20.68 54 24V40C54 43.32 51.32 46 48 46H20C16.68 46 14 43.32 14 40V24C14 20.68 16.68 18 20 18Z" fill-rule="evenodd" clip-rule="evenodd" fill="#FFE1E7"/>
+<path d="M18 50V66L32 50H18Z" fill="#FFE1E7"/>
+<path d="M48 38H76C82.64 38 88 43.36 88 50V66C88 72.64 82.64 78 76 78H48C41.36 78 36 72.64 36 66V50C36 43.36 41.36 38 48 38ZM48 44H76C79.32 44 82 46.68 82 50V66C82 69.32 79.32 72 76 72H48C44.68 72 42 69.32 42 66V50C42 46.68 44.68 44 48 44Z" fill-rule="evenodd" clip-rule="evenodd" fill="#FFE1E7"/>
+<path d="M78 76V92L64 76H78Z" fill="#FFE1E7"/>
+</g>
+</g>
+</svg>

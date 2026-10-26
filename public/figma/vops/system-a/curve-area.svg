@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1295" height="216.822" viewBox="0 0 1295 216.822" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Curve area" d="M0 5.02222C21.6 5.02222 64.8 -6.27778 129.5 5.02222C194.3 16.3222 302.2 53.7222 388.5 73.0222C474.8 92.3222 561.2 117.222 647.5 120.622C733.8 124.022 820.2 104.722 906.5 93.4222C992.8 82.1222 1100.8 59.4222 1165.5 52.6222C1230.3 45.8222 1273.4 52.6222 1295 52.6222V216.822H0V5.02222Z" fill="url(#paint0_linear_0_103)"/>
+<defs>
+<linearGradient id="paint0_linear_0_103" x1="647.5" y1="2.6491e-07" x2="647.5" y2="216.822" gradientUnits="userSpaceOnUse">
+<stop stop-color="#ED0033" stop-opacity="0.16"/>
+<stop offset="1" stop-color="#ED0033" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>

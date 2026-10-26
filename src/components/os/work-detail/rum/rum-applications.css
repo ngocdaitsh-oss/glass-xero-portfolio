@@ -1,0 +1,98 @@
+/* 98rum — Visual system + Applications (applications.tsx). Transform/opacity only. */
+.rum-detail {
+  --ra-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Phase bands: the glow drifts a little toward the copy on hover. */
+.ra-band-glow {
+  transition: transform 900ms var(--ra-ease);
+}
+.ra-band:hover .ra-band-glow {
+  transform: translate(-40px, 16px);
+}
+
+/* Large photos: settle from a slight zoom when revealed, then zoom slowly on hover. */
+.ra-photo-img {
+  transform: scale(1.06);
+  transition: transform 1400ms var(--ra-ease);
+}
+.reveal.is-in .ra-photo-img {
+  transform: scale(1);
+}
+.reveal.is-in .ra-photo:hover .ra-photo-img {
+  transform: scale(1.035);
+}
+
+/* Colour cards: each code line (and the hex) offers a quiet copy hint. */
+.ra-code {
+  cursor: pointer;
+  text-align: left;
+}
+.ra-code-v {
+  transition: opacity 200ms ease;
+}
+.ra-sw:hover .ra-code-v {
+  opacity: 0.7;
+}
+.ra-sw .ra-code:hover .ra-code-v,
+.ra-sw .ra-code:focus-visible .ra-code-v {
+  opacity: 1;
+}
+.ra-code-hint {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 200ms ease,
+    transform 260ms var(--ra-ease);
+}
+.ra-code:hover .ra-code-hint,
+.ra-code:focus-visible .ra-code-hint,
+.ra-code-hint.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* Type specimen: the big Aa leans in; weight cards nudge their glyph. */
+.ra-spec-aa {
+  transform-origin: left bottom;
+  transition: transform 600ms var(--ra-ease);
+}
+.ra-spec:hover .ra-spec-aa {
+  transform: scale(1.04);
+}
+.ra-weight-ag {
+  transform-origin: left center;
+  transition: transform 320ms var(--ra-ease);
+}
+.ra-weight:hover .ra-weight-ag {
+  transform: scale(1.08);
+}
+
+/* Stationery notes: the number nudges forward. */
+.ra-note-n {
+  transition: transform 260ms var(--ra-ease);
+}
+.ra-note:hover .ra-note-n {
+  transform: translateX(3px);
+}
+
+/* Bus shelter logo. */
+.ra-logo {
+  transition: transform 520ms var(--ra-ease);
+}
+.ra-logo:hover {
+  transform: rotate(-2deg) scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ra-photo-img,
+  .reveal.is-in .ra-photo-img,
+  .reveal.is-in .ra-photo:hover .ra-photo-img,
+  .ra-band:hover .ra-band-glow,
+  .ra-spec:hover .ra-spec-aa,
+  .ra-weight:hover .ra-weight-ag,
+  .ra-note:hover .ra-note-n,
+  .ra-logo:hover {
+    transform: none;
+  }
+}

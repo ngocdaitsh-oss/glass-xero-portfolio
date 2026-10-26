@@ -1,0 +1,22 @@
+<svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Cursors">
+<g id="Cursor">
+<g id="Type=Resize NESW, Theme=Light">
+<g id="Glyph" filter="url(#filter0_d_14_128)">
+<path id="Vector" d="M14.3024 10.6259C13.0405 9.36359 13.9005 7.21731 15.6406 7.08346C15.6577 7.08215 15.6747 7.08113 15.6917 7.08069L24.1066 6.86801C24.3803 6.86113 24.6449 6.96727 24.8386 7.1608C25.0321 7.35437 25.1381 7.61911 25.1313 7.89276L24.9193 16.3083C24.9189 16.3254 24.9179 16.3424 24.9166 16.3594C24.7827 18.0997 22.6357 18.9592 21.3735 17.697L20.0304 16.3539L16.354 20.0303L17.6971 21.3734C18.9593 22.6356 18.0997 24.7826 16.3595 24.9165C16.3425 24.9178 16.3254 24.9188 16.3084 24.9193L7.89285 25.1313C7.6192 25.138 7.35446 25.032 7.16089 24.8385C6.96736 24.6448 6.86122 24.3802 6.8681 24.1065L7.08078 15.6917L7.08355 15.6406C7.2174 13.9004 9.36367 13.0404 10.626 14.3023L11.9698 15.6461L15.6462 11.9697L14.3024 10.6259Z" fill="white" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_14_128" x="4.66829" y="5.26816" width="24.2634" height="24.2634" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="0.8" dy="1.4"/>
+<feGaussianBlur stdDeviation="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.32 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_14_128"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_14_128" result="shape"/>
+</filter>
+</defs>
+</svg>

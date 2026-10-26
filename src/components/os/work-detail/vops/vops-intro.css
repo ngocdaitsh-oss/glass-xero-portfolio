@@ -1,0 +1,107 @@
+/* vOps intro group (hero, overview, vision, sitemap). Transform / opacity only. */
+
+/* Vision mascot — Figma motion 282:15073 / 282:15113: 2 s loop, two squash-bounces then a 1 s hold. */
+.vin-bob {
+  transform-origin: 269.76px 180.6px;
+  animation: vin-bob 2s infinite;
+}
+
+.vin-squash {
+  transform-origin: 269.76px 180.6px;
+  transform: scale(1.06, 0.94);
+  animation: vin-squash 2s infinite;
+}
+
+.vin-wave {
+  transform-origin: 445.77px 273.64px;
+  animation: vin-wave 2s infinite;
+}
+
+@keyframes vin-bob {
+  0%,
+  25%,
+  50%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  12.5%,
+  37.5% {
+    transform: translateY(-2.625px);
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes vin-squash {
+  0%,
+  25%,
+  50%,
+  100% {
+    transform: scale(1.06, 0.94);
+    animation-timing-function: ease-in-out;
+  }
+  12.5%,
+  37.5% {
+    transform: scale(0.94, 1.06);
+    animation-timing-function: ease-in-out;
+  }
+}
+
+/* Static pose is Figma's -43.48deg; the keyframes swing to -3.48deg (+40deg). */
+@keyframes vin-wave {
+  0%,
+  25%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-in-out;
+  }
+  12.5%,
+  37.5% {
+    transform: rotate(40deg);
+    animation-timing-function: ease-in-out;
+  }
+}
+
+/* Sitemap — nodes lift slightly, zoom buttons press. */
+.vin-node {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vin-node:hover {
+  transform: translateY(-3px);
+}
+
+.vin-zbtn {
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+}
+
+.vin-zbtn:hover {
+  transform: scale(1.08);
+}
+
+.vin-zbtn:active {
+  transform: scale(0.94);
+}
+
+.vin-zbtn:disabled {
+  opacity: 0.4;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vin-bob,
+  .vin-squash,
+  .vin-wave {
+    animation: none;
+  }
+  .vin-node,
+  .vin-zbtn {
+    transition: none;
+  }
+  .vin-node:hover {
+    transform: none;
+  }
+}

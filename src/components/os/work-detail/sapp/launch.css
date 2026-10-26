@@ -1,0 +1,62 @@
+/* UI For Launch (Figma 244:16492) — chip hover + Micro Interaction diagram motion.
+   Only transform / opacity are animated. */
+
+.launch-chip {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 200ms ease,
+    background-color 200ms ease;
+}
+
+.launch-chip:hover {
+  color: var(--brand-sapp);
+}
+
+.launch-chip:focus-visible {
+  outline: 2px solid var(--brand-sapp);
+  outline-offset: 2px;
+}
+
+/* Micro Interaction flower (244:16932): each petal blooms outward on hover,
+   its icon pops; icons idle-float in a staggered loop. */
+.mi-petal {
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mi-petal:hover {
+  transform: translate(var(--mi-dx, 0px), var(--mi-dy, 0px));
+}
+
+.mi-icon {
+  animation: mi-float 3.6s ease-in-out infinite;
+  animation-delay: var(--mi-delay, 0s);
+}
+
+.mi-icon > img {
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mi-petal:hover .mi-icon > img {
+  transform: scale(1.14) rotate(-6deg);
+}
+
+@keyframes mi-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mi-icon {
+    animation: none;
+  }
+
+  .mi-petal:hover,
+  .mi-petal:hover .mi-icon > img {
+    transform: none;
+  }
+}

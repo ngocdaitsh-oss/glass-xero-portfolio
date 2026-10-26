@@ -1,0 +1,233 @@
+/* SAPP · Design system + Foundations — hover/scroll micro-motion.
+   Only transform / opacity / box-shadow are animated (small elements get colour too). */
+
+.sys-ease {
+  --sys-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Chips: small pop on hover. */
+.sys-chip {
+  transition: transform 220ms var(--sys-ease);
+}
+.sys-chip:hover {
+  transform: translateY(-2px) scale(1.06);
+}
+
+/* Block arrows nudge when the row is hovered. */
+.sys-arrow {
+  transition: transform 420ms var(--sys-ease);
+}
+.sys-row:hover .sys-arrow {
+  transform: translateX(6px);
+}
+
+/* Token rows (swatch + mono label). */
+.sys-tok {
+  transition: transform 260ms var(--sys-ease);
+}
+.sys-tok-sw {
+  transition:
+    transform 260ms var(--sys-ease),
+    box-shadow 260ms var(--sys-ease);
+}
+.sys-tok-label {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+.sys-tok:hover {
+  transform: translateX(6px);
+}
+.sys-tok:hover .sys-tok-sw {
+  transform: scale(1.18) rotate(-6deg);
+  box-shadow: 0 6px 14px -4px rgba(15, 23, 41, 0.28);
+}
+.sys-tok:hover .sys-tok-label {
+  background-color: #fff1cc;
+  color: #0a0a0a;
+}
+
+/* Colour ramp swatch cards. */
+.sys-swatch {
+  box-shadow: 0 5.2px 12.5px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 320ms var(--sys-ease),
+    box-shadow 320ms var(--sys-ease);
+}
+.sys-swatch-chip {
+  transform-origin: 50% 100%;
+  transition: transform 320ms var(--sys-ease);
+}
+.sys-swatch-aaa {
+  transition: transform 320ms var(--sys-ease);
+}
+.sys-swatch-hex {
+  transition: color 200ms ease;
+}
+.sys-swatch:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 28px -6px rgba(0, 0, 0, 0.22);
+}
+.sys-swatch:hover .sys-swatch-chip {
+  transform: scaleY(1.06);
+}
+.sys-swatch:hover .sys-swatch-aaa {
+  transform: scale(1.25);
+}
+.sys-swatch:hover .sys-swatch-hex {
+  color: #0a0a0a;
+}
+
+/* Role rows: swatch + label + hint. */
+.sys-role {
+  transition: transform 260ms var(--sys-ease);
+}
+.sys-role-sw {
+  transition:
+    transform 260ms var(--sys-ease),
+    box-shadow 260ms var(--sys-ease);
+}
+.sys-role-hint {
+  transition: color 200ms ease;
+}
+.sys-role:hover {
+  transform: translateX(6px);
+}
+.sys-role:hover .sys-role-sw {
+  transform: scale(1.12);
+  box-shadow: 0 8px 16px -6px rgba(15, 23, 41, 0.3);
+}
+.sys-role:hover .sys-role-hint {
+  color: #0a0a0a;
+}
+
+/* Typography specimen card. */
+.sys-aa {
+  transform-origin: 0 60%;
+  transition: transform 520ms var(--sys-ease);
+}
+.sys-spec:hover .sys-aa {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+/* Type scale rows: hover band + specimen scales slightly. */
+.sys-type {
+  position: relative;
+}
+.sys-type::before {
+  content: "";
+  position: absolute;
+  inset: 0 -16px;
+  border-radius: 12px;
+  background: #fffbf2;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+.sys-type:hover::before {
+  opacity: 1;
+}
+.sys-type-sample {
+  transform-origin: 0 50%;
+  transition: transform 360ms var(--sys-ease);
+}
+.sys-type:hover .sys-type-sample {
+  transform: scale(1.04);
+}
+
+/* Spacing bars: grow in on scroll (inside a revealed row), grow more on hover. */
+.sys-bar {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  transition: transform 900ms var(--sys-ease) 180ms;
+}
+.reveal.is-in .sys-bar {
+  transform: scaleX(1);
+}
+.sys-space {
+  transition: transform 260ms var(--sys-ease);
+}
+.sys-space:hover .sys-bar {
+  transform: scaleX(1.18);
+  transition-delay: 0ms;
+  transition-duration: 360ms;
+}
+.sys-space .sys-tok-label {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+.sys-space:hover .sys-tok-label {
+  background-color: #fff1cc;
+  color: #0a0a0a;
+}
+
+/* Radius samples: corner morphs on hover. */
+.sys-radius {
+  border-radius: var(--r);
+  transition:
+    border-radius 420ms var(--sys-ease),
+    transform 420ms var(--sys-ease),
+    background-color 200ms ease;
+}
+.sys-radius-item:hover .sys-radius {
+  border-radius: var(--r-hover);
+  transform: scale(1.1) rotate(8deg);
+  background-color: #ffe399;
+}
+
+/* Border-width boxes. */
+.sys-bw {
+  transition:
+    transform 260ms var(--sys-ease),
+    box-shadow 260ms var(--sys-ease);
+}
+.sys-bw-item:hover .sys-bw {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px -8px rgba(15, 23, 41, 0.25);
+}
+.sys-ring {
+  transition:
+    transform 420ms var(--sys-ease),
+    opacity 300ms ease;
+}
+.sys-bw-item:hover .sys-ring {
+  transform: translateY(-3px) scale(1.04);
+  opacity: 0.85;
+}
+
+/* Elevation cards: hover raises the card's own shadow. */
+.sys-elev {
+  box-shadow: var(--e);
+  transition:
+    transform 380ms var(--sys-ease),
+    box-shadow 380ms var(--sys-ease);
+}
+.sys-elev:hover {
+  transform: translateY(var(--lift, -8px));
+  box-shadow: var(--e-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sys-chip,
+  .sys-arrow,
+  .sys-tok,
+  .sys-tok-sw,
+  .sys-swatch,
+  .sys-swatch-chip,
+  .sys-swatch-aaa,
+  .sys-role,
+  .sys-role-sw,
+  .sys-aa,
+  .sys-type-sample,
+  .sys-bar,
+  .sys-radius,
+  .sys-bw,
+  .sys-ring,
+  .sys-elev {
+    transition: none;
+  }
+  .sys-bar {
+    transform: none;
+  }
+}
