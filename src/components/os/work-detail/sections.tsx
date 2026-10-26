@@ -9,7 +9,7 @@ export function Hero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="p-8">
-      <HeroFit className="overflow-hidden rounded-[50px]" backdropStyle={{ backgroundImage: "url(/figma/wd/hero-bg.png)" }}>
+      <HeroFit className="overflow-hidden rounded-[50px]">
         <img src="/figma/wd/hero-bg.png" alt="" className="absolute top-[-8.91%] left-0 h-[127.06%] w-full max-w-none" />
         <img data-rv src="/figma/wd/hero-logo.svg" alt="bave" className="absolute top-[232.78px] left-1/2 h-[154.383px] w-[474.722px] -translate-x-1/2" />
         <img data-rv src="/figma/wd/hero-tagline.svg" alt={t("Driving connected")} className="absolute top-[423.82px] left-1/2 h-[25.41px] w-[474.722px] -translate-x-1/2" />

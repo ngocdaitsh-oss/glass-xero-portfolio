@@ -27,7 +27,7 @@ export function SappHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <HeroFit className="overflow-hidden rounded-[50px]" backdropStyle={{ backgroundImage: `url(${A}/hero-blobs.webp)` }}>
+      <HeroFit className="overflow-hidden rounded-[50px]">
         {/* IMG/hero_blobs */}
         <img src={`${A}/hero-blobs.webp`} alt="" className="pointer-events-none absolute inset-0 size-full max-w-none object-cover" />
         {/* IMG/logo4x */}

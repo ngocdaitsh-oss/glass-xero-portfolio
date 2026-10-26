@@ -133,7 +133,7 @@ function RumHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <HeroFit backdropStyle={{ backgroundColor: "#f4d499" }}>
+      <HeroFit>
         {/* IMG/hero_bg (343:90414): a flat sand fill in Figma, no photo. */}
         <div className="absolute inset-0 rounded-[50px] bg-[#f4d499]" />
         <div className="rb-hero-logo absolute" style={{ left: 644, top: 219 }}>

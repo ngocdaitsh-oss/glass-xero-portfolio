@@ -55,7 +55,7 @@ function VopsHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <HeroFit backdropStyle={{ background: "linear-gradient(222.0165deg, rgb(238, 0, 51) 30.365%, rgb(136, 0, 29) 100%)" }}>
+      <HeroFit>
         {/* Cover art — vOps (272:15626) */}
         <div className="absolute inset-0 overflow-hidden rounded-[50px] bg-[#e50030]">
           <div
