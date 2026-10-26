@@ -11,7 +11,12 @@ import { useFitZoom, useTitleBarDrag } from "../window-manager";
 
 export type TrackItem = { id: string; label: string; group?: string };
 
-/** Keeps the 1808×850 Figma hero fully visible inside short viewports. */
+/**
+ * Keeps the 1808×850 Figma hero width-locked on desktop and fully visible on
+ * narrower tablet/mobile viewports. Shrinking a desktop hero by height leaves
+ * letterbox gutters on 16:9 screens, so wide viewports keep the document's
+ * normal width-fit scale instead.
+ */
 export function HeroFit({ children, className = "" }: { children: ReactNode; className?: string }) {
   const frame = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -21,6 +26,11 @@ export function HeroFit({ children, className = "" }: { children: ReactNode; cla
     const port = el?.closest<HTMLElement>(".work-detail");
     if (!el || !port) return;
     const sync = () => {
+      const viewportWidth = port.getBoundingClientRect().width;
+      if (viewportWidth >= 1200) {
+        setScale(1);
+        return;
+      }
       const outerZoom = el.getBoundingClientRect().width / 1808 || 1;
       const available = Math.max(420, port.clientHeight / outerZoom - 64);
       setScale(Math.min(1, available / 850));
