@@ -81,17 +81,35 @@ export function WindowControls({
 }
 
 /** Figma "Window Title Bar" (16:180) on a Glass/Panel window. */
-export function AppWindow({ title, children }: { title: string; children: ReactNode }) {
+export function AppWindow({
+  title,
+  children,
+  referenceDark = false,
+}: {
+  title: string;
+  children: ReactNode;
+  referenceDark?: boolean;
+}) {
   const drag = useTitleBarDrag();
   const t = useT();
   return (
-    <WindowShell label={t(title)} className="glass glass-panel text-fg shadow-panel rounded-[22px] select-text">
-      <header {...drag} className="bg-overlay-subtle relative h-11 shrink-0 select-none">
+    <WindowShell
+      label={t(title)}
+      className={
+        referenceDark
+          ? "reference-app-window text-fg shadow-panel rounded-[14px] select-text"
+          : "glass glass-panel text-fg shadow-panel rounded-[22px] select-text"
+      }
+    >
+      <header {...drag} className={`${referenceDark ? "reference-titlebar" : "bg-overlay-subtle"} relative h-11 shrink-0 select-none`}>
         <h2 className="pointer-events-none absolute top-1/2 left-1/2 w-[400px] max-w-[calc(100%-220px)] -translate-x-1/2 -translate-y-1/2 truncate text-center text-base leading-6">
           {t(title)}
         </h2>
         <span className="absolute top-1/2 right-3 -translate-y-1/2">
-          <WindowControls buttonClassName="text-icon-secondary hover:bg-overlay-strong hover:text-fg h-[26px] w-[30px]" />
+          <WindowControls
+            buttonClassName={`${referenceDark ? "reference-window-control" : "hover:bg-overlay-strong"} text-icon-secondary hover:text-fg h-[26px] w-[30px]`}
+            iconSize={referenceDark ? 18 : 20}
+          />
         </span>
         <span className="bg-divider absolute inset-x-0 bottom-0 h-px" />
       </header>

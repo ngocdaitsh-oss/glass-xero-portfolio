@@ -18,7 +18,7 @@ export function MailWindow() {
   const imageInput = useRef<HTMLInputElement>(null);
 
   return (
-    <AppWindow title="Leave me a message">
+    <AppWindow title="Leave me a message" referenceDark>
       <form
         className="flex h-full flex-col px-7 pt-[22px] pb-5"
         onSubmit={async (e) => {

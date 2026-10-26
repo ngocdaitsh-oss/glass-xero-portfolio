@@ -61,7 +61,7 @@ export function TerminalWindow() {
   };
 
   return (
-    <AppWindow title="AI Terminal — xero-ai">
+    <AppWindow title="AI Terminal — xero-ai" referenceDark>
       <div className="flex h-full flex-col gap-4 px-6 py-5">
         <div ref={output} className="os-scroll bg-desktop flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto rounded-2xl px-5 py-[18px]">
           <div className="bg-overlay-subtle flex w-fit items-center gap-2.5 rounded-xl py-2.5 pr-3.5 pl-3">

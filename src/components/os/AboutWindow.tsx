@@ -32,7 +32,7 @@ export function AboutWindow() {
   };
 
   return (
-    <AppWindow title="About Me">
+    <AppWindow title="About Me" referenceDark>
       <div className="flex h-full">
         <Profile />
         <div ref={scroller} className="os-scroll flex min-w-0 flex-1 flex-col gap-6 overflow-x-hidden overflow-y-auto px-7 pt-6 pb-7">

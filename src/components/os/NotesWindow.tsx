@@ -47,7 +47,7 @@ export function NotesWindow() {
   };
 
   return (
-    <AppWindow title="My Notes">
+    <AppWindow title="My Notes" referenceDark>
       <div className="flex h-full">
         <aside
           className={`bg-overlay-subtle os-scroll flex shrink-0 flex-col gap-1 overflow-y-auto px-3 py-4 ${wide ? "w-[20%] min-w-[248px] max-w-[320px]" : "w-[248px]"}`}
