@@ -453,14 +453,14 @@ input[type="range"] {
     --effect-shadow: rgba(0, 0, 0, 0.58);
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 22%),
-      rgba(13, 17, 22, 0.9);
+      rgba(13, 17, 22, 0.62);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(22px) saturate(115%);
     box-shadow: 0 28px 80px rgba(0, 0, 0, 0.52), 0 8px 24px rgba(0, 0, 0, 0.3);
   }
 
   .reference-titlebar {
-    background: rgba(9, 13, 18, 0.62);
+    background: rgba(9, 13, 18, 0.46);
     border-bottom: 1px solid rgba(255, 255, 255, 0.055);
   }
 
@@ -509,7 +509,7 @@ input[type="range"] {
   .reference-topbar-surface {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 62%),
-      rgba(12, 16, 21, 0.78);
+      rgba(12, 16, 21, 0.48);
     border: 1px solid rgba(255, 255, 255, 0.075);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
   }
@@ -521,7 +521,7 @@ input[type="range"] {
   .reference-dock-surface {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 52%),
-      rgba(12, 16, 21, 0.84);
+      rgba(12, 16, 21, 0.56);
     border: 1px solid rgba(255, 255, 255, 0.085);
     backdrop-filter: blur(20px) saturate(115%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -529,13 +529,13 @@ input[type="range"] {
 
   .reference-dock .glass-tooltip {
     --glass-tint-rgb: 12, 16, 21;
-    --glass-alpha: 0.86;
+    --glass-alpha: 0.62;
   }
 
   .reference-context-menu {
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 32%),
-      rgba(13, 17, 22, 0.91);
+      rgba(13, 17, 22, 0.74);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px) saturate(115%);
     box-shadow: 0 22px 52px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.035);
