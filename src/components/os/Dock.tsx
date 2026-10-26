@@ -148,9 +148,9 @@ export function Dock({ hidden = false, running, focused, onOpenApp }: DockProps)
       aria-label={t("Dock")}
       onMouseMove={(e) => magnify(e.clientX)}
       onMouseLeave={() => magnify(null)}
-      className="boot-dock pointer-events-auto relative flex items-end gap-5 rounded-[26px] px-3.5 pt-3 pb-1.5 shadow-[0_24px_60px_var(--effect-shadow)] tablet:items-center tablet:gap-6 tablet:pt-2.5 tablet:[zoom:1.08]"
+      className="reference-dock boot-dock pointer-events-auto relative flex items-end gap-5 rounded-[22px] px-3.5 pt-3 pb-1.5 shadow-[0_24px_60px_var(--effect-shadow)] tablet:items-center tablet:gap-6 tablet:pt-2.5 tablet:[zoom:1.08]"
     >
-      <span aria-hidden className="glass glass-dock pointer-events-none absolute inset-0 rounded-[26px]" />
+      <span aria-hidden className="reference-dock-surface pointer-events-none absolute inset-0 rounded-[22px]" />
 
       <DockItem name="About Me" app="about" state={stateOf("about")} scale={scales.about ?? 1} onClick={() => onOpenApp("about")}>
         <span className="absolute inset-0 overflow-clip rounded-[18px] bg-gradient-to-b from-[#5e6378] to-[#24262f] shadow-[0_6px_14px_var(--effect-shadow),inset_0_0_0_1px_rgba(255,255,255,0.16)]">

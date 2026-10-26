@@ -103,7 +103,7 @@ export function ContextMenu({
     <div
       role="menu"
       aria-label={t("Desktop")}
-      className="glass glass-flyout text-fg shadow-panel absolute z-[70] flex w-[278px] flex-col gap-0.5 rounded-[14px] p-1.5"
+      className="reference-context-menu text-fg shadow-panel absolute z-[70] flex w-[278px] flex-col gap-0.5 rounded-[12px] p-1.5"
       style={tablet ? { left: left / zoom, top: top / zoom, zoom } : { left, top }}
       onClick={(e) => e.stopPropagation()}
       onContextMenu={(e) => e.preventDefault()}
@@ -172,7 +172,7 @@ function Submenu({ title, flip, children }: { title: string; flip: boolean; chil
     <div
       role="menu"
       aria-label={title}
-      className={`glass glass-flyout text-fg shadow-panel invisible absolute top-0 z-20 flex w-[240px] flex-col gap-0.5 rounded-[14px] p-1.5 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 group-[.is-open]:visible group-[.is-open]:opacity-100 ${
+      className={`reference-context-menu text-fg shadow-panel invisible absolute top-0 z-20 flex w-[240px] flex-col gap-0.5 rounded-[12px] p-1.5 opacity-0 transition-opacity duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 group-[.is-open]:visible group-[.is-open]:opacity-100 ${
         flip ? "right-[calc(100%+6px)]" : "left-[calc(100%+6px)]"
       }`}
     >

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element -- decorative texture layer from the Figma Top Bar. */
 "use client";
 
 import { useSyncExternalStore, type MouseEvent as ReactMouseEvent, type ReactNode } from "react";
@@ -98,14 +97,9 @@ export function TopBar({
   };
 
   return (
-    <header className="boot-top shadow-soft absolute inset-x-3 top-2.5 z-50 h-14 overflow-clip tablet:h-[52px] rounded-[14px] backdrop-blur-[12px]">
+    <header className="reference-topbar boot-top shadow-soft absolute inset-x-3 top-2.5 z-50 h-14 overflow-clip tablet:h-[52px] rounded-[14px] backdrop-blur-[16px]">
       <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[14px]">
-        <div className="bg-glass-bar absolute inset-0 rounded-[14px]" />
-        <img
-          alt=""
-          src="/figma/topbar-texture.png"
-          className="theme-dark-only absolute size-full max-w-none rounded-[14px] object-cover"
-        />
+        <div className="reference-topbar-surface absolute inset-0 rounded-[14px]" />
       </div>
 
       <div className="absolute top-1/2 left-2.5 flex -translate-y-1/2 items-center gap-2.5">
