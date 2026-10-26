@@ -3,12 +3,13 @@ import type { CSSProperties, ReactNode } from "react";
 import { PersonaMetrics } from "./bave/Metrics";
 import { useLang, useT } from "@/lib/i18n";
 import { Card, Eyebrow, Heading, OffsetCard, PhoneMock, SectionHead, type Phase } from "./parts";
+import { HeroFit } from "./shell";
 
 export function Hero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="p-8">
-      <div className="relative h-[850px] w-full overflow-hidden rounded-[50px]">
+      <HeroFit className="overflow-hidden rounded-[50px]">
         <img src="/figma/wd/hero-bg.png" alt="" className="absolute top-[-8.91%] left-0 h-[127.06%] w-full max-w-none" />
         <img data-rv src="/figma/wd/hero-logo.svg" alt="bave" className="absolute top-[232.78px] left-1/2 h-[154.383px] w-[474.722px] -translate-x-1/2" />
         <img data-rv src="/figma/wd/hero-tagline.svg" alt={t("Driving connected")} className="absolute top-[423.82px] left-1/2 h-[25.41px] w-[474.722px] -translate-x-1/2" />
@@ -29,7 +30,7 @@ export function Hero() {
             </div>
           ))}
         </div>
-      </div>
+      </HeroFit>
     </section>
   );
 }

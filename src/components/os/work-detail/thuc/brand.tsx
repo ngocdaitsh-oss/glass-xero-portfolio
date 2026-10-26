@@ -7,6 +7,7 @@ import { useT } from "@/lib/i18n";
 import { Reveal } from "../../reveal";
 import { sappBeVietnam } from "../sapp/fonts";
 import { ThucEyebrow, ThucHeading } from "./parts";
+import { HeroFit } from "../shell";
 
 const A = "/figma/thuc/brand";
 const RED = "#cc242b";
@@ -73,7 +74,7 @@ function ThucHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <div className="relative h-[850px] w-[1808px]">
+      <HeroFit>
         {/* IMG/hero_bg (332:15799): photo + 45% near-black wash */}
         <div className="absolute inset-0 overflow-hidden rounded-[50px]">
           <img src={`${A}/hero-bg.webp`} alt="" aria-hidden className="absolute inset-0 block size-full max-w-none object-cover" />
@@ -106,7 +107,7 @@ function ThucHero() {
             </div>
           ))}
         </div>
-      </div>
+      </HeroFit>
     </section>
   );
 }

@@ -16,6 +16,7 @@ import { useLang, useT } from "@/lib/i18n";
 import { Reveal } from "../../reveal";
 import { sappBeVietnam } from "../sapp/fonts";
 import { VopsEyebrow, VopsHeading } from "./parts";
+import { HeroFit } from "../shell";
 
 const A = "/figma/vops/intro";
 const RED = "#ee0033";
@@ -54,7 +55,7 @@ function VopsHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <div className="relative h-[850px] w-[1808px]">
+      <HeroFit>
         {/* Cover art — vOps (272:15626) */}
         <div className="absolute inset-0 overflow-hidden rounded-[50px] bg-[#e50030]">
           <div
@@ -108,7 +109,7 @@ function VopsHero() {
             </div>
           ))}
         </div>
-      </div>
+      </HeroFit>
     </section>
   );
 }

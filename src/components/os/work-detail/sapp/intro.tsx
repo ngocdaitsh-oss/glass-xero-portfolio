@@ -5,6 +5,7 @@ import { useT } from "@/lib/i18n";
 import { sappBeVietnam, sappInter } from "./fonts";
 import type { CSSProperties } from "react";
 import { SappEyebrow, SappHeading } from "./parts";
+import { HeroFit } from "../shell";
 
 /* Figma "Design overall process" cards use Be Vietnam; the cursor tag uses Inter. */
 const beVietnam = sappBeVietnam;
@@ -26,7 +27,7 @@ export function SappHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <div className="relative h-[850px] w-full overflow-hidden rounded-[50px]">
+      <HeroFit className="overflow-hidden rounded-[50px]">
         {/* IMG/hero_blobs */}
         <img src={`${A}/hero-blobs.webp`} alt="" className="pointer-events-none absolute inset-0 size-full max-w-none object-cover" />
         {/* IMG/logo4x */}
@@ -50,7 +51,7 @@ export function SappHero() {
             ))}
           </div>
         </div>
-      </div>
+      </HeroFit>
     </section>
   );
 }

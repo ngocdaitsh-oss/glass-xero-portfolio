@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Figma exports keep their own size. */
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { works, type Work } from "@/lib/works";
 import { useT } from "@/lib/i18n";
@@ -10,6 +10,38 @@ import { WindowControls } from "../AppWindow";
 import { useFitZoom, useTitleBarDrag } from "../window-manager";
 
 export type TrackItem = { id: string; label: string; group?: string };
+
+/** Keeps the 1808×850 Figma hero fully visible inside short viewports. */
+export function HeroFit({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const frame = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useLayoutEffect(() => {
+    const el = frame.current;
+    const port = el?.closest<HTMLElement>(".work-detail");
+    if (!el || !port) return;
+    const sync = () => {
+      const outerZoom = el.getBoundingClientRect().width / 1808 || 1;
+      const available = Math.max(420, port.clientHeight / outerZoom - 64);
+      setScale(Math.min(1, available / 850));
+    };
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(port);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={frame} className="relative w-full overflow-hidden" style={{ height: 850 * scale }}>
+      <div
+        className={`absolute top-0 left-1/2 h-[850px] w-[1808px] max-w-none -translate-x-1/2 origin-top ${className}`}
+        style={{ scale }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
 /** Collapsed rail: one bar group per phase, split where an item starts a `group`. */
 function railGroups(track: TrackItem[]) {

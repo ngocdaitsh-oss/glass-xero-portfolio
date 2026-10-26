@@ -7,6 +7,7 @@ import { Reveal } from "../../reveal";
 import { sappBeVietnam } from "../sapp/fonts";
 import { BscEyebrow, BscHeading } from "./parts";
 import { useT } from "@/lib/i18n";
+import { HeroFit } from "../shell";
 
 const A = "/figma/bsc/intro";
 const BLUE = "#295ca9";
@@ -96,7 +97,7 @@ function BscHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <div className="relative h-[850.5px] w-[1808px]">
+      <HeroFit>
         {/* IMG/hero_bg (223:13363) */}
         <img src={`${A}/hero/bg.png`} alt="" aria-hidden className="absolute top-0 left-0 block h-[850px] w-[1808px] max-w-none rounded-[50px] object-cover" />
         {/* BSC logo (231:103862) */}
@@ -132,7 +133,7 @@ function BscHero() {
             style={{ left: 108.71 - 68.878, top: 219.5 - 0.442, width: 137.756, height: 0.8835, transform: "rotate(-89.93deg) scaleX(-1)" }}
           />
         </Deco>
-      </div>
+      </HeroFit>
     </section>
   );
 }
