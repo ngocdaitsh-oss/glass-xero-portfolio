@@ -97,7 +97,7 @@ function BscHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <HeroFit>
+      <HeroFit backdropStyle={{ backgroundImage: `url(${A}/hero/bg.png)` }}>
         {/* IMG/hero_bg (223:13363) */}
         <img src={`${A}/hero/bg.png`} alt="" aria-hidden className="absolute top-0 left-0 block h-[850px] w-[1808px] max-w-none rounded-[50px] object-cover" />
         {/* BSC logo (231:103862) */}

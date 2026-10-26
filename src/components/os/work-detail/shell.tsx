@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Figma exports keep their own size. */
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { works, type Work } from "@/lib/works";
 import { useT } from "@/lib/i18n";
@@ -11,13 +11,16 @@ import { useFitZoom, useTitleBarDrag } from "../window-manager";
 
 export type TrackItem = { id: string; label: string; group?: string };
 
-/**
- * Keeps the 1808×850 Figma hero width-locked on desktop and fully visible on
- * narrower tablet/mobile viewports. Shrinking a desktop hero by height leaves
- * letterbox gutters on 16:9 screens, so wide viewports keep the document's
- * normal width-fit scale instead.
- */
-export function HeroFit({ children, className = "" }: { children: ReactNode; className?: string }) {
+/** Keeps the complete Figma hero visible and paints its artwork behind any side letterboxing. */
+export function HeroFit({
+  children,
+  className = "",
+  backdropStyle,
+}: {
+  children: ReactNode;
+  className?: string;
+  backdropStyle?: CSSProperties;
+}) {
   const frame = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
@@ -26,11 +29,6 @@ export function HeroFit({ children, className = "" }: { children: ReactNode; cla
     const port = el?.closest<HTMLElement>(".work-detail");
     if (!el || !port) return;
     const sync = () => {
-      const viewportWidth = port.getBoundingClientRect().width;
-      if (viewportWidth >= 1200) {
-        setScale(1);
-        return;
-      }
       const outerZoom = el.getBoundingClientRect().width / 1808 || 1;
       const available = Math.max(420, port.clientHeight / outerZoom - 64);
       setScale(Math.min(1, available / 850));
@@ -42,7 +40,11 @@ export function HeroFit({ children, className = "" }: { children: ReactNode; cla
   }, []);
 
   return (
-    <div ref={frame} className="relative w-full overflow-hidden" style={{ height: 850 * scale }}>
+    <div
+      ref={frame}
+      className="relative w-full overflow-hidden rounded-[50px] bg-cover bg-center"
+      style={{ height: 850 * scale, ...backdropStyle }}
+    >
       <div
         className={`absolute top-0 left-1/2 h-[850px] w-[1808px] max-w-none -translate-x-1/2 origin-top ${className}`}
         style={{ scale }}

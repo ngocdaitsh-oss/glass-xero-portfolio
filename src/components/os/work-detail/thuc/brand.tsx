@@ -74,7 +74,11 @@ function ThucHero() {
   const t = useT();
   return (
     <section id="wd-overview-hero" className="relative p-8">
-      <HeroFit>
+      <HeroFit
+        backdropStyle={{
+          backgroundImage: `linear-gradient(rgba(13,8,8,0.45), rgba(13,8,8,0.45)), url(${A}/hero-bg.webp)`,
+        }}
+      >
         {/* IMG/hero_bg (332:15799): photo + 45% near-black wash */}
         <div className="absolute inset-0 overflow-hidden rounded-[50px]">
           <img src={`${A}/hero-bg.webp`} alt="" aria-hidden className="absolute inset-0 block size-full max-w-none object-cover" />
