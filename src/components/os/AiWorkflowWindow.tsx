@@ -279,14 +279,19 @@ function Orbit() {
         <img src="/figma/aiw/orbit-glow.svg" alt="" className="absolute inset-[-40.91%] block size-[181.82%] max-w-none" />
       </div>
       <img src="/figma/aiw/ring-outer.svg" alt="" className="absolute top-[60px] left-[130px] size-[680px] max-w-none" />
-      <img src="/figma/aiw/ring-dashed.svg" alt="" className="absolute top-[156px] left-[226px] size-[488px] max-w-none" />
-      <span className="absolute top-[308px] left-[232px] size-[18px] rounded-full bg-[#f05252]" />
-      <span className="absolute top-[184px] left-[590px] size-[18px] rounded-full bg-[#3d6fe8]" />
-      <span className="absolute top-[617px] left-[552px] size-[18px] rounded-full bg-[#22a06b]" />
+      <img src="/figma/aiw/ring-dashed.svg" alt="" className="aiw-orbit-dashed absolute top-[156px] left-[226px] size-[488px] max-w-none" />
 
-      <Badge src="/figma/aiw/logo-figma.png" className="top-[47px] left-[305px]" />
-      <Badge src="/figma/aiw/logo-claude.png" className="top-[362px] left-[772px]" />
-      <Badge src="/figma/aiw/logo-terminal.png" className="top-[668px] left-[283px]" />
+      <div className="aiw-orbit-dots pointer-events-none absolute inset-0">
+        <span className="absolute top-[308px] left-[232px] size-[18px] rounded-full bg-[#f05252]" />
+        <span className="absolute top-[184px] left-[590px] size-[18px] rounded-full bg-[#3d6fe8]" />
+        <span className="absolute top-[617px] left-[552px] size-[18px] rounded-full bg-[#22a06b]" />
+      </div>
+
+      <div className="aiw-orbit-badges absolute inset-0">
+        <Badge src="/figma/aiw/logo-figma.png" className="top-[47px] left-[305px]" />
+        <Badge src="/figma/aiw/logo-claude.png" className="top-[362px] left-[772px]" />
+        <Badge src="/figma/aiw/logo-terminal.png" className="top-[668px] left-[283px]" />
+      </div>
 
       {PHASE_CARDS.map((card, i) => (
         <PhaseCard
@@ -303,8 +308,12 @@ function Orbit() {
 
 function Badge({ src, className }: { src: string; className: string }) {
   return (
-    <div className={`aiw-hover absolute flex size-[76px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(16,24,40,0.08)] ${className}`}>
-      <img src={src} alt="" className="size-10 object-contain" />
+    <div className={`absolute ${className}`}>
+      <div className="aiw-orbit-badge-upright">
+        <div className="aiw-hover flex size-[76px] items-center justify-center rounded-full bg-white shadow-[0_8px_24px_rgba(16,24,40,0.08)]">
+          <img src={src} alt="" className="size-10 object-contain" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -659,7 +668,7 @@ function PhaseOne() {
             kicker: "OUTPUT",
             title: "Output",
             body: COPY.output1,
-            visual: <img src="/figma/aiw/output-phase1.png" alt={t("Discovery output: requirement summary, flows, open questions and confirmed scope")} className="mx-auto w-full max-w-[560px]" />,
+            visual: <img src="/figma/aiw/output-phase1.png" alt={t("Discovery output: requirement summary, flows, open questions and confirmed scope")} className="aiw-output-float mx-auto w-full max-w-[560px]" />,
           },
         ]}
       />
@@ -721,7 +730,7 @@ function PhaseTwo() {
                 <p className="mt-4">{t(COPY.output2[1])}</p>
               </>
             ),
-            visual: <img src="/figma/aiw/output-phase2.png" alt={t("AI design execution outputs, from the UX brief through the self-review checklist")} className="mx-auto w-full max-w-[560px]" />,
+            visual: <img src="/figma/aiw/output-phase2.png" alt={t("AI design execution outputs, from the UX brief through the self-review checklist")} className="aiw-output-float aiw-output-float-delayed mx-auto w-full max-w-[560px]" />,
           },
         ]}
       />

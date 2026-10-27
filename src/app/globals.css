@@ -1426,18 +1426,63 @@ input[type="range"] {
   }
 }
 
-/* AI Workflow orbit — the dashed ring drifts slowly so the diagram feels alive. */
-.aiw-spin {
-  animation: aiw-spin 60s linear infinite;
+/* AI Workflow illustration motion. The rings share one 940×800 coordinate
+   system centred at 470×400, so orbiting layers retain the Figma positions. */
+.aiw-orbit-dashed {
+  transform-origin: center;
+  animation: aiw-orbit-clockwise 38s linear infinite;
+  will-change: transform;
 }
 
-@keyframes aiw-spin {
-  to { rotate: 360deg; }
+.aiw-orbit-dots,
+.aiw-orbit-badges {
+  transform-origin: 470px 400px;
+  will-change: transform;
+}
+
+.aiw-orbit-dots {
+  animation: aiw-orbit-counterclockwise 34s linear infinite;
+}
+
+.aiw-orbit-badges {
+  animation: aiw-orbit-clockwise 52s linear infinite;
+}
+
+.aiw-orbit-badge-upright {
+  animation: aiw-orbit-counterclockwise 52s linear infinite;
+  will-change: transform;
+}
+
+.aiw-output-float {
+  animation: aiw-output-float 4.8s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  will-change: transform;
+}
+
+.aiw-output-float-delayed {
+  animation-delay: -2.4s;
+}
+
+@keyframes aiw-orbit-clockwise {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes aiw-orbit-counterclockwise {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes aiw-output-float {
+  from { transform: translate3d(0, -6px, 0); }
+  to { transform: translate3d(0, 8px, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aiw-spin {
+  .aiw-orbit-dashed,
+  .aiw-orbit-dots,
+  .aiw-orbit-badges,
+  .aiw-orbit-badge-upright,
+  .aiw-output-float {
     animation: none;
+    transform: none;
   }
 }
 
