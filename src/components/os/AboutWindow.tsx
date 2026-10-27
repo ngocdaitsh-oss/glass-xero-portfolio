@@ -130,8 +130,8 @@ function Profile() {
       </div>
 
       <a
-        href="/cv/TrinhTuanNgoc-CV-2027.pdf"
-        download="TrinhTuanNgoc-CV-2027.pdf"
+        href="/cv/TrinhTuanNgoc-CV.pdf"
+        download="TrinhTuanNgoc-CV.pdf"
         className="flex shrink-0 items-center justify-center gap-1.5 rounded-xl py-[9px] pr-3.5 pl-4 text-base leading-6 font-semibold text-white shadow-[0_6px_16px_0_rgba(33,115,214,0.5)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[0_10px_22px_0_rgba(33,115,214,0.55)] active:translate-y-0"
         style={{ backgroundImage: GRADIENT }}
       >

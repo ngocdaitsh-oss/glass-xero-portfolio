@@ -10,7 +10,7 @@ import { Card, Chip, IconTile, Label, ListCard, ListRow, M, NavBar, Page, Segmen
 type Tab = "Overview" | "Experience" | "Skills";
 const TABS: Tab[] = ["Overview", "Experience", "Skills"];
 const SOFTWARE = ["Figma", "Photoshop", "InDesign", "Illustrator", "After Effects"];
-const CV = "/cv/TrinhTuanNgoc-CV-2027.pdf";
+const CV = "/cv/TrinhTuanNgoc-CV.pdf";
 
 /** Mobile — About Me · Overview / Experience / Skills (367:22285, 375:194815, 375:195037). The segmented control switches them. */
 export function AboutPage({ onHome, onMail }: { onHome: () => void; onMail: () => void }) {
@@ -38,7 +38,7 @@ export function AboutPage({ onHome, onMail }: { onHome: () => void; onMail: () =
       }
       toolbar={
         <Toolbar
-          primary={{ icon: `${M}/download-18.svg`, label: t("Download CV"), href: CV, download: "TrinhTuanNgoc-CV-2027.pdf" }}
+          primary={{ icon: `${M}/download-18.svg`, label: t("Download CV"), href: CV, download: "TrinhTuanNgoc-CV.pdf" }}
           buttons={[
             { icon: `${M}/phone.svg`, label: t("Call"), href: "tel:+84913674939" },
             { icon: `${M}/mail-24.svg`, label: t("Leave an email"), onClick: onMail },
