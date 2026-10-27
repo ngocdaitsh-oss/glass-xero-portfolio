@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
+import Script from "next/script";
 import { InteractionSounds } from "@/components/InteractionSounds";
 import "./globals.css";
 
@@ -65,6 +66,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="h-full">
         {children}
         <InteractionSounds />
+        {process.env.NODE_ENV === "production" ? (
+          <Script
+            id="cloudflare-web-analytics"
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            strategy="afterInteractive"
+            type="module"
+            data-cf-beacon={JSON.stringify({
+              token: "a645503fe130419d968c4ec643ff878d",
+              spa: true,
+            })}
+          />
+        ) : null}
       </body>
     </html>
   );
