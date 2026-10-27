@@ -89,23 +89,37 @@ function visibleTextNodes() {
   return nodes;
 }
 
-function scramble(source: string, progress: number, frame: number) {
+function scrambleOut(source: string, progress: number, frame: number) {
   const chars = Array.from(source);
-  const chaos = progress < 0.68 ? Math.min(1, progress / 0.18) : Math.max(0, (1 - progress) / 0.32);
   return chars
     .map((char, index) => {
       if (!/[\p{L}\p{N}]/u.test(char)) return char;
-      const pulse = ((index * 17 + frame * 13) % 100) / 100;
-      if (pulse > 0.18 + chaos * 0.78) return char;
+      const threshold = Math.max(0, Math.min(1, progress * 1.28 - (index % 11) * 0.025));
+      const pulse = ((index * 17 + frame * 11) % 100) / 100;
+      if (pulse > threshold) return char;
       return CODE_GLYPHS[(index * 7 + frame * 5) % CODE_GLYPHS.length];
     })
     .join("");
 }
 
+function decodeIn(target: string, progress: number, frame: number) {
+  const chars = Array.from(target);
+  return chars
+    .map((char, index) => {
+      if (!/[\p{L}\p{N}]/u.test(char)) return char;
+      const reveal = Math.max(0, Math.min(1, progress * 1.22 - (index % 13) * 0.018));
+      const pulse = ((index * 19 + frame * 7) % 100) / 100;
+      if (pulse < reveal) return char;
+      return CODE_GLYPHS[(index * 5 + frame * 3) % CODE_GLYPHS.length];
+    })
+    .join("");
+}
+
 /**
- * Runs a short, code-like glyph decode across the text currently on screen,
- * then commits the requested language. React only sees restored source text,
- * so untranslated strings cannot get stranded as scrambled DOM.
+ * Scrambles the current copy out, commits the language at the midpoint, then
+ * decodes the freshly-rendered copy in. Capturing the target nodes only after
+ * React commits keeps long desktop copy and every other translated string in
+ * sync in both directions.
  */
 export function applyLang(lang: Lang, _origin?: { x: number; y: number }) {
   void _origin;
@@ -118,37 +132,64 @@ export function applyLang(lang: Lang, _origin?: { x: number; y: number }) {
 
   const run = ++languageRun;
   const root = document.documentElement;
-  const samples = visibleTextNodes();
+  const outgoing = visibleTextNodes();
   const started = performance.now();
+  const outDuration = 230;
+  const inDuration = 390;
   root.dataset.langScramble = "";
 
-  const restore = () => {
+  const restore = (samples: ReturnType<typeof visibleTextNodes>) => {
     for (const { node, source } of samples) {
       if (node.isConnected) node.nodeValue = source;
     }
   };
 
-  const draw = (now: number) => {
+  const drawOut = (now: number) => {
     if (run !== languageRun) {
-      restore();
+      restore(outgoing);
       delete root.dataset.langScramble;
       return;
     }
-    const progress = Math.min(1, (now - started) / 520);
-    const frame = Math.floor((now - started) / 38);
-    for (const { node, source } of samples) {
-      if (node.isConnected) node.nodeValue = scramble(source, progress, frame);
+    const elapsed = now - started;
+    const progress = Math.min(1, elapsed / outDuration);
+    const frame = Math.floor(elapsed / 34);
+    for (const { node, source } of outgoing) {
+      if (node.isConnected) node.nodeValue = scrambleOut(source, progress, frame);
     }
     if (progress < 1) {
-      requestAnimationFrame(draw);
+      requestAnimationFrame(drawOut);
       return;
     }
-    restore();
+
+    restore(outgoing);
     flushSync(() => commit(lang));
-    delete root.dataset.langScramble;
+    const incoming = visibleTextNodes();
+    const decodeStarted = performance.now();
+
+    const drawIn = (decodeNow: number) => {
+      if (run !== languageRun) {
+        restore(incoming);
+        delete root.dataset.langScramble;
+        return;
+      }
+      const decodeElapsed = decodeNow - decodeStarted;
+      const decodeProgress = Math.min(1, decodeElapsed / inDuration);
+      const decodeFrame = Math.floor(decodeElapsed / 34);
+      for (const { node, source } of incoming) {
+        if (node.isConnected) node.nodeValue = decodeIn(source, decodeProgress, decodeFrame);
+      }
+      if (decodeProgress < 1) {
+        requestAnimationFrame(drawIn);
+        return;
+      }
+      restore(incoming);
+      delete root.dataset.langScramble;
+    };
+
+    requestAnimationFrame(drawIn);
   };
 
-  requestAnimationFrame(draw);
+  requestAnimationFrame(drawOut);
 }
 
 /** Last pointer-down position, used as the transition origin by menus. */
