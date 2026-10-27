@@ -12,6 +12,7 @@ import type { Work } from "@/lib/works";
 /** Thumbnail videos: muted, looping, inline. The still poster shows until the first frame is ready. */
 export const COVER_VIDEO: Partial<Record<Work["cover"], { src: string; type: string; poster: string; fit: "cover" | "contain" }>> = {
   sapp: { src: "/video/sapp.mp4", type: "video/mp4", poster: "/figma/works/sapp-poster.png", fit: "cover" },
+  bave: { src: "/video/bave-thumbnail.mp4", type: "video/mp4", poster: "/figma/works/bave-poster.png", fit: "cover" },
   bsc: { src: "/video/bsc-thumbnail.mp4", type: "video/mp4", poster: "/figma/works/bsc-thumbnail-poster.webp", fit: "cover" },
   // 16:9 with a background that changes per scene: show the whole frame instead of cropping it.
   vops: { src: "/video/vops.mp4", type: "video/mp4", poster: "/figma/works/vops-mockup.png", fit: "contain" },
@@ -61,8 +62,16 @@ function CoverVideo({ id }: { id: Work["cover"] }) {
   const lazy = useContext(LazyCoverContext);
   const near = useNearViewport(ref, lazy);
   const [seen, setSeen] = useState(false);
-  const playing = useContext(PlayContext) && (!lazy || near);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const playing = useContext(PlayContext) && (!lazy || near) && !reducedMotion;
   if (lazy && near && !seen) setSeen(true);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
@@ -91,14 +100,6 @@ function CoverVideo({ id }: { id: Work["cover"] }) {
 }
 
 export function Cover({ id }: { id: Work["cover"] }) {
-  if (id === "bave") {
-    return (
-      <picture className="block h-full w-full">
-        <source media="(prefers-reduced-motion: reduce)" srcSet="/figma/works/bave-poster.png" />
-        <img src="/figma/works/bave-animation.webp" alt="" className="h-full w-full object-cover" />
-      </picture>
-    );
-  }
   if (COVER_VIDEO[id]) return <CoverVideo id={id} />;
   if (id === "thuc") {
     return (
