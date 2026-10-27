@@ -89,7 +89,7 @@ export function AiWorkflowWindow({ onNext }: { onNext?: () => void }) {
         </div>
         <h1 className="truncate text-[20px] leading-7 font-semibold tracking-[-0.4px]">UI/UX AI Workflow</h1>
         <div className="flex w-[120px] items-center justify-end">
-          <WindowControls buttonClassName="h-7 w-8 text-[#8a8f98] hover:bg-[#f2f3f5]" iconSize={24} />
+          <WindowControls buttonClassName="h-8 w-8 text-[#8a8f98] hover:bg-[#f2f3f5]" />
         </div>
       </header>
 

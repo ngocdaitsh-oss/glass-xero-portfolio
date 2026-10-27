@@ -246,7 +246,7 @@ export function CaseStudyShell({
           <span className="font-semibold">{t(title)}</span>
         </nav>
         <div className="flex w-[120px] justify-end">
-          <WindowControls buttonClassName="h-7 w-8 text-[var(--w-muted)] hover:bg-[var(--w-chip)]" iconSize={24} />
+          <WindowControls buttonClassName="h-8 w-8 text-[var(--w-muted)] hover:bg-[var(--w-chip)]" />
         </div>
       </header>
       <div className="relative min-h-0 flex-1">

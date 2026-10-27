@@ -58,6 +58,8 @@ Figma file key: `jgHw7tWMTuA3rrvK7DFWtY`. Screen list and node ids: [`DESIGN.md`
 
 ## Motion and behavior added (Oct 2026 pass)
 
+- **Window controls**: every desktop/tablet window uses the shared 16×16 outline glyph set in `AppWindow.tsx` (1.5px rounded stroke) with equal 32×32 button targets. Maximize and restore have distinct glyphs; keep this optical sizing consistent instead of returning to the mismatched Figma bitmap masks.
+
 - **Window motion** (`window-manager.tsx`): minimize/restore is a genie (transform + clip-path funnel into the dock icon); first open zooms up; close fades; maximize/restore is a FLIP transform (one layout, no animated top/left/width/height). While any of these run the window gets `.win-anim`, which turns backdrop blur off — keep it that way, blur per frame is what made it stutter.
 - **Dock** hides (slides down) while any window is on screen and returns when the last one minimizes or closes (`leaving` flag on the window state). Genie targets the icon's resting position via `[data-dock-slide]`.
 - **Music**: `src/lib/player.ts` owns one `Audio` element outside React, so playback survives closing the Control Center. Files live in `public/music/`. "See all" is removed.

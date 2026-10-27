@@ -36,9 +36,44 @@ export function MaskIcon({
 }
 
 /** Minimize / maximize-restore / close, wired to the window manager. */
+function WindowControlGlyph({
+  kind,
+  size,
+}: {
+  kind: "minimize" | "maximize" | "restore" | "close";
+  size: number;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      className="shrink-0"
+    >
+      {kind === "minimize" && (
+        <path d="M4 8.5H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      )}
+      {kind === "maximize" && (
+        <rect x="3.75" y="3.75" width="8.5" height="8.5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+      )}
+      {kind === "restore" && (
+        <>
+          <path d="M6 3.75h5.25c.55 0 1 .45 1 1V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="3.75" y="5.75" width="6.5" height="6.5" rx="1" stroke="currentColor" strokeWidth="1.5" />
+        </>
+      )}
+      {kind === "close" && (
+        <path d="M4.5 4.5l7 7m0-7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      )}
+    </svg>
+  );
+}
+
 export function WindowControls({
   buttonClassName,
-  iconSize = 20,
+  iconSize = 16,
   iconClassName = "",
 }: {
   buttonClassName: string;
@@ -48,16 +83,16 @@ export function WindowControls({
   const { state, minimize, toggleMaximize, close } = useWindow();
   const t = useT();
   const buttons = [
-    { label: "Minimize", src: "/figma/window/minus.svg", onClick: minimize },
+    { label: "Minimize", kind: "minimize" as const, onClick: minimize },
     {
       label: state.maximized ? "Restore" : "Maximize",
-      src: "/figma/window/maximize.svg",
+      kind: state.maximized ? ("restore" as const) : ("maximize" as const),
       onClick: toggleMaximize,
     },
-    { label: "Close", src: "/figma/window/close.svg", onClick: close },
+    { label: "Close", kind: "close" as const, onClick: close },
   ];
   return (
-    <span className="flex gap-0.5">
+    <span className="flex items-center gap-0.5">
       {buttons.map((b) => (
         <button
           key={b.label}
@@ -65,15 +100,13 @@ export function WindowControls({
           aria-label={t(b.label)}
           title={t(b.label)}
           onClick={b.onClick}
-          className={`flex items-center justify-center rounded-lg transition-colors ${buttonClassName} ${
+          className={`flex items-center justify-center rounded-lg transition-[background-color,color,transform] duration-150 active:scale-95 ${buttonClassName} ${
             b.label === "Close" ? "hover:!bg-[#e5484d] hover:!text-white" : ""
           }`}
         >
-          <MaskIcon
-            src={b.src}
-            size={iconSize}
-            className={`${iconClassName}`}
-          />
+          <span className={`flex items-center justify-center ${iconClassName}`}>
+            <WindowControlGlyph kind={b.kind} size={iconSize} />
+          </span>
         </button>
       ))}
     </span>
@@ -107,8 +140,7 @@ export function AppWindow({
         </h2>
         <span className="absolute top-1/2 right-3 -translate-y-1/2">
           <WindowControls
-            buttonClassName={`${referenceDark ? "reference-window-control" : "hover:bg-overlay-strong"} text-icon-secondary hover:text-fg h-[26px] w-[30px]`}
-            iconSize={referenceDark ? 18 : 20}
+            buttonClassName={`${referenceDark ? "reference-window-control" : "hover:bg-overlay-strong"} text-icon-secondary hover:text-fg h-8 w-8`}
           />
         </span>
         <span className="bg-divider absolute inset-x-0 bottom-0 h-px" />

@@ -194,7 +194,7 @@ export function WorksWindow({
         </div>
         <h1 className="truncate text-[20px] leading-7 font-semibold tracking-[-0.4px]">{t("Works — Selected Projects")}</h1>
         <div className="flex w-[120px] items-center justify-end">
-          <WindowControls buttonClassName="h-7 w-8 text-[var(--w-muted)] hover:bg-[var(--w-chip)]" iconSize={24} />
+          <WindowControls buttonClassName="h-8 w-8 text-[var(--w-muted)] hover:bg-[var(--w-chip)]" />
         </div>
       </header>
 
