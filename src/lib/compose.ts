@@ -8,11 +8,34 @@ import { useT } from "@/lib/i18n";
  * the same fields, defaults, topic chips and attachment list.
  */
 
-export const TOPICS = ["Job opportunity", "Freelance project", "Collaboration", "Just saying hi"];
+export const TOPICS = ["Job opportunity", "Freelance project", "Collaboration", "Just saying hi"] as const;
+export type Topic = (typeof TOPICS)[number];
 
-export const DEFAULT_SUBJECT = "Let’s work together";
-export const DEFAULT_MESSAGE =
-  "Hi Ngoc,\n\nI came across your portfolio and really liked your LMS redesign case study. We’re looking for a product designer to join our team — would you be open to a short call next week?\n\nBest,";
+export const TOPIC_DRAFTS: Record<Topic, { subject: string; message: string }> = {
+  "Job opportunity": {
+    subject: "Product Designer opportunity at [Company]",
+    message:
+      "Hi Ngoc,\n\nI came across your portfolio and was impressed by the range of your product work — from enterprise platforms and mobile experiences to design systems and user research. We’re hiring a Product Designer at [Company], and your approach to balancing user needs, business goals, and implementation feels highly relevant to the role.\n\nWould you be open to a short conversation next week? I’d be happy to share more about the team, product, and scope.\n\nBest,",
+  },
+  "Freelance project": {
+    subject: "Freelance design project inquiry",
+    message:
+      "Hi Ngoc,\n\nI’m working on [product or project] and looking for a designer to help with [research, UX, UI, or design system]. The expected timeline is [timeline], and the main scope includes [brief scope].\n\nYour portfolio feels like a strong match for what we’re building. Would you be interested in discussing the project, availability, and budget?\n\nBest,",
+  },
+  Collaboration: {
+    subject: "Exploring a design collaboration",
+    message:
+      "Hi Ngoc,\n\nI’m [name and role] from [company or team]. I’ve been following your work and see an opportunity for us to collaborate on [idea or initiative]. I especially appreciate how you connect product thinking, design systems, and polished visual execution.\n\nWould you be open to exchanging ideas and seeing whether there’s a good fit?\n\nBest,",
+  },
+  "Just saying hi": {
+    subject: "Hello from [Your name]",
+    message:
+      "Hi Ngoc,\n\nI enjoyed exploring your portfolio, especially the way you combine systems thinking with thoughtful visual craft. I just wanted to say hello and connect.\n\nKeep up the great work — I’d love to stay in touch.\n\nBest,",
+  },
+};
+
+export const DEFAULT_SUBJECT = TOPIC_DRAFTS["Job opportunity"].subject;
+export const DEFAULT_MESSAGE = TOPIC_DRAFTS["Job opportunity"].message;
 
 export type Attachment = { id: string; name: string; size: number };
 
@@ -48,12 +71,20 @@ export function useCompose() {
   const t = useT();
   const [from, setFrom] = useState("");
   const [subject, setSubject] = useState(() => t(DEFAULT_SUBJECT));
-  const [topic, setTopic] = useState(TOPICS[0]);
+  const [topic, setTopicState] = useState<Topic>(TOPICS[0]);
   const [message, setMessage] = useState(() => t(DEFAULT_MESSAGE));
   const [files, setFiles] = useState<Attachment[]>([]);
 
   const [status, setStatus] = useState<SendStatus>("idle");
   const raw = useRef(new Map<string, File>());
+
+  const setTopic = (next: Topic) => {
+    const draft = TOPIC_DRAFTS[next];
+    setTopicState(next);
+    setSubject(t(draft.subject));
+    setMessage(t(draft.message));
+    setStatus("idle");
+  };
 
   const addFiles = (list: FileList | null) => {
     if (!list?.length) return;
@@ -99,7 +130,7 @@ export function useCompose() {
   const reset = () => {
     setFrom("");
     setSubject(t(DEFAULT_SUBJECT));
-    setTopic(TOPICS[0]);
+    setTopicState(TOPICS[0]);
     setMessage(t(DEFAULT_MESSAGE));
     setFiles([]);
     raw.current.clear();

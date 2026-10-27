@@ -103,9 +103,18 @@ export const windows: Record<string, string> = {
   "Freelance project": "Dự án freelance",
   Collaboration: "Hợp tác",
   "Just saying hi": "Chỉ muốn chào hỏi",
-  "Let’s work together": "Cùng hợp tác nhé",
-  "Hi Ngoc,\n\nI came across your portfolio and really liked your LMS redesign case study. We’re looking for a product designer to join our team — would you be open to a short call next week?\n\nBest,":
-    "Chào Ngọc,\n\nTôi đã xem portfolio của bạn và rất ấn tượng với case study thiết kế lại LMS. Chúng tôi đang tìm một product designer cho đội ngũ — bạn có sẵn lòng trao đổi ngắn vào tuần tới không?\n\nTrân trọng,",
+  "Product Designer opportunity at [Company]": "Cơ hội Product Designer tại [Công ty]",
+  "Hi Ngoc,\n\nI came across your portfolio and was impressed by the range of your product work — from enterprise platforms and mobile experiences to design systems and user research. We’re hiring a Product Designer at [Company], and your approach to balancing user needs, business goals, and implementation feels highly relevant to the role.\n\nWould you be open to a short conversation next week? I’d be happy to share more about the team, product, and scope.\n\nBest,":
+    "Chào Ngọc,\n\nTôi đã xem portfolio của bạn và ấn tượng với sự đa dạng trong các sản phẩm — từ nền tảng doanh nghiệp, trải nghiệm di động đến design system và nghiên cứu người dùng. [Công ty] đang tuyển Product Designer, và cách bạn cân bằng nhu cầu người dùng, mục tiêu kinh doanh cùng khả năng triển khai rất phù hợp với vị trí này.\n\nBạn có sẵn lòng trao đổi ngắn vào tuần tới không? Tôi rất vui được chia sẻ thêm về đội ngũ, sản phẩm và phạm vi công việc.\n\nTrân trọng,",
+  "Freelance design project inquiry": "Trao đổi về dự án thiết kế freelance",
+  "Hi Ngoc,\n\nI’m working on [product or project] and looking for a designer to help with [research, UX, UI, or design system]. The expected timeline is [timeline], and the main scope includes [brief scope].\n\nYour portfolio feels like a strong match for what we’re building. Would you be interested in discussing the project, availability, and budget?\n\nBest,":
+    "Chào Ngọc,\n\nTôi đang thực hiện [sản phẩm hoặc dự án] và cần một designer hỗ trợ về [nghiên cứu, UX, UI hoặc design system]. Thời gian dự kiến là [thời gian], với phạm vi chính gồm [mô tả ngắn].\n\nPortfolio của bạn khá phù hợp với sản phẩm chúng tôi đang xây dựng. Bạn có hứng thú trao đổi thêm về dự án, thời gian có thể tham gia và ngân sách không?\n\nTrân trọng,",
+  "Exploring a design collaboration": "Trao đổi về cơ hội hợp tác thiết kế",
+  "Hi Ngoc,\n\nI’m [name and role] from [company or team]. I’ve been following your work and see an opportunity for us to collaborate on [idea or initiative]. I especially appreciate how you connect product thinking, design systems, and polished visual execution.\n\nWould you be open to exchanging ideas and seeing whether there’s a good fit?\n\nBest,":
+    "Chào Ngọc,\n\nTôi là [tên và vai trò] từ [công ty hoặc đội ngũ]. Tôi đã theo dõi các dự án của bạn và nhận thấy cơ hội để chúng ta hợp tác trong [ý tưởng hoặc sáng kiến]. Tôi đặc biệt ấn tượng với cách bạn kết nối tư duy sản phẩm, design system và khả năng hoàn thiện hình ảnh.\n\nBạn có sẵn lòng trao đổi ý tưởng để xem hai bên có phù hợp hợp tác không?\n\nTrân trọng,",
+  "Hello from [Your name]": "Lời chào từ [Tên của bạn]",
+  "Hi Ngoc,\n\nI enjoyed exploring your portfolio, especially the way you combine systems thinking with thoughtful visual craft. I just wanted to say hello and connect.\n\nKeep up the great work — I’d love to stay in touch.\n\nBest,":
+    "Chào Ngọc,\n\nTôi rất thích khi khám phá portfolio của bạn, đặc biệt là cách bạn kết hợp tư duy hệ thống với sự chỉn chu về hình ảnh. Tôi chỉ muốn gửi lời chào và kết nối với bạn.\n\nChúc bạn tiếp tục có thêm nhiều dự án tuyệt vời — hy vọng chúng ta sẽ giữ liên lạc.\n\nTrân trọng,",
   "Remove {name}": "Xóa {name}",
   "Attach a file": "Đính kèm tệp",
   "Attach an image": "Đính kèm ảnh",
