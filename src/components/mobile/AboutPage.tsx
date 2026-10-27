@@ -83,18 +83,18 @@ function Overview({ onMail }: { onMail: () => void }) {
       </Card>
       <Card className="flex flex-col gap-2 p-4">
         <Label>{t("ABOUT ME")}</Label>
-        <p className="text-fg text-xl leading-[1.3] font-semibold">{t("I like to create Differences")}</p>
+        <p className="text-fg text-xl leading-[1.3] font-semibold">{t("Turning complex problems into clear product experiences")}</p>
         <p className="text-fg-secondary m-selectable text-base leading-[1.5]">
-          {t("I think of myself as a quirky person (but in a positive way) — I do things other people don't, in creative and unconventional ways.")}
+          {t("I’m a Product Designer with a background in Graphic Design, focused on understanding people, simplifying complex workflows, and shaping digital products that are useful, intuitive, and scalable.")}
         </p>
         <p className="text-fg-secondary m-selectable text-base leading-[1.5]">
-          {t("I completed my bachelor’s degree in graphic design at Greenwich University, Vietnam, and have worked as a Graphic Designer and UI/UX designer since.")}
+          {t("My experience spans enterprise workplace tools at Viettel, learning products at SAPP Academy, automotive services at Bave, and financial websites at Wecan Group. I work across user research, information architecture, prototyping, usability testing, UI design, and design systems—collaborating closely with Product Managers, Business Analysts, Engineers, and QA to turn insight into measurable product improvements.")}
         </p>
       </Card>
       <div className="flex gap-2">
         {[
           ["3+", "Years"],
-          ["3", "Companies"],
+          ["4", "Companies"],
           ["6", "Tools"],
         ].map(([n, label]) => (
           <Card key={label} className="flex min-w-0 flex-1 flex-col items-start gap-1 p-4 leading-[normal]">

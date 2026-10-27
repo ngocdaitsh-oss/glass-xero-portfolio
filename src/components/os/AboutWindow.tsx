@@ -203,18 +203,18 @@ function Overview() {
     <>
       <div className="flex flex-col gap-2">
         <p className="text-accent text-sm leading-5 font-semibold">{t("ABOUT ME")}</p>
-        <h3 className="text-2xl leading-8 font-bold">{t("I like to create Differences")}</h3>
+        <h3 className="text-2xl leading-8 font-bold">{t("Turning complex problems into clear product experiences")}</h3>
         <p className="text-fg-secondary text-base leading-6">
-          {t("I think myself as a quirky person (but in a positive way), I do things that other people don’t do but it’s a creative and unconventional way.")}
+          {t("I’m a Product Designer with a background in Graphic Design, focused on understanding people, simplifying complex workflows, and shaping digital products that are useful, intuitive, and scalable.")}
         </p>
         <p className="text-fg-secondary text-base leading-6">
-          {t("I completed my bachelor’s degree in graphic design at Greenwich University, Vietnam. I also have certain professional experience, having worked in jobs such as Graphic Designer, UI/UX designer. My goal is to try to contribute values to the business, thereby affirming my abilities, learning and developing my professional skills.")}
+          {t("My experience spans enterprise workplace tools at Viettel, learning products at SAPP Academy, automotive services at Bave, and financial websites at Wecan Group. I work across user research, information architecture, prototyping, usability testing, UI design, and design systems—collaborating closely with Product Managers, Business Analysts, Engineers, and QA to turn insight into measurable product improvements.")}
         </p>
       </div>
       <div className="flex gap-3">
         {[
           ["4", "Years of experience"],
-          ["3", "Companies"],
+          ["4", "Companies"],
           ["6", "Design tools"],
         ].map(([n, label]) => (
           <div key={label} className="about-card bg-overlay flex flex-1 flex-col rounded-2xl p-4 whitespace-nowrap">

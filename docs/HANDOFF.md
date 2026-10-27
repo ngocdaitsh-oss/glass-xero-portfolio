@@ -58,6 +58,7 @@ Figma file key: `jgHw7tWMTuA3rrvK7DFWtY`. Screen list and node ids: [`DESIGN.md`
 
 ## Motion and behavior added (Oct 2026 pass)
 
+- **About copy**: desktop and mobile Overview share the professional positioning "Turning complex problems into clear product experiences" and supporting copy aligned to the Experience and Skills tabs (research, IA, prototyping, testing, UI, design systems and cross-functional delivery). Keep both English and Vietnamese versions synchronized.
 - **Window controls**: every desktop/tablet window uses the shared outline glyph set in `AppWindow.tsx`, rendered at 18×18 (1.5px rounded stroke) with equal 32×32 button targets. Maximize and restore have distinct glyphs; keep this optical sizing consistent instead of returning to the mismatched Figma bitmap masks.
 
 - **Window motion** (`window-manager.tsx`): minimize/restore is a genie (transform + clip-path funnel into the dock icon); first open zooms up; close fades; maximize/restore is a FLIP transform (one layout, no animated top/left/width/height). While any of these run the window gets `.win-anim`, which turns backdrop blur off — keep it that way, blur per frame is what made it stutter.

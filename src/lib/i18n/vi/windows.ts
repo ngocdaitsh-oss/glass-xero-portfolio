@@ -12,6 +12,11 @@ export const windows: Record<string, string> = {
   "Download CV": "Tải CV",
   SOFTWARE: "PHẦN MỀM",
   "ABOUT ME": "VỀ TÔI",
+  "Turning complex problems into clear product experiences": "Biến những vấn đề phức tạp thành trải nghiệm sản phẩm rõ ràng",
+  "I’m a Product Designer with a background in Graphic Design, focused on understanding people, simplifying complex workflows, and shaping digital products that are useful, intuitive, and scalable.":
+    "Tôi là Product Designer có nền tảng Thiết kế Đồ họa, tập trung vào việc thấu hiểu người dùng, đơn giản hóa các quy trình phức tạp và xây dựng những sản phẩm số hữu ích, trực quan, có khả năng mở rộng.",
+  "My experience spans enterprise workplace tools at Viettel, learning products at SAPP Academy, automotive services at Bave, and financial websites at Wecan Group. I work across user research, information architecture, prototyping, usability testing, UI design, and design systems—collaborating closely with Product Managers, Business Analysts, Engineers, and QA to turn insight into measurable product improvements.":
+    "Kinh nghiệm của tôi trải rộng từ các công cụ làm việc nội bộ tại Viettel, sản phẩm học tập tại SAPP Academy, dịch vụ ô tô tại Bave đến website tài chính tại Wecan Group. Tôi tham gia xuyên suốt từ nghiên cứu người dùng, kiến trúc thông tin, prototype, usability testing, thiết kế UI đến design system; đồng thời phối hợp chặt chẽ với Product Manager, Business Analyst, kỹ sư và QA để chuyển hóa insight thành những cải tiến sản phẩm có thể đo lường.",
   "I like to create Differences": "Tôi thích tạo ra sự khác biệt",
   "I think myself as a quirky person (but in a positive way), I do things that other people don’t do but it’s a creative and unconventional way.":
     "Tôi tự thấy mình là người hơi “lập dị” (theo nghĩa tích cực): tôi làm những điều người khác ít làm, nhưng theo cách sáng tạo và không theo lối mòn.",
