@@ -73,7 +73,7 @@ function WindowControlGlyph({
 
 export function WindowControls({
   buttonClassName,
-  iconSize = 16,
+  iconSize = 18,
   iconClassName = "",
 }: {
   buttonClassName: string;
