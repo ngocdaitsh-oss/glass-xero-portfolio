@@ -2,7 +2,6 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
-import { holdUntil } from "@/lib/motion";
 import { vi } from "./vi";
 
 /*
@@ -62,32 +61,94 @@ function commit(lang: Lang) {
   window.dispatchEvent(new Event(EVENT));
 }
 
-type VTDocument = Document & { startViewTransition?: (cb: () => void) => { finished?: Promise<void> } };
+const CODE_GLYPHS = "01<>[]{}#*+=/\\|";
+let languageRun = 0;
+
+function visibleTextNodes() {
+  const nodes: Array<{ node: Text; source: string }> = [];
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let current: Node | null;
+  while ((current = walker.nextNode())) {
+    const node = current as Text;
+    const source = node.nodeValue ?? "";
+    const parent = node.parentElement;
+    if (
+      !parent ||
+      !/[\p{L}\p{N}]/u.test(source) ||
+      source.length > 280 ||
+      parent.closest("script,style,noscript,textarea,input,option,[aria-hidden='true'],[data-no-lang-scramble]")
+    ) {
+      continue;
+    }
+    const rect = parent.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > innerHeight || rect.right < 0 || rect.left > innerWidth || rect.width === 0 || rect.height === 0) {
+      continue;
+    }
+    nodes.push({ node, source });
+  }
+  return nodes;
+}
+
+function scramble(source: string, progress: number, frame: number) {
+  const chars = Array.from(source);
+  const chaos = progress < 0.68 ? Math.min(1, progress / 0.18) : Math.max(0, (1 - progress) / 0.32);
+  return chars
+    .map((char, index) => {
+      if (!/[\p{L}\p{N}]/u.test(char)) return char;
+      const pulse = ((index * 17 + frame * 13) % 100) / 100;
+      if (pulse > 0.18 + chaos * 0.78) return char;
+      return CODE_GLYPHS[(index * 7 + frame * 5) % CODE_GLYPHS.length];
+    })
+    .join("");
+}
 
 /**
- * Switches language with a View Transition: the new language opens as a soft
- * circle from where the switch was clicked while the old text lifts away.
- * Only clip-path / transform / opacity animate. No API or reduced motion →
- * the text swaps instantly.
+ * Runs a short, code-like glyph decode across the text currently on screen,
+ * then commits the requested language. React only sees restored source text,
+ * so untranslated strings cannot get stranded as scrambled DOM.
  */
-export function applyLang(lang: Lang, origin?: { x: number; y: number }) {
+export function applyLang(lang: Lang, _origin?: { x: number; y: number }) {
+  void _origin;
   if (lang === currentLang()) return;
-  const doc = document as VTDocument;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!doc.startViewTransition || reduce) {
+  if (reduce) {
     commit(lang);
     return;
   }
+
+  const run = ++languageRun;
   const root = document.documentElement;
-  const x = origin?.x ?? window.innerWidth - 120;
-  const y = origin?.y ?? 36;
-  root.style.setProperty("--lang-x", `${Math.round(x)}px`);
-  root.style.setProperty("--lang-y", `${Math.round(y)}px`);
-  root.classList.remove("vt-win");
-  root.classList.add("lang-vt");
-  const transition = doc.startViewTransition(() => flushSync(() => commit(lang)));
-  holdUntil(transition);
-  void transition.finished?.finally(() => root.classList.remove("lang-vt"));
+  const samples = visibleTextNodes();
+  const started = performance.now();
+  root.dataset.langScramble = "";
+
+  const restore = () => {
+    for (const { node, source } of samples) {
+      if (node.isConnected) node.nodeValue = source;
+    }
+  };
+
+  const draw = (now: number) => {
+    if (run !== languageRun) {
+      restore();
+      delete root.dataset.langScramble;
+      return;
+    }
+    const progress = Math.min(1, (now - started) / 520);
+    const frame = Math.floor((now - started) / 38);
+    for (const { node, source } of samples) {
+      if (node.isConnected) node.nodeValue = scramble(source, progress, frame);
+    }
+    if (progress < 1) {
+      requestAnimationFrame(draw);
+      return;
+    }
+    restore();
+    flushSync(() => commit(lang));
+    delete root.dataset.langScramble;
+  };
+
+  requestAnimationFrame(draw);
 }
 
 /** Last pointer-down position, used as the transition origin by menus. */

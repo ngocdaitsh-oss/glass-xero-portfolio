@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
+import { InteractionSounds } from "@/components/InteractionSounds";
 import "./globals.css";
 
 const openSans = Open_Sans({
@@ -61,7 +62,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: desktopScaleScript }} />
       </head>
-      <body className="h-full">{children}</body>
+      <body className="h-full">
+        {children}
+        <InteractionSounds />
+      </body>
     </html>
   );
 }

@@ -611,6 +611,104 @@ input[type="range"] {
   text-shadow: none;
 }
 
+/* Preserve the original/Figma Light Glass treatment while the reference-dark
+   shell remains exclusive to dark mode. */
+[data-theme="light"] .reference-app-window,
+[data-theme="light"] .reference-topbar,
+[data-theme="light"] .reference-dock,
+[data-theme="light"] .reference-context-menu {
+  --text-primary: #060e1f;
+  --text-secondary: rgba(8, 21, 48, 0.78);
+  --text-tertiary: rgba(8, 21, 48, 0.55);
+  --text-disabled: rgba(8, 21, 48, 0.3);
+  --text-accent: #1a5bb0;
+  --surface-overlay-subtle: rgba(8, 21, 48, 0.04);
+  --surface-overlay-default: rgba(8, 21, 48, 0.06);
+  --surface-overlay-strong: rgba(8, 21, 48, 0.1);
+  --surface-track: rgba(8, 21, 48, 0.12);
+  --surface-inverse: #2272d6;
+  --border-divider: rgba(8, 21, 48, 0.08);
+  --icon-secondary: rgba(8, 21, 48, 0.7);
+  --icon-accent: #2272d6;
+  --effect-shadow: rgba(10, 33, 71, 0.14);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .reference-app-window {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)),
+    linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72));
+  border: 0;
+  border-radius: 22px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 60px var(--effect-shadow);
+}
+
+[data-theme="light"] .reference-titlebar {
+  background: var(--surface-overlay-subtle);
+  border-bottom-color: var(--border-divider);
+}
+
+[data-theme="light"] .reference-window-control {
+  border-radius: 8px;
+}
+
+[data-theme="light"] .reference-window-control:hover {
+  background: var(--surface-overlay-strong);
+}
+
+[data-theme="light"] .reference-app-window .glass-edge,
+[data-theme="light"] .reference-topbar .glass-edge,
+[data-theme="light"] .reference-context-menu .glass-edge {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(8, 21, 48, 0.06);
+}
+
+[data-theme="light"] .reference-app-window .theme-dark-only {
+  display: none;
+}
+
+[data-theme="light"] .reference-app-window .theme-light-only {
+  display: block;
+}
+
+[data-theme="light"] .reference-topbar-surface {
+  background-color: var(--surface-glass-bar);
+  background-image: url("/figma/topbar-texture.png");
+  background-position: center;
+  background-size: cover;
+  border: 0;
+  box-shadow: none;
+}
+
+[data-theme="light"] .reference-dock-surface {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)),
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+  border: 0;
+  border-radius: 26px;
+  backdrop-filter: blur(20px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(8, 21, 48, 0.06);
+}
+
+[data-theme="light"] .reference-context-menu {
+  background-color: rgba(255, 255, 255, 0.94);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4));
+  border: 0;
+  border-radius: 14px;
+  backdrop-filter: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(8, 21, 48, 0.06),
+    0 24px 60px var(--effect-shadow);
+}
+
 .term-user {
   color: var(--terminal-software);
 }
@@ -1947,67 +2045,20 @@ input[type="range"] {
   .wave-hand { animation: none; }
 }
 
-/*
- * Language switch (lib/i18n): the new language opens as a circle from the
- * switch that was clicked, while the old text settles back a touch. Distinct
- * from the theme's diagonal wipe. clip-path / transform / opacity only.
- */
-.lang-vt::view-transition-old(root) {
-  z-index: 1;
-  animation: lang-old 520ms cubic-bezier(0.4, 0, 0.2, 1) both;
+/* Language changes briefly become a live code stream before the translation
+   commits. Keep the layout fixed and tint only the glyphs for visual feedback. */
+html[data-lang-scramble] body {
+  cursor: progress;
+  user-select: none;
 }
 
-.lang-vt::view-transition-new(root) {
-  z-index: 2;
-  will-change: clip-path;
-  animation: lang-reveal 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-
-@keyframes lang-reveal {
-  from { clip-path: circle(0 at var(--lang-x, 90%) var(--lang-y, 36px)); }
-  to { clip-path: circle(150vmax at var(--lang-x, 90%) var(--lang-y, 36px)); }
-}
-
-@keyframes lang-old {
-  to { opacity: 0.4; transform: scale(0.985); }
+html[data-lang-scramble] body * {
+  text-shadow: 0 0 10px color-mix(in srgb, var(--text-accent) 38%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lang-vt::view-transition-old(root),
-  .lang-vt::view-transition-new(root) {
-    animation: none;
-  }
-}
-
-/*
- * Language switch (lib/i18n): the new language opens as a circle from the
- * switch that was clicked, while the old text settles back a touch. Distinct
- * from the theme's diagonal wipe. clip-path / transform / opacity only.
- */
-.lang-vt::view-transition-old(root) {
-  z-index: 1;
-  animation: lang-old 520ms cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-.lang-vt::view-transition-new(root) {
-  z-index: 2;
-  will-change: clip-path;
-  animation: lang-reveal 560ms cubic-bezier(0.65, 0, 0.35, 1) both;
-}
-
-@keyframes lang-reveal {
-  from { clip-path: circle(0 at var(--lang-x, 90%) var(--lang-y, 36px)); }
-  to { clip-path: circle(150vmax at var(--lang-x, 90%) var(--lang-y, 36px)); }
-}
-
-@keyframes lang-old {
-  to { opacity: 0.4; transform: scale(0.985); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lang-vt::view-transition-old(root),
-  .lang-vt::view-transition-new(root) {
-    animation: none;
+  html[data-lang-scramble] body * {
+    text-shadow: none;
   }
 }
 
