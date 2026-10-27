@@ -156,7 +156,7 @@ export function ControlCenter({
             type="button"
             aria-label={tr(playing ? "Pause" : "Play")}
             onClick={togglePlay}
-            className="relative flex size-10 items-center justify-center overflow-clip rounded-[20px] bg-transparent transition-transform duration-150 hover:scale-105 active:scale-95"
+            className="relative flex size-10 items-center justify-center overflow-clip rounded-full bg-white shadow-sm transition-transform duration-150 hover:scale-105 active:scale-95"
           >
             <PlaybackGlyph playing={playing} />
           </button>
