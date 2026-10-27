@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tuan Ngoc — UI/UX & Product Designer",
+  title: "TUAN NGOC",
   description:
     "Portfolio of Tuan Ngoc, a UI/UX & Product Designer from Vietnam — presented as Glass Xero OS.",
 };
