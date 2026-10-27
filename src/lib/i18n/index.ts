@@ -123,6 +123,10 @@ function decodeIn(target: string, progress: number, frame: number) {
  */
 export function applyLang(lang: Lang, _origin?: { x: number; y: number }) {
   void _origin;
+  const root = document.documentElement;
+  // Keep one complete scramble/decode run atomic. Rapid clicks used to cancel
+  // the active run halfway through and could leave stale text nodes behind.
+  if (root.dataset.langScramble !== undefined) return;
   if (lang === currentLang()) return;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) {
@@ -131,7 +135,6 @@ export function applyLang(lang: Lang, _origin?: { x: number; y: number }) {
   }
 
   const run = ++languageRun;
-  const root = document.documentElement;
   const outgoing = visibleTextNodes();
   const started = performance.now();
   const outDuration = 230;

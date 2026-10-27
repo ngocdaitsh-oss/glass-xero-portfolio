@@ -154,11 +154,11 @@ export const CAPABILITIES_1: Capability[] = [
 ];
 
 export const CAPABILITIES_2: Capability[] = [
-  { n: "01", ...READ, title: "Create UX briefs for each flow" },
-  { n: "02", ...READ, title: "Propose information architecture" },
-  { n: "03", ...READ, title: "Select components from the DS" },
-  { n: "04", ...READ, title: "Create a Figma design file" },
-  { n: "05", ...READ, title: "Create every screen & state" },
+  { n: "01", icon: "/figma/aiw/cap2-ux-brief.png", crop: "absolute top-[-12.74%] left-[-16.5%] h-[119.98%] w-[135.76%] max-w-none", title: "Create UX briefs for each flow" },
+  { n: "02", icon: "/figma/aiw/cap2-ia.png", crop: "absolute top-[-14.49%] left-[-14.05%] h-[120.23%] w-[128.11%] max-w-none", title: "Propose information architecture" },
+  { n: "03", icon: "/figma/aiw/cap2-ds.png", crop: "absolute top-[-8.94%] left-[-8.07%] size-[116.14%] max-w-none", title: "Select components from the DS" },
+  { n: "04", icon: "/figma/aiw/cap2-figma.png", crop: "absolute top-[-20.71%] left-[-20.47%] h-[150.4%] w-[140.94%] max-w-none", title: "Create a Figma design file" },
+  { n: "05", icon: "/figma/aiw/cap2-screens.png", crop: "absolute top-[-17.94%] left-[-16.93%] size-[131.21%] max-w-none", title: "Create every screen & state" },
 ];
 
 export const COPY = {

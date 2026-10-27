@@ -4,6 +4,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { answer, askAI, isCommand, QUICK_PROMPTS, type Tone } from "@/lib/terminal";
 import { ThinkingDots } from "@/components/terminal/ThinkingDots";
+import { AnimatedAnswer } from "@/components/terminal/AnimatedAnswer";
 import { Chip, Glyph, M, NavBar, Page } from "./parts";
 
 const TONE: Record<Tone, string> = { user: "var(--m-success)", cyan: "var(--m-warning)", pink: "var(--m-danger)" };
@@ -17,7 +18,7 @@ const SEED_ROWS: { when: string; tone: Tone; text: string }[] = [
 
 type Turn = { id: number; question: string; ai?: string | null; loading?: boolean };
 
-function Rows({ rows }: { rows: { when: string; tone: Tone; text: string }[] }) {
+function Rows({ rows, animated = false }: { rows: { when: string; tone: Tone; text: string }[]; animated?: boolean }) {
   const t = useT();
   return (
     <>
@@ -26,7 +27,7 @@ function Rows({ rows }: { rows: { when: string; tone: Tone; text: string }[] }) 
           <p className="leading-[normal] whitespace-nowrap" style={{ color: TONE[row.tone] }}>
             {t(row.when)}
           </p>
-          <p className="text-fg leading-[1.5]">{t(row.text)}</p>
+          <p className="text-fg leading-[1.5]">{animated ? <AnimatedAnswer text={t(row.text)} /> : t(row.text)}</p>
         </div>
       ))}
     </>
@@ -129,11 +130,11 @@ export function TerminalPage({ onHome }: { onHome: () => void }) {
                 {turn.loading ? (
                   <ThinkingDots label={t("AI is thinking")} />
                 ) : turn.ai ? (
-                  <p className="text-fg text-base leading-[1.5] whitespace-pre-wrap">{turn.ai}</p>
+                  <p className="text-fg text-base leading-[1.5] whitespace-pre-wrap"><AnimatedAnswer text={turn.ai} /></p>
                 ) : result?.kind === "timeline" ? (
-                  <Rows rows={result.rows} />
+                  <Rows rows={result.rows} animated />
                 ) : (
-                  <p className="text-fg text-base leading-[1.5]">{t(result?.text ?? "")}</p>
+                  <p className="text-fg text-base leading-[1.5]"><AnimatedAnswer text={t(result?.text ?? "")} /></p>
                 )}
               </Fragment>
             );

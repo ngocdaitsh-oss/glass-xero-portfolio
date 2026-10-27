@@ -9,7 +9,7 @@ import { Card, Chip, Divider, Glyph, Label, M, NavBar, Page, Toolbar } from "./p
 /** Mobile — Mail (Compose) (369:21758): the desktop compose logic (useCompose) in the iOS layout. */
 export function MailPage({ onHome }: { onHome: () => void }) {
   const t = useT();
-  const { status, send, from, setFrom, subject, setSubject, topic, setTopic, message, setMessage, files, addFiles, removeFile } = useCompose();
+  const { status, send, from, setFrom, subject, setSubject, topic, setTopic, message, setMessage, files, addFiles, removeFile, reset } = useCompose();
   const fileInput = useRef<HTMLInputElement>(null);
   const imageInput = useRef<HTMLInputElement>(null);
 
@@ -31,7 +31,7 @@ export function MailPage({ onHome }: { onHome: () => void }) {
         <Toolbar
           primary={{ icon: `${M}/send-18.svg`, label: t("Send message"), type: "submit", form: "m-compose" }}
           buttons={[
-            { icon: `${M}/trash-24.svg`, label: t("Discard"), onClick: onHome },
+            { icon: `${M}/trash-24.svg`, label: t("Discard"), onClick: reset },
           ]}
         />
       }

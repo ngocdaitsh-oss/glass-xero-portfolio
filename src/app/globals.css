@@ -2097,8 +2097,25 @@ html[data-lang-scramble] body {
   user-select: none;
 }
 
+html[data-lang-scramble] button,
+html[data-lang-scramble] a,
+html[data-lang-scramble] input,
+html[data-lang-scramble] textarea {
+  pointer-events: none;
+}
+
 html[data-lang-scramble] body * {
   text-shadow: 0 0 10px color-mix(in srgb, var(--text-accent) 38%, transparent);
+}
+
+.term-answer-caret {
+  display: inline-block;
+  width: 0.48em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: term-blink 0.8s steps(1, end) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

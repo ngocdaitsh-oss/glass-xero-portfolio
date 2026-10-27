@@ -67,6 +67,19 @@ function Equalizer({ playing }: { playing: boolean }) {
   );
 }
 
+function PlaybackGlyph({ playing }: { playing: boolean }) {
+  return playing ? (
+    <svg aria-hidden width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <rect x="4" y="3" width="3.5" height="12" rx="1.5" fill="#0a0a0a" />
+      <rect x="10.5" y="3" width="3.5" height="12" rx="1.5" fill="#0a0a0a" />
+    </svg>
+  ) : (
+    <svg aria-hidden width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M5.25 3.95c0-.86.94-1.39 1.68-.95l7.2 4.3a1.98 1.98 0 0 1 0 3.4l-7.2 4.3a1.1 1.1 0 0 1-1.68-.95V3.95Z" fill="#0a0a0a" />
+    </svg>
+  );
+}
+
 export function ControlCenter({
   className = "",
   brightness,
@@ -143,9 +156,9 @@ export function ControlCenter({
             type="button"
             aria-label={tr(playing ? "Pause" : "Play")}
             onClick={togglePlay}
-            className="bg-inverse relative flex size-10 items-center justify-center overflow-clip rounded-[20px] transition-[transform,filter] duration-200 hover:scale-105 hover:brightness-110 active:scale-95"
+            className="relative flex size-10 items-center justify-center overflow-clip rounded-[20px] bg-transparent transition-transform duration-150 hover:scale-105 active:scale-95"
           >
-            <Icon src={playing ? "/figma/pause.svg" : "/figma/play-circle.svg"} size={24} />
+            <PlaybackGlyph playing={playing} />
           </button>
           <button type="button" aria-label={tr("Next track")} onClick={() => play(current + 1)} className="transition-opacity hover:opacity-70">
             <Icon src="/figma/skip-forward.svg" size={24} />

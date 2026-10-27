@@ -5,6 +5,7 @@ import { AppWindow, MaskIcon } from "./AppWindow";
 import { useT } from "@/lib/i18n";
 import { answer, askAI, isCommand, QUICK_PROMPTS, type Tone } from "@/lib/terminal";
 import { ThinkingDots } from "@/components/terminal/ThinkingDots";
+import { AnimatedAnswer } from "@/components/terminal/AnimatedAnswer";
 
 type T = ReturnType<typeof useT>;
 
@@ -20,7 +21,7 @@ function Timeline({ rows, t }: { rows: [string, string, string][]; t: T }) {
       {rows.map(([when, color, text]) => (
         <p key={when + text}>
           <span className={color}>{t(when).padEnd(12, " ")}</span>
-          {t(text)}
+          <AnimatedAnswer text={t(text)} />
         </p>
       ))}
     </div>
@@ -30,7 +31,7 @@ function Timeline({ rows, t }: { rows: [string, string, string][]; t: T }) {
 function reply(raw: string, t: T): ReactNode {
   const result = answer(raw);
   if (result.kind === "timeline") return <Timeline t={t} rows={result.rows.map((row) => [row.when, TONE[row.tone], row.text])} />;
-  return <p className="text-fg text-base leading-6">{t(result.text)}</p>;
+  return <p className="text-fg text-base leading-6"><AnimatedAnswer text={t(result.text)} /></p>;
 }
 
 export function TerminalWindow() {
@@ -87,7 +88,7 @@ export function TerminalWindow() {
                 <div className="flex min-w-0 flex-1 flex-col gap-2">{turn.loading ? (
                     <ThinkingDots label={t("AI is thinking")} />
                   ) : turn.ai ? (
-                    <p className="text-fg text-base leading-6 whitespace-pre-wrap">{turn.ai}</p>
+                    <p className="text-fg text-base leading-6 whitespace-pre-wrap"><AnimatedAnswer text={turn.ai} /></p>
                   ) : (
                     reply(turn.question, t)
                   )}

@@ -13,7 +13,7 @@ const GRADIENT = "linear-gradient(166deg, var(--azure-300) 0%, var(--azure-600) 
 export function MailWindow() {
   const { close: onClose } = useWindow();
   const t = useT();
-  const { status, send, from, setFrom, subject, setSubject, topic, setTopic, message, setMessage, files, addFiles, removeFile } = useCompose();
+  const { status, send, from, setFrom, subject, setSubject, topic, setTopic, message, setMessage, files, addFiles, removeFile, reset } = useCompose();
   const fileInput = useRef<HTMLInputElement>(null);
   const imageInput = useRef<HTMLInputElement>(null);
 
@@ -128,8 +128,8 @@ export function MailWindow() {
           <button
             type="button"
             aria-label={t("Discard")}
-            onClick={onClose}
-            className="bg-overlay text-icon-secondary hover:bg-overlay-strong hover:text-fg flex items-center justify-center rounded-[10px] p-2 transition-[background-color,color,transform] duration-200 active:scale-95"
+            onClick={reset}
+            className="bg-overlay text-icon-secondary hover:bg-[#e5484d] hover:text-white flex items-center justify-center rounded-[10px] p-2 transition-[background-color,color,transform] duration-150 active:scale-95"
           >
             <MaskIcon src="/figma/mail/trash.svg" size={24} />
           </button>
