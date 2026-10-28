@@ -153,9 +153,10 @@ export function Dock({ hidden = false, running, focused, onOpenApp }: DockProps)
       <span aria-hidden className="reference-dock-surface pointer-events-none absolute inset-0 rounded-[22px]" />
 
       <DockItem name="About Me" app="about" state={stateOf("about")} scale={scales.about ?? 1} onClick={() => onOpenApp("about")}>
-        <span className="absolute inset-0 overflow-clip rounded-[18px] bg-[linear-gradient(135deg,rgba(255,255,255,0.52)_0%,rgba(255,255,255,0.18)_28%,rgba(255,255,255,0.035)_62%,rgba(255,255,255,0.1)_100%)] shadow-[0_6px_14px_var(--effect-shadow)]">
+        <span className="absolute inset-0 overflow-clip rounded-[18px] bg-[#202124] shadow-[0_6px_14px_var(--effect-shadow)]">
+          <span className="absolute -inset-6 bg-[linear-gradient(135deg,rgba(255,255,255,0.52)_0%,rgba(255,255,255,0.18)_28%,rgba(255,255,255,0.035)_62%,rgba(255,255,255,0.1)_100%)] transition-transform duration-500 ease-in-out group-hover:rotate-180 motion-reduce:transition-none" />
           <span className="absolute inset-px rounded-[17px] bg-[#202124] shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]" />
-          <span className="absolute top-[11px] left-[11px]">
+          <span className="absolute top-[11px] left-[11px] transition-transform duration-300 ease-out group-hover:scale-90 motion-reduce:transition-none">
             <Icon src="/figma/dock-xero-glyph.svg" size={34} />
           </span>
         </span>
