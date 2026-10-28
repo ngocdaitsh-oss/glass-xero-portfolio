@@ -153,8 +153,7 @@ export function Dock({ hidden = false, running, focused, onOpenApp }: DockProps)
       <span aria-hidden className="reference-dock-surface pointer-events-none absolute inset-0 rounded-[22px]" />
 
       <DockItem name="About Me" app="about" state={stateOf("about")} scale={scales.about ?? 1} onClick={() => onOpenApp("about")}>
-        <span className="absolute inset-0 overflow-clip rounded-[18px] bg-gradient-to-b from-[#5e6378] to-[#24262f] shadow-[0_6px_14px_var(--effect-shadow),inset_0_0_0_1px_rgba(255,255,255,0.16)]">
-          <span className="absolute inset-x-0 top-0 h-1/2 rounded-t-[18px] bg-gradient-to-b from-[rgba(255,255,255,0.32)] to-transparent" />
+        <span className="absolute inset-0 overflow-clip rounded-[18px] bg-[#202124] shadow-[0_6px_14px_var(--effect-shadow),inset_0_0_0_1px_rgba(255,255,255,0.24)]">
           <span className="absolute top-[11px] left-[11px]">
             <Icon src="/figma/dock-xero-glyph.svg" size={34} />
           </span>
