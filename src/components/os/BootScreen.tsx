@@ -75,7 +75,7 @@ export function BootScreen({ onExit, onGone }: { onExit: () => void; onGone: () 
   return (
     <div className={`boot-screen ${leaving ? "is-leaving" : ""}`} role="status" aria-label="Loading">
       <div aria-hidden className="boot-grain" />
-      <div ref={glow} aria-hidden className="boot-glow" />
+      <div ref={glow} aria-hidden className="hidden" />
       <div ref={logo} className="boot-logo">
         <canvas ref={canvas} aria-hidden />
       </div>
