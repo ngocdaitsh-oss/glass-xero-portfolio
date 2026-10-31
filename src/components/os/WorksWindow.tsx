@@ -435,7 +435,7 @@ function WorkSection({
       {view === "grid" ? (
         <div className="mt-10 grid grid-cols-2 gap-6">
           {items.map((work) => (
-            <Reveal key={work.id} className="h-full min-w-0">
+            <Reveal key={work.id} className="min-w-0">
               <ProjectCard work={work} onOpen={onOpen} />
             </Reveal>
           ))}
@@ -468,7 +468,7 @@ function ProjectCard({ work, onOpen }: { work: Work; onOpen: (id: string) => voi
     <article
       onPointerEnter={() => warm(work.id)}
       onClick={() => onOpen(work.id)}
-      className="group flex h-full flex-col rounded-[28px] bg-[var(--w-card)] p-3 transition-colors hover:bg-[var(--w-hover)]">
+      className="group flex flex-col rounded-[28px] bg-[var(--w-card)] p-3 transition-colors hover:bg-[var(--w-hover)]">
       <div className="h-[520px] overflow-hidden rounded-[18px] bg-[var(--w-well)]">
         <div className="h-full transition-transform duration-300 group-hover:-translate-y-2">
           <Cover id={work.cover} />
@@ -482,7 +482,7 @@ function ProjectCard({ work, onOpen }: { work: Work; onOpen: (id: string) => voi
             <span className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-secondary)]">{work.year}</span>
             <span className="ml-auto font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-muted)]">{work.index}</span>
           </div>
-          <div className="flex min-h-[32px] flex-wrap gap-2 overflow-hidden">
+          <div className="flex flex-wrap gap-2 overflow-hidden">
             {work.tags.map((tag) => (
               <span key={tag} className="rounded-full bg-[var(--w-chip)] px-3 py-1.5 text-[14px] leading-5 whitespace-nowrap text-[var(--w-secondary)]">
                 {t(tag)}
@@ -490,9 +490,9 @@ function ProjectCard({ work, onOpen }: { work: Work; onOpen: (id: string) => voi
             ))}
           </div>
           <div className="flex w-full flex-col items-start gap-4">
-            <h4 className="min-h-[72px] w-full text-[30px] leading-9 font-semibold tracking-[-0.6px]">{t(work.title)}</h4>
+            <h4 className="w-full text-[30px] leading-9 font-semibold tracking-[-0.6px]">{t(work.title)}</h4>
             {work.highlights ? (
-              <ul className="flex min-h-[104px] w-full flex-col gap-2.5 overflow-hidden">
+              <ul className="flex w-full flex-col gap-2.5 overflow-hidden">
                 {work.highlights.map((line) => (
                   <li key={line} className={`flex w-full items-center gap-3 text-[18px] leading-7 tracking-[-0.2px] text-[var(--w-secondary)] ${work.highlightStrong ? "font-semibold" : ""}`}>
                     <img src="/figma/works/check.svg" alt="" className="size-6 shrink-0" />
@@ -501,7 +501,7 @@ function ProjectCard({ work, onOpen }: { work: Work; onOpen: (id: string) => voi
                 ))}
               </ul>
             ) : (
-              <p className="min-h-[104px] w-full text-[18px] leading-7 tracking-[-0.2px] text-[var(--w-secondary)]">{t(work.description ?? "")}</p>
+              <p className="w-full text-[18px] leading-7 tracking-[-0.2px] text-[var(--w-secondary)]">{t(work.description ?? "")}</p>
             )}
           </div>
         </div>

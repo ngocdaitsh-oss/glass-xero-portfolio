@@ -384,80 +384,6 @@ function runGenie(el: HTMLElement, id: AppId, direction: "in" | "out") {
   );
 }
 
-/**
- * Genie motion based on hoanglo.ng: the window is duplicated into horizontal
- * strips and every strip follows a slightly different curve into the dock.
- * Unlike a single clipped polygon, the lower edge stays fluid all the way to
- * the icon and never becomes a square cap.
- */
-function runStripGenie(el: HTMLElement, id: AppId, direction: "in" | "out") {
-  if (reduceMotion()) return Promise.resolve();
-  const box = el.getBoundingClientRect();
-  const target = dockTarget(id) ?? { x: box.left + box.width / 2, y: box.bottom + 140, w: 52 };
-  if (!box.width || !box.height) return Promise.resolve();
-
-  const overlay = document.createElement("div");
-  overlay.className = "genie";
-  const stripCount = 18;
-  const overlap = 1;
-  const stripHeight = box.height / stripCount;
-  const neckRatio = Math.max(0.025, Math.min(0.12, target.w / box.width));
-  const animations: Animation[] = [];
-
-  for (let index = 0; index < stripCount; index += 1) {
-    const q = index / (stripCount - 1);
-    const sliceTop = index * stripHeight;
-    const strip = document.createElement("div");
-    strip.className = "genie-strip";
-    Object.assign(strip.style, {
-      left: `${box.left}px`,
-      top: `${box.top + sliceTop}px`,
-      width: `${box.width}px`,
-      height: `${stripHeight + overlap}px`,
-    });
-
-    const clone = el.cloneNode(true) as HTMLElement;
-    clone.classList.add("genie-win");
-    clone.removeAttribute("id");
-    clone.style.cssText = `left:0!important;top:${-sliceTop}px!important;width:${box.width}px!important;height:${box.height}px!important;zoom:1!important;transform:none!important;visibility:visible!important;opacity:1!important;`;
-    strip.appendChild(clone);
-    overlay.appendChild(strip);
-
-    const dx = target.x - (box.left + box.width / 2);
-    const dy = target.y - (box.top + sliceTop + stripHeight / 2);
-    const lowerLead = q * q * (3 - 2 * q);
-    const bend = (q - 0.5) * 22;
-    const frames: Keyframe[] = [
-      { offset: 0, transform: "translate3d(0,0,0) scaleX(1) scaleY(1)", opacity: 1 },
-      {
-        offset: 0.34,
-        transform: `translate3d(${dx * (0.04 + lowerLead * 0.34) + bend}px,${dy * (0.03 + lowerLead * 0.28)}px,0) scaleX(${1 - (1 - neckRatio) * (0.04 + lowerLead * 0.42)}) scaleY(1)`,
-        opacity: 1,
-      },
-      {
-        offset: 0.72,
-        transform: `translate3d(${dx * (0.38 + lowerLead * 0.48)}px,${dy * (0.3 + lowerLead * 0.58)}px,0) scaleX(${1 - (1 - neckRatio) * (0.48 + lowerLead * 0.44)}) scaleY(${1 - lowerLead * 0.18})`,
-        opacity: 1,
-      },
-      { offset: 1, transform: `translate3d(${dx}px,${dy}px,0) scaleX(${neckRatio}) scaleY(0.08)`, opacity: 0 },
-    ];
-    const animation = strip.animate(frames, {
-      duration: direction === "out" ? 720 : 650,
-      easing: "cubic-bezier(0.32, 0.72, 0, 1)",
-      direction: direction === "out" ? "normal" : "reverse",
-      fill: "both",
-    });
-    animations.push(animation);
-  }
-
-  document.body.appendChild(overlay);
-  el.style.visibility = "hidden";
-  return Promise.allSettled(animations.map((animation) => animation.finished)).then(() => {
-    overlay.remove();
-    el.style.visibility = "";
-  });
-}
-
 /** First open: the window zooms up from slightly smaller, as macOS opens windows. */
 function runOpen(el: HTMLElement) {
   if (reduceMotion()) return;
@@ -622,7 +548,6 @@ function fakeGlass(el: HTMLElement | null) {
   el.style.setProperty("--gf-blur", still ? "none" : `blur(${blurPx}px)`);
   el.style.setProperty("--gf-tint", style.backgroundImage);
   el.style.setProperty("--gf-color", style.backgroundColor);
-  el.style.setProperty("--gf-solid", theme === "light" ? "rgba(242, 246, 252, 0.985)" : "rgba(5, 13, 24, 0.985)");
   el.dataset.glassfake = "on";
   // Force the stand-in into the render tree before View Transitions capture it.
   // Without this flush Chromium can snapshot one transparent frame first.
@@ -647,11 +572,21 @@ function releaseGlass(el: HTMLElement | null, fade = true) {
   const clear = () => {
     if (el.dataset.glassfake !== "out") return;
     delete el.dataset.glassfake;
-    for (const name of ["--gf-wall", "--gf-size", "--gf-pos", "--gf-blur", "--gf-tint", "--gf-color", "--gf-solid"]) el.style.removeProperty(name);
+    for (const name of ["--gf-wall", "--gf-size", "--gf-pos", "--gf-blur", "--gf-tint", "--gf-color"]) el.style.removeProperty(name);
   };
   el.dataset.glassfake = "out";
   if (fade && el.isConnected) window.setTimeout(clear, 280);
   else clear();
+}
+
+/** Genie frames for a snapshot in viewport px, from its box toward the dock icon. */
+function genieFor(box: DOMRect, target: { x: number; y: number; w: number } | null) {
+  const tx = target ? target.x - box.left : box.width / 2;
+  const ty = target ? target.y - box.top : box.height + 160;
+  return genieKeyframes(box.width, box.height, tx, ty, target ? target.w : 56).map((frame) => ({
+    ...frame,
+    transformOrigin: "0 0",
+  }));
 }
 
 const OPEN_FRAMES: Keyframe[] = [
@@ -797,11 +732,27 @@ export function WindowShell({
     if (busy.current || !el) return;
     busy.current = true;
     wasMinimized.current = true;
-    fakeGlass(el);
-    void runStripGenie(el, state.id, "out").then(() => {
+    if (canViewTransition()) {
+      // Snapshot the window, drop it from the DOM, and pour the bitmap into the dock.
+      const box = el.getBoundingClientRect();
+      const target = dockTarget(state.id);
+      fakeGlass(el);
+      nameWindow(el, state.id, "win-pop");
+      const transition = startViewTransition(() => flushSync(() => api.minimize()));
+      transition.ready
+        .then(() => animateSnapshot(state.id, "old", genieFor(box, target), { duration: 600, easing: "linear" }))
+        .catch(() => undefined);
+      transition.finished.finally(() => {
+        unnameWindow(state.id);
+        releaseGlass(el, false);
+        busy.current = false;
+      });
+      return;
+    }
+    api.setLeaving(true);
+    void runGenie(el, state.id, "out").then(() => {
       busy.current = false;
       api.minimize();
-      releaseGlass(el, false);
     });
   };
 
@@ -916,15 +867,8 @@ export function useWindowManager() {
       apply();
       return;
     }
-    if (kind === "restore") {
-      flushSync(apply);
-      const el = windowEl(id);
-      if (!el) return;
-      fakeGlass(el);
-      void runStripGenie(el, id, "in").finally(() => releaseGlass(el));
-      return;
-    }
     // Restore reverses the genie out of the dock icon; a first open zooms the snapshot up.
+    const target = kind === "restore" ? dockTarget(id) : null;
     let box: DOMRect | null = null;
     const transition = startViewTransition(() => {
       flushSync(apply);
@@ -937,7 +881,11 @@ export function useWindowManager() {
     transition.ready
       .then(() => {
         if (!box) return;
-        animateSnapshot(id, "new", OPEN_FRAMES, { duration: 360, easing: EASE_OUT });
+        if (kind === "restore") {
+          animateSnapshot(id, "new", genieFor(box, target), { duration: 540, easing: "linear", direction: "reverse" });
+        } else {
+          animateSnapshot(id, "new", OPEN_FRAMES, { duration: 360, easing: EASE_OUT });
+        }
       })
       .catch(() => undefined);
     transition.finished.finally(() => {

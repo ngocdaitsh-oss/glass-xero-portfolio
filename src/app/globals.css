@@ -259,47 +259,6 @@ html {
   background-image: var(--gf-tint);
 }
 
-/* The first captured frame must already be opaque. The wallpaper stand-in still
- * provides the glass texture, while this dense base prevents desktop content
- * from showing through before Chromium has painted that texture. */
-[data-window][data-glassfake] {
-  isolation: isolate;
-  background-color: var(--gf-solid) !important;
-}
-
-.genie {
-  position: fixed;
-  inset: 0;
-  z-index: 2990;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.genie-strip {
-  position: fixed;
-  overflow: hidden;
-  contain: strict;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  transform-origin: center center;
-}
-
-.genie-win {
-  position: absolute !important;
-  margin: 0 !important;
-  transition: none !important;
-  animation: none !important;
-  filter: none !important;
-  backdrop-filter: none !important;
-  background-color: rgba(5, 13, 24, 0.985) !important;
-  box-shadow: none !important;
-  pointer-events: none !important;
-}
-
-[data-theme="light"] .genie-win {
-  background-color: rgba(242, 246, 252, 0.985) !important;
-}
-
 [data-window][data-glassfake="out"]::before,
 [data-window][data-glassfake="out"]::after {
   opacity: 0;
