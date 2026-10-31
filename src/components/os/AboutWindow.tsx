@@ -109,11 +109,11 @@ function Profile() {
         </div>
         <span className="size-[76px] shrink-0 overflow-hidden rounded-full">
           <img
-            src="/figma/about/avatar-about-2026.png"
+            src="/figma/avatar-2026.png"
             alt="Tuan Ngoc"
             width={76}
             height={76}
-            className="size-full scale-[2.15] object-cover object-[50%_32%]"
+            className="size-full object-cover"
           />
         </span>
       </div>
@@ -217,9 +217,9 @@ function Overview() {
           ["4", "Companies"],
           ["6", "Design tools"],
         ].map(([n, label]) => (
-          <div key={label} className="about-card bg-overlay flex flex-1 flex-col rounded-2xl p-4 whitespace-nowrap">
+          <div key={label} className="about-card bg-overlay flex min-h-[100px] flex-1 flex-col rounded-2xl p-4">
             <p className="text-[32px] leading-10 font-bold tracking-[-0.5px]">{n}</p>
-            <p className="text-fg-tertiary text-sm leading-[22px] font-semibold">{t(label)}</p>
+            <p className="text-fg-tertiary flex min-h-11 items-start text-sm leading-[22px] font-semibold">{t(label)}</p>
           </div>
         ))}
       </div>

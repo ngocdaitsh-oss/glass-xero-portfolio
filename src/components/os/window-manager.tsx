@@ -311,23 +311,38 @@ function genieKeyframes(w: number, h: number, tx: number, ty: number, neck: numb
     const bottom = Math.max(top + 1, lerp(h, ty, stretch));
     const sy = (bottom - top) / h;
 
+    const tip = easeInOut(clamp01((p - 0.58) / 0.42));
+    const tipNeck = lerp(neck, Math.max(8, neck * 0.18), tip);
+    const tipLeft = tx - tipNeck / 2;
+    const tipRight = tx + tipNeck / 2;
     const lTop = lerp(0, left, pull);
     const rTop = lerp(w, right, pull);
-    const lBottom = lerp(0, left, pinch);
-    const rBottom = lerp(w, right, pinch);
+    const lBottom = lerp(0, tipLeft, pinch);
+    const rBottom = lerp(w, tipRight, pinch);
+    // A rounded cap replaces the old horizontal bottom edge. Near the end the
+    // neck also narrows, so the window flows into the dock icon instead of
+    // finishing as a square-ended funnel.
+    const cap = Math.min(24, tipNeck * 0.42) * pinch;
+    const sideBottom = h - cap;
     const leftSide: string[] = [];
     const rightSide: string[] = [];
     for (let r = 0; r <= ROWS; r++) {
       const s = r / ROWS;
       const bend = s * s * (3 - 2 * s);
-      const y = (s * h).toFixed(1);
+      const y = (s * sideBottom).toFixed(1);
       leftSide.push(`${lerp(lTop, lBottom, bend).toFixed(1)}px ${y}px`);
       rightSide.unshift(`${lerp(rTop, rBottom, bend).toFixed(1)}px ${y}px`);
     }
+    const capPoints = Array.from({ length: 9 }, (_, index) => {
+      const s = index / 8;
+      const x = lerp(lBottom, rBottom, s);
+      const y = sideBottom + Math.sin(Math.PI * s) * cap;
+      return `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+    });
     frames.push({
       offset: p,
       transform: `translateY(${top.toFixed(2)}px) scaleY(${sy.toFixed(4)})`,
-      clipPath: `polygon(${[...leftSide, ...rightSide].join(", ")})`,
+      clipPath: `polygon(${[...leftSide, ...capPoints.slice(1, -1), ...rightSide].join(", ")})`,
       opacity: p > 0.82 ? 1 - (p - 0.82) / 0.18 : 1,
     });
   }
@@ -375,7 +390,7 @@ function runOpen(el: HTMLElement) {
   el.classList.add("win-anim");
   const animation = el.animate(
     [
-      { opacity: 0, transform: "translateY(14px) scale(0.94)" },
+      { opacity: 1, transform: "translateY(14px) scale(0.94)" },
       { opacity: 1, transform: "none" },
     ],
     { duration: 340, easing: EASE_OUT },
@@ -532,7 +547,11 @@ function fakeGlass(el: HTMLElement | null) {
   el.style.setProperty("--gf-pos", `${x}px ${y}px`);
   el.style.setProperty("--gf-blur", still ? "none" : `blur(${blurPx}px)`);
   el.style.setProperty("--gf-tint", style.backgroundImage);
+  el.style.setProperty("--gf-color", style.backgroundColor);
   el.dataset.glassfake = "on";
+  // Force the stand-in into the render tree before View Transitions capture it.
+  // Without this flush Chromium can snapshot one transparent frame first.
+  void getComputedStyle(el, "::after").backgroundColor;
 }
 
 /** Builds the pre-blurred wallpapers for desktop windows ahead of the first transition. */
@@ -553,7 +572,7 @@ function releaseGlass(el: HTMLElement | null, fade = true) {
   const clear = () => {
     if (el.dataset.glassfake !== "out") return;
     delete el.dataset.glassfake;
-    for (const name of ["--gf-wall", "--gf-size", "--gf-pos", "--gf-blur", "--gf-tint"]) el.style.removeProperty(name);
+    for (const name of ["--gf-wall", "--gf-size", "--gf-pos", "--gf-blur", "--gf-tint", "--gf-color"]) el.style.removeProperty(name);
   };
   el.dataset.glassfake = "out";
   if (fade && el.isConnected) window.setTimeout(clear, 280);
@@ -571,7 +590,7 @@ function genieFor(box: DOMRect, target: { x: number; y: number; w: number } | nu
 }
 
 const OPEN_FRAMES: Keyframe[] = [
-  { opacity: 0, transform: "translateY(16px) scale(0.94)" },
+  { opacity: 1, transform: "translateY(16px) scale(0.94)" },
   { opacity: 1, transform: "none" },
 ];
 

@@ -54,7 +54,7 @@ export function BscDetail({
   );
 
   return (
-    <CaseStudyShell open={open} onBack={onBack} category="UI/UX" title="BSC" track={TRACK} darkZones={DARK_ZONES}>
+    <CaseStudyShell open={open} onBack={onBack} category="UI/UX" title="BSC" track={TRACK} brandColor="#295ca9" darkZones={DARK_ZONES}>
       {sections}
     </CaseStudyShell>
   );

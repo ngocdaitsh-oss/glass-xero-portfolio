@@ -65,7 +65,7 @@ function Overview({ onMail }: { onMail: () => void }) {
       <Card className="flex items-center gap-3.5 p-4">
         <span className="size-[60px] shrink-0 overflow-hidden rounded-full">
           <img
-            src="/figma/about/avatar-about-2026.png"
+            src="/figma/avatar-2026.png"
             alt="Tuan Ngoc"
             width={60}
             height={60}

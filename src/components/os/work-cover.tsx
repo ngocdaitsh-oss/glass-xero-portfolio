@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Figma exports keep their own width and height. */
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, type RefObject } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import type { Work } from "@/lib/works";
 
 /*
@@ -63,7 +63,8 @@ function CoverVideo({ id }: { id: Work["cover"] }) {
   const near = useNearViewport(ref, lazy);
   const [seen, setSeen] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const playing = useContext(PlayContext) && (!lazy || near) && !reducedMotion;
+  const [revealed, setRevealed] = useState(false);
+  const playing = useContext(PlayContext) && revealed && (!lazy || near) && !reducedMotion;
   if (lazy && near && !seen) setSeen(true);
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -71,6 +72,20 @@ function CoverVideo({ id }: { id: Work["cover"] }) {
     update();
     mediaQuery.addEventListener("change", update);
     return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+  useLayoutEffect(() => {
+    const video = ref.current;
+    const reveal = video?.closest<HTMLElement>(".reveal");
+    if (!reveal || reveal.classList.contains("is-in")) {
+      setRevealed(true);
+      return;
+    }
+    const start = () => {
+      if (video) video.currentTime = 0;
+      setRevealed(true);
+    };
+    reveal.addEventListener("xero-reveal", start, { once: true });
+    return () => reveal.removeEventListener("xero-reveal", start);
   }, []);
   useEffect(() => {
     const v = ref.current;
@@ -85,7 +100,7 @@ function CoverVideo({ id }: { id: Work["cover"] }) {
       ref={ref}
       className={media.fit === "contain" ? "absolute top-1/2 left-0 aspect-video w-full -translate-y-1/2 rounded-xl object-cover" : "h-full w-full object-cover"}
       poster={media.poster}
-      autoPlay={!lazy}
+      autoPlay={false}
       loop
       muted
       playsInline

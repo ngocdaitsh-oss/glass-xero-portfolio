@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Figma exports keep their own size. */
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { works, type Work } from "@/lib/works";
 import { useT } from "@/lib/i18n";
@@ -155,6 +155,7 @@ export function CaseStudyShell({
   category,
   title,
   track,
+  brandColor = "var(--brand-bave)",
   darkZones = [],
   children,
 }: {
@@ -163,6 +164,8 @@ export function CaseStudyShell({
   category: string;
   title: string;
   track: TrackItem[];
+  /** Brand colour used by the active progress-tracker state. */
+  brandColor?: string;
   /** Section ids whose artwork is dark or saturated, where the rail uses light ink. */
   darkZones?: string[];
   children: ReactNode;
@@ -250,7 +253,12 @@ export function CaseStudyShell({
         </div>
       </header>
       <div className="relative min-h-0 flex-1">
-        <div ref={scroller} onScroll={onScroll} className="os-scroll work-detail reveal-root h-full overflow-y-auto" style={{ overflowX: "clip" }}>
+        <div
+          ref={scroller}
+          onScroll={onScroll}
+          className="os-scroll os-scroll-ink work-detail reveal-root h-full overflow-y-scroll"
+          style={{ overflowX: "clip", "--work-brand": brandColor } as CSSProperties}
+        >
           <div data-reveal-zoom className="relative mx-auto w-[1872px] overflow-x-clip" style={{ zoom }}>
             {/* 32px from the right edge and the top, so the open list always fits above the fold. */}
             <div className="pointer-events-none sticky top-8 z-20 h-0">

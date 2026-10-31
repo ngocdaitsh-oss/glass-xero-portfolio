@@ -255,6 +255,7 @@ html {
 [data-window][data-glassfake]::after {
   inset: 0;
   border-radius: inherit;
+  background-color: var(--gf-color);
   background-image: var(--gf-tint);
 }
 
@@ -1660,7 +1661,7 @@ input[type="range"] {
 }
 
 .pt-row.is-active .pt-ind {
-  background: var(--brand-bave);
+  background: var(--work-brand, var(--brand-bave));
 }
 
 .pt.on-dark:not(.is-open) .pt-ind {
@@ -1668,7 +1669,7 @@ input[type="range"] {
 }
 
 .pt.on-dark:not(.is-open) .pt-row.is-active .pt-ind {
-  background: #ffffff;
+  background: var(--work-brand, var(--brand-bave));
 }
 
 .pt.is-open .pt-ind {
@@ -1679,7 +1680,7 @@ input[type="range"] {
 
 .pt.is-open .pt-row.is-active .pt-ind {
   width: 16px;
-  background: #2ed3dc;
+  background: var(--work-brand, var(--brand-bave));
 }
 
 .pt-text {

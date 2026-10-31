@@ -37,6 +37,7 @@ function show(el: HTMLElement, delayMs: number, animate: boolean) {
     el.style.transition = "none";
     el.style.transitionDelay = "0ms";
     el.classList.add("is-in");
+    el.dispatchEvent(new CustomEvent("xero-reveal"));
     requestAnimationFrame(() => {
       el.style.transition = "";
     });
@@ -44,6 +45,9 @@ function show(el: HTMLElement, delayMs: number, animate: boolean) {
   }
   el.style.transitionDelay = `${delayMs}ms`;
   el.classList.add("is-in");
+  // Start animated media at the same moment as the delayed reveal, rather
+  // than letting it advance behind an invisible card during the stagger.
+  window.setTimeout(() => el.dispatchEvent(new CustomEvent("xero-reveal")), delayMs);
 }
 
 function subscribe(root: HTMLElement, fn: EnterFn) {

@@ -250,6 +250,7 @@ export function BaveDetail({
       category="UI/UX"
       title="BAVE — Car Service Booking"
       track={TRACK}
+      brandColor="#02c3ea"
       darkZones={DARK_ZONES}
     >
       <BaveReveal>{sections}</BaveReveal>

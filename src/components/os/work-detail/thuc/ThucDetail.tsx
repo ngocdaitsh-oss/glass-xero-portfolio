@@ -51,7 +51,7 @@ export function ThucDetail({
   );
 
   return (
-    <CaseStudyShell open={open} onBack={onBack} category="Graphic" title="Thực Vị Thiên" track={TRACK} darkZones={DARK_ZONES}>
+    <CaseStudyShell open={open} onBack={onBack} category="Graphic" title="Thực Vị Thiên" track={TRACK} brandColor="#cc242b" darkZones={DARK_ZONES}>
       {sections}
     </CaseStudyShell>
   );

@@ -50,7 +50,7 @@ export function RumDetail({
   );
 
   return (
-    <CaseStudyShell open={open} onBack={onBack} category="Graphic" title="98rum" track={TRACK} darkZones={DARK_ZONES}>
+    <CaseStudyShell open={open} onBack={onBack} category="Graphic" title="98rum" track={TRACK} brandColor="#0087c2" darkZones={DARK_ZONES}>
       {sections}
     </CaseStudyShell>
   );

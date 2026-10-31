@@ -89,7 +89,7 @@ export function SappDetail({
   );
 
   return (
-    <CaseStudyShell open={open} onBack={onBack} category="UI/UX" title="SAPP — LMS Redesign" track={TRACK} darkZones={DARK_ZONES}>
+    <CaseStudyShell open={open} onBack={onBack} category="UI/UX" title="SAPP — LMS Redesign" track={TRACK} brandColor="#f5a300" darkZones={DARK_ZONES}>
       {sections}
     </CaseStudyShell>
   );
