@@ -7,6 +7,7 @@ import { useT } from "@/lib/i18n";
 import { sappBeVietnam, sappJakarta, sappRoboto } from "./fonts";
 import { Reveal } from "../../reveal";
 import { SappHeading } from "./parts";
+import { SappDsCursorTag, SappDsSticker, SappSelectionOutline } from "./decor";
 
 /* Fonts used only inside the LMS design-system specimens (Figma: Roboto, Plus Jakarta Sans, Be Vietnam). */
 const roboto = sappRoboto;
@@ -15,7 +16,6 @@ const beVietnam = sappBeVietnam;
 
 const FONT_VARS = `${roboto.variable} ${jakarta.variable} ${beVietnam.variable}`;
 const ROBOTO = "font-[family-name:var(--font-sapp-roboto)]";
-const JAKARTA = "font-[family-name:var(--font-sapp-jakarta)]";
 const BEVN = "font-[family-name:var(--font-sapp-bvp)]";
 const ASSET = "/figma/sapp/system";
 
@@ -142,7 +142,7 @@ const TIERS: Tier[] = [
 export function SappDesignSystem() {
   const t = useT();
   return (
-    <section id="wd-system" className={`sys-ease ${FONT_VARS} flex w-full flex-col items-start gap-12 px-[236px] pt-[100px]`}>
+    <section id="wd-system" className={`sys-ease ${FONT_VARS} relative flex w-full flex-col items-start gap-12 px-[236px] pt-[100px]`}>
       {/* Head 247:14912 */}
       <Reveal className="w-full">
         <div className="flex w-full flex-col items-start gap-[22px]">
@@ -267,6 +267,10 @@ export function SappDesignSystem() {
           ))}
         </div>
       </div>
+
+      <SappDsSticker label="LMS Pro DS" tone="yellow" rotate={-4} className="top-[458px] left-[488px]" />
+      <SappDsSticker label="System map" tone="mint" rotate={3} className="top-[592px] left-[1449px]" />
+      <SappDsSticker label="Token tiers" tone="violet" rotate={-3} className="top-[1091px] left-[1460px]" />
     </section>
   );
 }
@@ -278,8 +282,6 @@ export function SappDesignSystem() {
 type Ramp = { name: string; hex: string[]; labels?: string[] };
 
 const STEPS = ["800", "700", "600", "500", "400", "300", "200", "100", "50"];
-/* Light steps print "AAA" in black, as in Figma. */
-const DARK_TEXT_FROM = 7;
 
 const BRAND_RAMPS: Ramp[] = [
   { name: "Primary Shade", hex: ["#664A00", "#996E00", "#CC9300", "#FFB700", "#FFC633", "#FFD466", "#FFE399", "#FFF1CC", "#FFFBF2"] },
@@ -293,35 +295,28 @@ const STATE_RAMPS: Ramp[] = [
   { name: "Info", hex: ["#0E4466", "#146699", "#1B88CC", "#22AAFF", "#4EBBFF", "#7ACCFF", "#7ACCFF", "#D3EEFF", "#E9F6FF"] },
 ];
 
-function Swatch({ hex, label, step, i }: { hex: string; label: string; step: string; i: number }) {
-  const white = hex.toUpperCase() === "#FFFFFF";
+function CompactRamp({ ramp }: { ramp: Ramp }) {
   return (
-    <div className={`sys-swatch relative flex flex-col items-start gap-[9.4px] rounded-[4px] bg-white p-[5.223px] ${JAKARTA}`}>
-      <div
-        className="sys-swatch-chip h-[66.853px] w-[107.591px] shrink-0 rounded-[4px]"
-        style={{ background: hex, boxShadow: white ? "inset 0 0 0 1.045px #ededed" : undefined }}
-      />
-      <div className="flex w-full flex-col items-start gap-[2.09px]">
-        <p className="w-full text-[12.53px] leading-[20.89px] font-bold text-[#404040]">Primary/{step}</p>
-        <p className="sys-swatch-hex w-full text-[10.45px] leading-[12.535px] text-[#7e7e7e]">{label}</p>
-      </div>
-      <p className={`sys-swatch-aaa absolute top-[28.2px] left-[11.49px] text-[12.53px] leading-[20.89px] font-bold ${i >= DARK_TEXT_FROM ? "text-black" : "text-white"}`}>AAA</p>
-    </div>
-  );
-}
-
-function RampRow({ ramp }: { ramp: Ramp }) {
-  return (
-    <div className="flex w-full flex-col items-start gap-[12.535px]">
-      <Reveal enter={60}>
-        <p className={`text-[20px] leading-7 font-bold whitespace-nowrap text-[#252525] ${ROBOTO}`}>{ramp.name}</p>
-      </Reveal>
-      <div className="flex w-full items-start justify-between">
-        {ramp.hex.map((h, i) => (
-          <Reveal key={`${ramp.name}-${STEPS[i]}`} enter={40}>
-            <Swatch hex={h} label={ramp.labels?.[i] ?? h} step={STEPS[i]} i={i} />
-          </Reveal>
-        ))}
+    <div className="wd-hover flex h-[131px] w-[634px] flex-col items-start gap-3 overflow-hidden rounded-[18px] bg-white px-5 py-[18px] shadow-[0_8px_24px_rgba(26,33,77,0.07)]">
+      <p className="text-[18px] leading-normal font-semibold whitespace-nowrap text-[#1f2937]">{ramp.name}</p>
+      <div className="flex overflow-hidden rounded-[10px] font-mono text-[14px] leading-normal">
+        {ramp.hex.map((hex, i) => {
+          const value = Number.parseInt(hex.slice(1), 16);
+          const red = (value >> 16) & 255;
+          const green = (value >> 8) & 255;
+          const blue = value & 255;
+          const dark = red * 0.299 + green * 0.587 + blue * 0.114 < 145;
+          return (
+            <div
+              key={`${ramp.name}-${STEPS[i]}`}
+              className={`flex w-[66px] shrink-0 flex-col items-center gap-0.5 px-[5px] py-2.5 ${dark ? "text-white" : "text-[#1f2937]"}`}
+              style={{ background: hex }}
+            >
+              <span>{STEPS[i]}</span>
+              <span>{ramp.labels?.[i] ?? hex.toUpperCase()}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -429,7 +424,7 @@ export function SappFoundations() {
   /* Typography: the dark Roboto card follows the scroll beside the type scale until both bottoms meet. */
   useStickyCopy(typeRoot, ".work-detail", 16);
   return (
-    <section id="wd-foundations" className={`sys-ease ${FONT_VARS} flex w-full flex-col items-start gap-12 px-[236px] pt-[100px]`}>
+    <section id="wd-foundations" className={`sys-ease ${FONT_VARS} relative flex w-full flex-col items-start gap-12 px-[236px] pt-[100px]`}>
       {/* Head 249:15807 */}
       <Reveal className="w-full">
         <div className="flex flex-col items-start gap-[22px]">
@@ -450,36 +445,30 @@ export function SappFoundations() {
             {t("A warm yellow brand for focus and progress, a charcoal secondary for actions, and four state ramps. Each ramp runs 50 → 800 so the same hue covers backgrounds, borders and text.")}
           </BlockHead>
         </Reveal>
-        <div className="flex w-full flex-col items-start gap-4">
-          <Reveal className="w-full">
-            <div className="wd-hover flex w-full flex-col items-start rounded-[16px] bg-white px-4 pt-4 pb-8 shadow-[inset_0_0_0_2px_#ffb700]">
-              {BRAND_RAMPS.map((r) => (
-                <div key={r.name} className="w-full p-5">
-                  <RampRow ramp={r} />
-                </div>
-              ))}
-            </div>
-          </Reveal>
-          <Reveal className="w-full">
-            <div className="wd-hover flex w-full flex-col items-start gap-6 rounded-[16px] bg-white p-4 shadow-[inset_0_0_0_2px_#ffb700]">
-              {STATE_RAMPS.map((r) => (
-                <RampRow key={r.name} ramp={r} />
-              ))}
-            </div>
-          </Reveal>
-        </div>
-        <div className="flex w-full items-start gap-5">
-          {ROLES.map((role) => (
-            <Reveal key={role.title} className="w-[335px] shrink-0">
-              <div className={`${CARD} flex h-[308px] flex-col items-start gap-3 p-7`}>
-                <div className="flex items-center justify-center gap-2.5">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img alt="" src={`${ASSET}/${role.icon}`} className="size-6 shrink-0" />
-                  <p className="text-[20px] leading-7 font-semibold tracking-[-0.4px] whitespace-nowrap text-[#0a0a0a]">{role.title}</p>
-                </div>
-                {role.rows.map((row) => (
-                  <Reveal key={row.name} enter={60}>
-                    <div className="sys-role flex items-center gap-3">
+        <div className="relative h-[978px] w-full overflow-hidden rounded-[32px]">
+          <span className="pointer-events-none absolute top-[120px] left-[-179px] size-[520px] rounded-full bg-[rgba(255,194,51,0.2)] blur-[90px]" />
+          <span className="pointer-events-none absolute top-[-40px] left-[900px] size-[460px] rounded-full bg-[rgba(143,227,220,0.25)] blur-[90px]" />
+          <span className="pointer-events-none absolute top-[681px] left-[620px] size-[520px] rounded-full bg-[rgba(91,107,224,0.18)] blur-[100px]" />
+
+          <div className="absolute top-14 left-7 z-[2] flex w-[634px] flex-col gap-4">
+            {[...BRAND_RAMPS, ...STATE_RAMPS].map((ramp) => (
+              <Reveal key={ramp.name} enter={50}>
+                <CompactRamp ramp={ramp} />
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="absolute top-16 left-[824px] z-[2] grid h-[850px] w-[552px] grid-cols-2 gap-5">
+            {ROLES.map((role) => (
+              <Reveal key={role.title} className="h-[415px] w-[266px]">
+                <div className={`${CARD} flex size-full flex-col items-start justify-between p-7`}>
+                  <div className="flex items-center justify-center gap-2.5">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img alt="" src={`${ASSET}/${role.icon}`} className="size-6 shrink-0" />
+                    <p className="text-[20px] leading-7 font-semibold tracking-[-0.4px] whitespace-nowrap text-[#0a0a0a]">{role.title}</p>
+                  </div>
+                  {role.rows.map((row) => (
+                    <div key={row.name} className="sys-role flex items-center gap-3">
                       <span
                         className="sys-role-sw size-10 shrink-0 rounded-[10px]"
                         style={{ background: row.color, boxShadow: row.ring ? "inset 0 0 0 1px rgba(0,0,0,0.12)" : undefined }}
@@ -489,11 +478,27 @@ export function SappFoundations() {
                         <p className="sys-role-hint leading-5 text-[#6b7280]">{t(row.hint)}</p>
                       </div>
                     </div>
-                  </Reveal>
-                ))}
-              </div>
-            </Reveal>
+                  ))}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {[121.5, 268.5, 415.5, 562.5, 709.5, 856.5].map((top) => (
+            <Fragment key={top}>
+              <span className="absolute left-[657px] z-[3] size-2.5 rounded-full bg-[#5b6be0]" style={{ top: top - 5 }} />
+              <span className="absolute left-[662px] z-[3] h-0 w-12 border-t-2 border-[#5b6be0]" style={{ top }} />
+            </Fragment>
           ))}
+          <span className="absolute top-[121.5px] left-[709px] z-[3] h-[735px] border-l-2 border-[#5b6be0]" />
+          <span className="absolute top-[489px] left-[710px] z-[3] h-0 w-[90px] border-t-2 border-[#5b6be0]" />
+          <span className="absolute top-[470px] left-[717.5px] z-[4] rounded-lg bg-[#5b6be0] px-3.5 py-2 text-[14px] leading-[22px] font-semibold text-white">Alias</span>
+
+          <SappSelectionOutline style={{ left: 8, top: 32, width: 676, height: 914 }} />
+          <SappSelectionOutline style={{ left: 800, top: 32, width: 600, height: 914 }} />
+          <SappDsSticker label="Base colors" tone="mint" rotate={-3} className="top-0 left-9" />
+          <SappDsSticker label="Semantic roles" tone="violet" rotate={4} className="top-0 left-[1180px]" />
+          <SappDsCursorTag className="top-[904px] left-[716px]" />
         </div>
       </div>
 
@@ -504,7 +509,7 @@ export function SappFoundations() {
             {t("One family — Roboto — chosen for dense Vietnamese learning content and exam questions. 12 sizes × 4 weights give 45 named styles, from a 64px hero to 10px captions.")}
           </BlockHead>
         </Reveal>
-        <div data-story className="flex w-full items-start gap-5">
+        <div data-story className="relative flex w-full items-start gap-5">
           <Reveal className="w-[450px] shrink-0">
             <div data-copy className="will-change-transform">
             <div className="sys-spec wd-hover flex flex-col items-start gap-2 rounded-[24px] bg-[#29353c] p-10 shadow-[var(--sapp-card-soft)]">
@@ -539,6 +544,9 @@ export function SappFoundations() {
               ))}
             </div>
           </Reveal>
+          <SappSelectionOutline style={{ left: 458, top: -14, width: 954, height: 866 }} />
+          <SappDsSticker label="Roboto" tone="yellow" rotate={-4} className="top-[-34px] left-[1236px]" />
+          <SappDsCursorTag className="top-[454px] left-[935px]" />
         </div>
       </div>
 
@@ -549,7 +557,7 @@ export function SappFoundations() {
             {t("A 4-based number scale feeds both spacing and radius, so a 16px gap and a 16px corner come from the same token. Border widths encode state: 1 default, 1.5 selected, 2 focused.")}
           </BlockHead>
         </Reveal>
-        <div className="flex w-full items-stretch gap-5">
+        <div className="relative flex w-full items-stretch gap-5">
           <Reveal className="flex w-[560px] shrink-0">
             <div className={`${CARD} flex w-full flex-col items-start gap-2.5 p-8`}>
               <p className="text-[20px] leading-7 font-semibold tracking-[-0.4px] whitespace-nowrap text-[#0a0a0a]">{t("Number token → spacing")}</p>
@@ -610,6 +618,8 @@ export function SappFoundations() {
               </div>
             </Reveal>
           </div>
+          <SappDsSticker label="Figma variables" tone="orange" rotate={4} className="top-[-24px] left-[-16px]" />
+          <SappDsSticker label="Radius tokens" tone="violet" rotate={-3} className="top-[-24px] left-[1190px]" />
         </div>
       </div>
 
@@ -620,19 +630,39 @@ export function SappFoundations() {
             {t("Four effect styles. Shadows stay soft and low so dense learning screens never feel heavy; the inner shadow marks pressed and inset fields.")}
           </BlockHead>
         </Reveal>
-        <div className="flex w-full items-start gap-6">
-          {ELEVATION.map((e) => (
-            <Reveal key={e.token} className="w-[332px] shrink-0">
-              <div
-                className="sys-elev flex h-[190px] w-full flex-col items-start justify-end gap-1.5 rounded-[20px] bg-white p-7 whitespace-nowrap"
-                style={{ "--e": e.e, "--e-hover": e.eh, "--lift": e.lift ?? "-8px" } as CSSProperties}
-              >
-                <p className="font-mono text-[14px] leading-[22px] text-[#0a0a0a]">{e.token}</p>
-                <p className="text-[18px] leading-7 font-semibold tracking-[-0.2px] text-[#0a0a0a]">{t(e.use)}</p>
-                <p className="text-[12px] leading-[18px] text-[#6b7280]">{e.spec}</p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="relative flex w-full items-start gap-6">
+          <div className="flex min-w-px flex-1 items-stretch gap-5">
+            {ELEVATION.map((e) => (
+              <Reveal key={e.token} className="flex min-w-px flex-1">
+                <div className="wd-hover flex h-[252px] w-full flex-col items-center justify-center gap-2.5 rounded-[20px] bg-white p-7 text-center whitespace-nowrap shadow-[0_4px_10px_rgba(0,0,0,0.05)]">
+                  <span
+                    className="sys-elev size-24 shrink-0 rounded-[20px] bg-white"
+                    style={{ "--e": e.e, "--e-hover": e.eh, "--lift": e.lift ?? "-8px" } as CSSProperties}
+                  />
+                  <p className="font-mono text-[14px] leading-[22px] text-[#0a0a0a]">{e.token}</p>
+                  <p className="text-[18px] leading-7 font-semibold tracking-[-0.2px] text-[#0a0a0a]">{t(e.use)}</p>
+                  <p className="text-[14px] leading-5 text-[#6b7280]">{e.spec}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="w-80 shrink-0">
+            <div className="flex w-full flex-col items-start gap-3 overflow-hidden rounded-2xl bg-white p-5 shadow-[0_8px_24px_rgba(26,33,77,0.07)]">
+              <p className="text-[16px] leading-normal font-semibold whitespace-nowrap text-[#1f2937]">Drop shadow · Shadow/Large</p>
+              {[
+                ["X", "0"],
+                ["Y", "4"],
+                ["Blur", "24"],
+                ["Colour", "Black · 12%"],
+              ].map(([label, value]) => (
+                <div key={label} className="flex w-full items-start justify-between overflow-hidden text-[14px] leading-normal">
+                  <span className="text-[#6b7280]">{label}</span>
+                  <span className="rounded-lg bg-[#f3f4f6] px-2.5 py-[5px] font-mono text-[#1f2937]">{value}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <SappDsSticker label="Effects" tone="mint" rotate={-4} className="top-[-30px] left-[1240px]" />
         </div>
       </div>
     </section>

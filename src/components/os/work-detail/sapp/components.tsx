@@ -8,6 +8,7 @@ import { useT } from "@/lib/i18n";
 import { Reveal } from "../../reveal";
 import { SappLottie } from "./media";
 import { SappHeading } from "./parts";
+import { SappDsSticker } from "./decor";
 
 /* Library fonts used inside the SAPP specimens (Figma: Be Vietnam Pro, Roboto, PT Mono). */
 const beVietnam = sappBeVietnam;
@@ -466,7 +467,7 @@ function SlotContentBlock() {
 export function SappComponentLibrary() {
   const t = useT();
   return (
-    <section id="wd-components" className={`${FONT_VARS} flex w-full flex-col items-start gap-12 px-[236px] pt-[100px] pb-[100px]`}>
+    <section id="wd-components" className={`${FONT_VARS} relative flex w-full flex-col items-start gap-12 px-[236px] pt-[100px] pb-[100px]`}>
       {/* Head (250:15807) */}
       <Reveal>
         <div className="flex w-[1400px] flex-col items-start gap-[22px]">
@@ -519,6 +520,8 @@ export function SappComponentLibrary() {
       <div className="w-[1400px]">
         <SlotContentBlock />
       </div>
+      <SappDsSticker label="Components" tone="violet" rotate={3} className="top-[582px] left-[1444px]" />
+      <SappDsSticker label="Slot pattern" tone="orange" rotate={-3} className="top-[2331px] left-[1453px]" />
     </section>
   );
 }
