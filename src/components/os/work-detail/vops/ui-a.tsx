@@ -514,16 +514,18 @@ function ButtonDeepDive() {
         title="Component deep dive — Button"
         lead="How one component is specified end-to-end: anatomy, variants, states, sizes, properties and usage. Every VIC component follows this template."
       />
-      {/* Row 1 — Figma lets the two cards run 42px past the 1560 column (662 + 20 + 920). */}
-      <div className="flex w-full items-start gap-5">
+      {/* Row 1 — exact 1560px Figma grid: 662 + 20 + 878. */}
+      <div className="relative flex w-full items-start gap-5">
+        <div className="absolute top-[-22px] left-[440px] z-20 rotate-[-3deg] rounded-[12px] bg-[#8fe3dc] px-5 py-2.5 text-[20px] leading-[normal] font-semibold whitespace-nowrap text-[#14514d] shadow-[0_6px_7px_rgba(0,0,0,.12)]">
+          {tr("Button anatomy")}
+        </div>
         <Reveal className="self-stretch" enter={60}>
           <Card className="flex h-full w-[662px] flex-col items-start gap-5 p-10">
             <p className={H3} style={{ color: INK }}>
               {tr("Anatomy")}
             </p>
-            <div className="flex h-[240px] w-[540px] shrink-0 flex-col items-center justify-center rounded-[16px] bg-[#fff4f6]">
-              <Spec w={177.6} h={96} pieces={[{ s: "an-btn", p: PAD }]} label="Primary button, size 48, shown at 2×" className="uia-pop" />
-            </div>
+            {/* Exact 540×240 anatomy callout board exported from Figma 280:14899. */}
+            <img src="/figma/vops/ui-a/button-anatomy-stage.png" alt={tr("Button anatomy with five numbered callouts")} width={540} height={240} className="block h-[240px] w-[540px] shrink-0 rounded-[16px]" />
             {ANATOMY.map(([name, token], k) => (
               <div key={name} className="uia-anat flex items-center gap-3.5">
                 <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#14141a] text-[14px] leading-[1.5] font-bold text-white">{k + 1}</span>
@@ -536,7 +538,10 @@ function ButtonDeepDive() {
           </Card>
         </Reveal>
         <Reveal className="self-stretch" enter={60}>
-          <Card className="flex h-full w-[920px] shrink-0 flex-col items-start gap-4 p-10">
+          <Card className="relative flex h-full w-[878px] shrink-0 flex-col items-start gap-4 p-10">
+            <div className="pointer-events-none absolute -inset-2 rounded-[28px] border-2 border-dashed border-[#20273a]">
+              <span className="absolute -top-[30px] right-5 font-mono text-[14px] leading-[22px] text-[#20273a]">❖ Button / Variants</span>
+            </div>
             <p className={H3} style={{ color: INK }}>
               {tr("Variants × states")}
             </p>
@@ -573,6 +578,8 @@ function ButtonDeepDive() {
             </div>
           </Card>
         </Reveal>
+        {/* Exact cursor annotation position from Figma 720:28390. */}
+        <img alt="" src="/figma/vops/system-b/type-scale-cursor-tag.png" className="pointer-events-none absolute top-[588px] left-[1370px] z-20 h-16 w-[150px]" />
       </div>
       {/* Row 2 */}
       <div className="flex w-full items-stretch gap-5">

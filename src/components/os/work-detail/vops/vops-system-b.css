@@ -7,6 +7,35 @@
   --vb-card-soft: 0 1px 3px rgba(15, 23, 41, 0.04), 0 12px 32px -4px rgba(15, 23, 41, 0.06);
 }
 
+/* Documentation annotations introduced in the refreshed VIC design-system boards. */
+.vb-selection {
+  outline: 2px dashed #20273a;
+  outline-offset: 12px;
+}
+.vb-selection::before,
+.vb-selection::after {
+  content: "";
+  position: absolute;
+  z-index: 9;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #20273a;
+  border-radius: 2px;
+  background: #fff;
+}
+.vb-selection::before { left: -18px; top: -18px; }
+.vb-selection::after { right: -18px; bottom: -18px; }
+.vb-sticker { transition: transform 260ms var(--vb-ease); }
+.vb-sticker:hover { transform: rotate(0deg) translateY(-3px); }
+.vb-wireboard svg path {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  transition: stroke-dashoffset 1.4s var(--vb-ease) 180ms;
+}
+.reveal.is-in .vb-wireboard svg path { stroke-dashoffset: 0; }
+.vb-wire-token { transition: transform 220ms var(--vb-ease), background-color 220ms ease; }
+.vb-wire-token:hover { transform: translateY(-3px); background-color: #313750; }
+
 /* Token pills inside hoverable rows. */
 .vb-token {
   transition:

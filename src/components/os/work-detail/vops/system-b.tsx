@@ -1,7 +1,7 @@
 "use client";
 
 import "./vops-system-b.css";
-import { Fragment, type CSSProperties, type ReactNode } from "react";
+import { type CSSProperties, type ReactNode } from "react";
 import { useT } from "@/lib/i18n";
 import { Reveal } from "../../reveal";
 import { sappRoboto } from "../sapp/fonts";
@@ -48,6 +48,34 @@ function Token({ children, className = "" }: { children: ReactNode; className?: 
 function CardTitle({ children }: { children: ReactNode }) {
   const t = useT();
   return <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{typeof children === "string" ? t(children) : children}</p>;
+}
+
+function Sticker({ children, tone = "mint", className = "" }: { children: ReactNode; tone?: "mint" | "orange" | "blue" | "pink"; className?: string }) {
+  const tones = { mint: "bg-[#7be0d2] text-[#134f4a]", orange: "bg-[#ffb34f] text-[#684100]", blue: "bg-[#586ee8] text-white", pink: "bg-[#ed46cd] text-white" };
+  return <span className={`vb-sticker absolute z-10 rounded-[10px] px-5 py-2 text-[18px] leading-6 font-semibold shadow-[0_8px_18px_rgba(15,23,41,.16)] ${tones[tone]} ${className}`}>{children}</span>;
+}
+
+function SelectionFrame({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`vb-selection relative ${className}`}>{children}</div>;
+}
+
+function VariableTable({ title, rows, width = 520 }: { title: string; rows: [string, string][]; width?: number }) {
+  return (
+    <div className="overflow-hidden rounded-[20px] bg-white shadow-[0_10px_30px_rgba(26,33,77,.08)]" style={{ width }}>
+      <div className="flex items-center gap-3 px-6 py-4">
+        <p className="text-[18px] font-semibold text-[#14182b]">{title}</p>
+        <div className="min-w-0 flex-1 rounded-[8px] bg-[#f3f4f6] px-3 py-2 text-[14px] text-[#9aa0a8]">Search</div>
+      </div>
+      <div className="grid grid-cols-[1fr_128px] border-y border-[#ecedf2] px-6 py-4 text-[16px] font-semibold text-[#14182b]"><span>Name</span><span>Value</span></div>
+      {rows.map(([name, value]) => (
+        <div key={name} className="grid grid-cols-[1fr_128px] items-center border-b border-[#ecedf2] px-6 py-[13px]">
+          <div className="flex items-center gap-2.5"><span className="rounded-[5px] bg-[#eef0f8] px-1.5 py-0.5 font-mono text-[13px] text-[#4a5578]">#</span><span className="font-mono text-[15px] text-[#14182b]">{name}</span></div>
+          <span className="text-[16px] text-[#14182b]">{value}</span>
+        </div>
+      ))}
+      <p className="px-6 py-3 text-[15px] text-[#374151]">＋ Create variable</p>
+    </div>
+  );
 }
 
 /* ========================================================================== */
@@ -115,33 +143,6 @@ function SystemArchitecture() {
 /* Token architecture (Figma 278:15125)                                       */
 /* ========================================================================== */
 
-type Tier = { eyebrow: string; title: string; chip: string; desc: string; tokens: string[]; colors?: string[] };
-
-const TIERS: Tier[] = [
-  {
-    eyebrow: "TIER 1 · PRIMITIVE",
-    title: "_🎨 Tokens/Colors",
-    chip: "158 values",
-    desc: "The raw palette: 13 colour ramps. Never bound directly in UI.",
-    tokens: ["Red/Primary", "Red-600", "Gray-900", "GreenLeaf-500", "Blue-Info"],
-    colors: ["#ee0033", "#c80029", "#2c2f32", "#75c044", "#2d96ff"],
-  },
-  {
-    eyebrow: "TIER 2 · SEMANTIC",
-    title: "🌮 Color — Light / Dark",
-    chip: "302 tokens",
-    desc: "Named by intent: text, icon, border, background, interaction, chart.",
-    tokens: ["Color/text/default", "Color/border/focused", "Color/background/primary/bold", "Color/background/success/bold", "Color/interaction/hovered"],
-  },
-  {
-    eyebrow: "TIER 3 · COMPONENT",
-    title: "🌮 Component Color",
-    chip: "376 tokens",
-    desc: "Scoped to one component, so state changes never leak elsewhere.",
-    tokens: ["button/primary/bg", "input/border/focused", "tag/success/bg", "table/row/hovered", "toast/info/bg"],
-  },
-];
-
 const COLLECTIONS: [string, string, string, string][] = [
   ["_🎨 Tokens/Colors", "158", "—", "Primitive palette (hidden from publishing)"],
   ["🌮 Color", "302", "Light · Dark", "Semantic colour by intent"],
@@ -152,6 +153,71 @@ const COLLECTIONS: [string, string, string, string][] = [
 ];
 const COL_W = [340, 140, 300, 700];
 
+const WIRING_COLUMNS = [
+  { eyebrow: "TIER 1 · PRIMITIVE", title: "_🎨 Tokens/Colors", chip: "158 values", desc: "The raw palette: 13 colour ramps. Never bound directly in UI.", x: 44, w: 300 },
+  { eyebrow: "TIER 2 · SEMANTIC", title: "🌮 Color — Light / Dark", chip: "302 tokens", desc: "Named by intent: text, icon, border, background, interaction, chart.", x: 440, w: 340 },
+  { eyebrow: "TIER 3 · COMPONENT", title: "🌮 Component Color", chip: "376 tokens", desc: "Scoped to one component, so state changes never leak elsewhere.", x: 880, w: 300 },
+  { eyebrow: "RENDERED", title: "In the product", desc: "Every wire ends in a component state a user actually sees.", x: 1244, w: 272 },
+];
+
+const PRIMITIVE_TOKENS = [
+  ["Red/Primary", "#ee0033"], ["Red-600", "#c80029"], ["Gray-900", "#2c2f32"], ["GreenLeaf-500", "#75c044"], ["Blue-Info", "#2d96ff"],
+] as const;
+const SEMANTIC_TOKENS = ["Color/text/default", "Color/border/focused", "Color/background/primary/bold", "Color/background/success/bold", "Color/interaction/hovered"];
+const COMPONENT_TOKENS = ["button/primary/bg", "input/border/focused", "tag/success/bg", "table/row/hovered", "toast/info/bg"];
+
+function WireToken({ children, x, y, color }: { children: ReactNode; x: number; y: number; color?: string }) {
+  return (
+    <div className="vb-wire-token absolute z-[2] flex items-center gap-2 rounded-[10px] bg-[#262b42] px-3 py-2 font-mono text-[14px] leading-5 text-[#e6e9f5]" style={{ left: x, top: y }}>
+      {color ? <span className="size-5 shrink-0 rounded-[6px]" style={{ background: color }} /> : null}{children}
+    </div>
+  );
+}
+
+function TokenWiringBoard() {
+  const t = useT();
+  return (
+    <Reveal className="w-full">
+      <div className="vb-wireboard relative h-[660px] w-full overflow-hidden rounded-[32px] bg-[linear-gradient(132deg,#22222c_7%,#24242d_90%)]">
+        {WIRING_COLUMNS.map((c) => (
+          <div key={c.eyebrow} className="absolute top-11" style={{ left: c.x, width: c.w }}>
+            <p className="font-mono text-[14px] leading-[18px] text-[#ff859f]">{c.eyebrow}</p>
+            <p className="mt-2 text-[24px] leading-[33px] font-semibold text-white">{c.title}</p>
+            {c.chip ? <span className="mt-3 inline-flex rounded-[10px] bg-[#ee0033] px-3 py-2 font-mono text-[14px] leading-[18px] text-white">{c.chip}</span> : null}
+            <p className="mt-4 text-[16px] leading-[22px] text-[#b8bdd2]">{t(c.desc)}</p>
+          </div>
+        ))}
+
+        <svg className="pointer-events-none absolute inset-0 z-[1] size-full" viewBox="0 0 1560 660" fill="none" aria-hidden>
+          <path d="M184 322 C300 322 322 446 440 446" stroke="#ee0033" strokeWidth="2" />
+          <path d="M151 384 C270 384 320 384 440 384" stroke="#ff85a0" strokeWidth="2" />
+          <path d="M160 446 C292 446 310 322 440 322" stroke="#f8f8fb" strokeWidth="2" />
+          <path d="M160 446 C300 446 306 570 440 570" stroke="#f8f8fb" strokeWidth="2" />
+          <path d="M202 508 C310 508 332 508 440 508" stroke="#75c044" strokeWidth="2" />
+          <path d="M708 446 C790 446 800 322 880 322" stroke="#ee0033" strokeWidth="2" />
+          <path d="M632 384 C735 384 770 384 880 384" stroke="#ff85a0" strokeWidth="2" />
+          <path d="M708 508 C790 508 800 446 880 446" stroke="#75c044" strokeWidth="2" />
+          <path d="M674 570 C770 570 790 508 880 508" stroke="#f8f8fb" strokeWidth="2" />
+          <path d="M1047 322 H1244" stroke="#ee0033" strokeWidth="2" /><path d="M1052 384 H1244" stroke="#ff85a0" strokeWidth="2" />
+          <path d="M1022 446 H1244" stroke="#75c044" strokeWidth="2" /><path d="M1032 508 H1244" stroke="#f8f8fb" strokeWidth="2" />
+          <path d="M998 570 H1244" stroke="#2d96ff" strokeWidth="2" />
+          {[[440,322,"#9aa0a8"],[440,384,"#ff85a0"],[440,446,"#ee0033"],[440,508,"#75c044"],[440,570,"#fff"],[880,322,"#ee0033"],[880,384,"#ff85a0"],[880,446,"#75c044"],[880,508,"#fff"],[1244,322,"#ee0033"],[1244,384,"#ff85a0"],[1244,446,"#75c044"],[1244,508,"#fff"],[1244,570,"#2d96ff"]].map(([cx,cy,fill],i)=><circle key={i} cx={cx} cy={cy} r="5" fill={String(fill)} />)}
+        </svg>
+
+        {PRIMITIVE_TOKENS.map(([name, color], i) => <WireToken key={name} x={44} y={304 + i * 62} color={color}>{name}</WireToken>)}
+        {SEMANTIC_TOKENS.map((name, i) => <WireToken key={name} x={440} y={304 + i * 62}>{name}</WireToken>)}
+        {COMPONENT_TOKENS.map((name, i) => <WireToken key={name} x={880} y={304 + i * 62}>{name}</WireToken>)}
+
+        <div className="absolute left-[1244px] top-[304px] z-[2] flex h-9 w-[120px] items-center justify-center rounded-[10px] bg-[#ee0033] text-[14px] font-semibold text-white">Button</div>
+        <div className="absolute left-[1244px] top-[366px] z-[2] h-9 w-[220px] rounded-[9px] border-2 border-[#ee0033] bg-white px-3 py-2 text-[14px] text-[#9aa0a8]">Tìm đồng nghiệp...</div>
+        <div className="absolute left-[1244px] top-[428px] z-[2] rounded-full bg-[#31572b] px-4 py-2 text-[14px] font-semibold text-[#9be35d]">Approved</div>
+        <div className="absolute left-[1244px] top-[490px] z-[2] w-[272px] rounded-[8px] bg-[#494f69] px-3 py-2 text-[14px] text-[#f5f6fa]">Đơn nghỉ phép T10</div>
+        <div className="absolute left-[1244px] top-[552px] z-[2] w-[272px] rounded-[8px] bg-[#284d73] px-3 py-2 text-[14px] text-[#bcd8f5]">GenHub đã có bản tóm tắt</div>
+      </div>
+    </Reveal>
+  );
+}
+
 function TokenArchitecture() {
   const tr = useT();
   return (
@@ -160,41 +226,7 @@ function TokenArchitecture() {
         Three tiers of Figma variables. Products never touch primitives — they speak in semantic and component tokens, so Light/Dark and future rebrands are a mode switch, not a redesign.
       </Head>
 
-      {/* Row 278:15133 */}
-      <div className="vb-tiers flex w-full items-stretch">
-        {TIERS.map((t, i) => (
-          <Fragment key={t.eyebrow}>
-            {i > 0 ? (
-              <div className="relative h-10 w-20 shrink-0 self-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="" src={`${ASSET}/tier-arrow.svg`} className="vb-tier-arrow absolute inset-0 block size-full max-w-none" />
-              </div>
-            ) : null}
-            <Reveal className="flex min-w-px flex-1">
-              <div className={`${CARD} flex w-full flex-col items-start gap-3.5 p-8`}>
-                <p className="font-mono text-[14px] leading-5 whitespace-nowrap text-[#9ca3af]">{tr(t.eyebrow)}</p>
-                <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{t.title}</p>
-                <span className="vb-chip flex rounded-full bg-[#f3f4f6] px-3.5 py-1.5 text-[14px] leading-5 font-semibold whitespace-nowrap text-[#374151]">{tr(t.chip)}</span>
-                <p className="w-[412px] text-base leading-6 tracking-[-0.2px] text-[var(--cmd-text-primary)]">{tr(t.desc)}</p>
-                {t.tokens.map((tok, k) => (
-                  <Reveal key={tok} enter={60}>
-                    {t.colors ? (
-                      <div className="vb-tok flex items-center gap-2.5">
-                        <span className="vb-tok-sw size-6 shrink-0 rounded-[6px]" style={{ background: t.colors[k] }} />
-                        <Token>{tok}</Token>
-                      </div>
-                    ) : (
-                      <div className="vb-tok">
-                        <Token>{tok}</Token>
-                      </div>
-                    )}
-                  </Reveal>
-                ))}
-              </div>
-            </Reveal>
-          </Fragment>
-        ))}
-      </div>
+      <TokenWiringBoard />
 
       {/* Variable collections 278:15196 */}
       <Reveal className="w-full">
@@ -268,15 +300,16 @@ function Swatch({ hex }: { hex: string }) {
 function Colour() {
   const t = useT();
   return (
-    /* Figma's section is 1766 tall; the Do/Don't row hangs 4px past it. */
-    <section id="wd-colour" className={SECTION} style={{ height: 1766 }}>
+    <section id="wd-colour" className={SECTION} style={{ height: 1922 }}>
       <Head eyebrow="DESIGN SYSTEM  ·  02.5" title="Colors">
         Viettel red leads, with ten accent ramps for charts and categories, and four semantic sets — every colour defined for Light and Dark.
       </Head>
 
       {/* Palette 278:15270 */}
-      <Reveal className="w-full">
-        <div className={`${CARD} flex w-full flex-col items-start gap-6 p-10`}>
+      <SelectionFrame className="w-full">
+        <Sticker className="-top-6 left-6 -rotate-2">Base colors</Sticker>
+        <Reveal className="w-full">
+          <div className={`${CARD} flex w-full flex-col items-start gap-6 p-10`}>
           <p className="text-[30px] leading-9 font-semibold tracking-[-0.6px] whitespace-nowrap text-[var(--cmd-text-primary)]">{t("Colors Accent")}</p>
           <div className="flex w-full flex-col items-start gap-2.5">
             {RAMPS.map(([name, hexes]) => (
@@ -292,24 +325,32 @@ function Colour() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </Reveal>
+          </div>
+        </Reveal>
+      </SelectionFrame>
+
+      <div className="relative flex h-[72px] w-full items-center justify-center">
+        <span className="h-full w-px bg-[#586ee8]" /><Sticker tone="blue" className="top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 text-[14px]">Alias</Sticker>
+      </div>
 
       {/* Semantic sets 278:15535 */}
-      <div className="flex w-full items-stretch gap-5">
-        {SEMANTIC.map((s) => (
-          <Reveal key={s.name} className="flex w-[375px] shrink-0">
-            <div className={`vb-sem ${CARD} flex w-full flex-col items-start overflow-clip`}>
-              <div className="vb-sem-band h-24 w-full shrink-0" style={{ background: s.hex }} />
-              <div className="flex w-full flex-col items-start gap-2 p-6">
-                <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{s.name}</p>
-                <Token>{s.hex}</Token>
-                <p className="w-[327px] text-base leading-6 tracking-[-0.2px] text-[#4b5563]">{t(s.use)}</p>
+      <SelectionFrame className="w-full">
+        <Sticker tone="blue" className="-top-7 right-6 rotate-2">Semantic colors</Sticker>
+        <div className="flex w-full items-stretch gap-5">
+          {SEMANTIC.map((s) => (
+            <Reveal key={s.name} className="flex w-[375px] shrink-0">
+              <div className={`vb-sem ${CARD} flex w-full flex-col items-start overflow-clip`}>
+                <div className="vb-sem-band h-24 w-full shrink-0" style={{ background: s.hex }} />
+                <div className="flex w-full flex-col items-start gap-2 p-6">
+                  <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{s.name}</p>
+                  <Token>{s.hex}</Token>
+                  <p className="w-[327px] text-base leading-6 tracking-[-0.2px] text-[#4b5563]">{t(s.use)}</p>
+                </div>
               </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+            </Reveal>
+          ))}
+        </div>
+      </SelectionFrame>
 
       {/* Do / Don't 278:15564 */}
       <div className="flex w-full items-stretch gap-5">
@@ -350,6 +391,11 @@ const TYPE_SCALE: { name: string; meta: string; size: number; lh: number; roboto
   { name: "Body / M", meta: "14 / 20 · Roboto Regular", size: 14, lh: 20, roboto: true },
 ];
 
+const FONT_WEIGHTS = [
+  ["Book", "BeauSans", "font-normal"], ["SemiBold", "BeauSans", "font-semibold"], ["Bold", "BeauSans", "font-bold"],
+  ["Regular", "Roboto", `${ROBOTO} font-normal`], ["Medium", "Roboto", `${ROBOTO} font-medium`], ["SemiBold", "Roboto", `${ROBOTO} font-semibold`], ["Bold", "Roboto", `${ROBOTO} font-bold`],
+] as const;
+
 function Typography() {
   const tr = useT();
   /* The two family cards are the same height in Figma (no taller column beside them), so nothing follows the scroll here. */
@@ -360,7 +406,8 @@ function Typography() {
       </Head>
 
       {/* Row 279:14864 */}
-      <div className="flex w-full items-stretch gap-5">
+      <div className="relative flex w-full items-stretch gap-5">
+        <Sticker tone="orange" className="-top-5 left-6 rotate-2">BeauSans × Roboto</Sticker>
         <Reveal className="flex w-[770px] shrink-0">
           <div className="vb-spec wd-hover flex w-full flex-col items-start gap-2 rounded-[24px] bg-[#14141a] p-10">
             <p className="vb-aa text-[140px] leading-[1.15] font-bold whitespace-nowrap text-[#ee0033]">Aa</p>
@@ -382,9 +429,22 @@ function Typography() {
         </Reveal>
       </div>
 
+      <div className="relative flex w-full items-stretch gap-4">
+        <Sticker className="-top-6 right-6 -rotate-2">Font weights</Sticker>
+        {FONT_WEIGHTS.map(([name, family, weight], i) => (
+          <Reveal key={`${family}-${name}`} enter={40} className="min-w-0 flex-1">
+            <div className="flex h-[152px] flex-col items-center justify-center gap-1 rounded-[20px] bg-white shadow-[0_12px_32px_rgba(26,33,77,.06)]">
+              <p className={`text-[44px] leading-[50px] text-[#14182b] ${weight}`}>Aa</p>
+              <p className={`text-[16px] text-[#374151] ${i === 4 ? "font-medium" : i > 0 && i !== 3 ? "font-semibold" : ""}`}>{name}</p>
+              <p className="font-mono text-[14px] text-[#6f767e]">{family}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
       {/* Type scale 279:14878 */}
       <Reveal className="w-full">
-        <div className={`${CARD} flex w-full flex-col items-start p-10`}>
+        <div className={`${CARD} relative flex h-[690px] w-full flex-col items-start p-10`}>
           <CardTitle>Type scale</CardTitle>
           <div className="h-3 w-px shrink-0" />
           {TYPE_SCALE.map((t) => (
@@ -404,6 +464,13 @@ function Typography() {
             </Reveal>
           ))}
           <p className="text-[14px] leading-5 whitespace-nowrap text-[#6b7280]">{tr("Also: Body / S 12 and Body / XS 10 for dense data in product UI — never used on this page.")}</p>
+          <div className="absolute top-8 right-8 h-[338px] w-[460px] overflow-hidden rounded-[20px] bg-white shadow-[0_12px_32px_rgba(26,33,77,.09)]">
+            <div className="grid h-[50px] grid-cols-[248px_88px_84px] items-center px-5 text-[14px] font-semibold text-[#14182b]"><span>Style</span><span>Size</span><span>Line</span></div>
+            {TYPE_SCALE.map((row, i) => <div key={row.name} className={`grid h-10 grid-cols-[248px_88px_84px] items-center px-5 text-[14px] ${i % 2 ? "bg-[#f5f6fa]" : ""}`}><span>{row.name}</span><span>{row.size}px</span><span>{row.lh}px</span></div>)}
+          </div>
+          {/* Exact DS/Cursor Tag instance from Figma 726:28448. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt="" src={`${ASSET}/type-scale-cursor-tag.png`} className="pointer-events-none absolute top-[326px] left-[948px] h-16 w-[150px]" />
         </div>
       </Reveal>
     </section>
@@ -429,67 +496,85 @@ const SPACING: [string, string][] = [
   ["space/20", "80px"],
 ];
 
-const BREAKPOINTS: { name: string; range: string; cols: number; w: number; note?: string }[] = [
-  { name: "Mobile", range: "320 – 767", cols: 4, w: 180, note: "4 columns · 16 margin" },
-  { name: "Tablet", range: "768 – 1023", cols: 8, w: 320, note: "8 columns · 24 margin" },
-  { name: "Laptop", range: "1024 – 1439", cols: 12, w: 440, note: "12 columns · 32 margin" },
-  { name: "Desktop", range: "1440 – 1766", cols: 12, w: 540, note: "12 columns · 48 margin" },
-  { name: "Full HD", range: "1767+", cols: 12, w: 600 },
-];
+const GRID_SPECS = [
+  { name: "Desktop", range: "1440 – 1766", cols: 12, margin: 48 },
+  { name: "Laptop", range: "1024 – 1439", cols: 12, margin: 32 },
+  { name: "Full HD", range: "1767+", cols: 12, margin: 32 },
+  { name: "Tablet", range: "768 – 1023", cols: 8, margin: 24 },
+  { name: "Mobile", range: "320 – 767", cols: 4, margin: 16 },
+] as const;
+
+function DeviceIcon({ mobile = false }: { mobile?: boolean }) {
+  return <span className={`inline-block border-[3px] border-[#1d2439] ${mobile ? "h-8 w-5 rounded-[5px]" : "h-5 w-7 rounded-[4px]"}`} />;
+}
+
+function GridBars({ cols, margin, height = 90 }: { cols: number; margin: number; height?: number }) {
+  return (
+    <div className="flex w-full gap-2 rounded-[12px] bg-[#f1f2f6]" style={{ height, paddingLeft: margin, paddingRight: margin }}>
+      {Array.from({ length: cols }, (_, i) => <span key={i} className="vb-col h-full min-w-0 flex-1 bg-[#ffd5de]" style={{ "--i": i } as CSSProperties} />)}
+    </div>
+  );
+}
+
+function GridCard({ spec, large = false }: { spec: (typeof GRID_SPECS)[number]; large?: boolean }) {
+  return (
+    <Reveal className="min-w-0 flex-1">
+      <div className={`${CARD} flex h-full flex-col gap-5 p-7`}>
+        <div className="flex items-start justify-between">
+          <div><div className="flex items-center gap-3"><DeviceIcon /><p className="text-[24px] font-semibold text-[#1d2439]">{spec.name}</p></div><p className="mt-1 text-[16px] text-[#7d8491]">{spec.range} · {spec.cols} columns{spec.name !== "Full HD" ? ` · ${spec.margin} margin` : ""}</p></div>
+          {large ? <p className="font-mono text-[14px] text-[#7d8491]">{spec.range}</p> : null}
+        </div>
+        <GridBars cols={spec.cols} margin={spec.margin} height={large ? 190 : 90} />
+      </div>
+    </Reveal>
+  );
+}
+
+function DeviceGrid({ spec, width }: { spec: (typeof GRID_SPECS)[number]; width: number }) {
+  const mobile = spec.name === "Mobile";
+  return (
+    <Reveal className="shrink-0" enter={50}>
+      <div style={{ width }}>
+        <div className="mb-4 flex items-center gap-3"><DeviceIcon mobile={mobile} /><div><p className="text-[24px] font-semibold text-[#1d2439]">{spec.name}</p><p className="text-[16px] text-[#7d8491]">{spec.range} · {spec.cols} columns · {spec.margin} margin</p></div></div>
+        <div className="relative h-[510px] overflow-hidden rounded-t-[46px] border-x-[18px] border-t-[18px] border-[#c9cdd6] bg-white p-0">
+          <GridBars cols={spec.cols} margin={spec.margin} height={492} />
+          <div className="absolute top-8 left-1/2 w-[245px] -translate-x-1/2 rounded-[16px] bg-white p-5 shadow-[0_10px_25px_rgba(26,33,77,.12)]">
+            <p className="mb-3 font-semibold text-[#1d2439]">Columns</p>{[["Count", spec.cols], ["Margin", spec.margin], ["Range", spec.range]].map(([k,v])=><div key={k} className="flex justify-between py-1 text-[14px]"><span className="text-[#8a919e]">{k}</span><span className="rounded bg-[#f3f4f6] px-2 font-mono text-[#3c4352]">{v}</span></div>)}
+          </div>
+          <span className="absolute right-5 bottom-5 rounded-[10px] bg-white px-4 py-2 text-[14px] text-[#4b5563] shadow-[0_6px_16px_rgba(26,33,77,.1)]">{spec.name} — {spec.cols} Columns</span>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function SpacingTokens() {
+  return (
+    <SelectionFrame className="grid flex-1 grid-cols-4 gap-4 p-6">
+      <Sticker tone="blue" className="-top-7 right-8 rotate-2">Spacing tokens</Sticker>
+      {SPACING.map(([name, px]) => {
+        const value = parseFloat(px);
+        return <div key={name} className="flex flex-col gap-2"><Token className="!bg-[#eef1fb] !text-[#526083]">--{name}</Token><div className="relative h-[124px] overflow-hidden rounded-[8px] bg-white shadow-[0_8px_24px_rgba(26,33,77,.06)]"><span className="absolute inset-y-0 left-0 bg-[#ff7d9c]" style={{ width: Math.max(2, value) }} /><span className="absolute right-3 bottom-3 font-mono text-[13px] text-[#7d8491]">{px}</span></div></div>;
+      })}
+    </SelectionFrame>
+  );
+}
 
 function Spacing() {
-  const t = useT();
   return (
-    /* Figma 996 tall: 16px below the cards. */
-    <section id="wd-spacing" className={`${SECTION} pb-4`}>
+    <section id="wd-spacing" className={SECTION} style={{ height: 2565 }}>
       <Head eyebrow="DESIGN SYSTEM  ·  02.7" title="Spacing, layout & grid">
         An 8-point system with 12 steps, and a responsive grid across five breakpoints — from a 320px phone to a Full HD wall display.
       </Head>
-      <div className="flex w-full items-stretch gap-5">
-        {/* Spacing 279:14926 */}
-        <Reveal className="flex w-[650px] shrink-0">
-          <div className={`${CARD} flex w-full flex-col items-start gap-3 p-10`}>
-            <CardTitle>Spacing scale</CardTitle>
-            {SPACING.map(([name, px]) => (
-              <Reveal key={name} enter={40}>
-                <div className="vb-space flex items-center gap-3.5">
-                  <div className="flex w-[150px] shrink-0 items-start">
-                    <Token>{name}</Token>
-                  </div>
-                  <div className="flex w-14 shrink-0 items-start">
-                    <p className="text-[14px] leading-5 whitespace-nowrap text-[#6b7280]">{px}</p>
-                  </div>
-                  <span className="vb-bar h-3.5 shrink-0 rounded-[4px] bg-[#ff859f]" style={{ width: parseFloat(px) * 4.2 }} />
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Reveal>
-
-        {/* Breakpoints 279:15012 */}
-        <Reveal className="flex min-w-px flex-1">
-          <div className={`${CARD} flex w-full flex-col items-start gap-[18px] p-10`}>
-            <CardTitle>{t("Breakpoints & columns")}</CardTitle>
-            {BREAKPOINTS.map((b) => (
-              <Fragment key={b.name}>
-                <Reveal enter={40}>
-                  <div className="vb-bp flex items-center gap-4">
-                    <div className="flex w-[140px] shrink-0 flex-col items-start gap-0.5 whitespace-nowrap">
-                      <p className="text-base leading-[1.5] font-semibold text-[#14141a]">{b.name}</p>
-                      <p className="font-mono text-[14px] leading-5 text-[#6b7280]">{b.range}</p>
-                    </div>
-                    <div className="flex h-11 shrink-0 items-start gap-1 rounded-[8px] bg-[#fff4f6] px-2 py-1.5" style={{ width: b.w }}>
-                      {Array.from({ length: b.cols }, (_, i) => (
-                        <span key={i} className="vb-col h-8 min-w-px flex-1 rounded-[3px] bg-[#ff859f]" style={{ "--i": i } as CSSProperties} />
-                      ))}
-                    </div>
-                  </div>
-                </Reveal>
-                {b.note ? <p className="text-[14px] leading-5 whitespace-nowrap text-[#6b7280]">{t(b.note)}</p> : null}
-              </Fragment>
-            ))}
-          </div>
-        </Reveal>
+      <div className="flex w-full flex-col gap-14">
+        <CardTitle>Breakpoints & columns</CardTitle>
+        <div className="flex h-[300px] w-full"><GridCard spec={GRID_SPECS[0]} large /></div>
+        <div className="flex h-[220px] w-full gap-6"><GridCard spec={GRID_SPECS[1]} /><GridCard spec={GRID_SPECS[2]} /></div>
+        <div className="flex w-full items-end justify-between gap-14"><DeviceGrid spec={GRID_SPECS[3]} width={900} /><DeviceGrid spec={GRID_SPECS[4]} width={610} /></div>
+        <div className="flex w-full items-start gap-6">
+          <div className="relative shrink-0"><Sticker tone="orange" className="-top-7 -left-4 -rotate-6">Figma variable</Sticker><VariableTable title="Spacing scale" width={600} rows={SPACING.map(([name, value]) => [name, value.replace("px", "")])} /></div>
+          <SpacingTokens />
+        </div>
       </div>
     </section>
   );
@@ -528,69 +613,57 @@ const MOTION: { token: string; dur: string; ease: string; use: string; ms: numbe
 function Elevation() {
   const t = useT();
   return (
-    <section id="wd-elevation" className={SECTION}>
+    <section id="wd-elevation" className={SECTION} style={{ height: 1498 }}>
       <Head eyebrow="DESIGN SYSTEM  ·  02.8" title="Elevation, radius & motion">
         Depth is used sparingly — five shadow levels mapped to purpose — and motion is being standardised as tokens.
       </Head>
 
       {/* Elevation levels 279:15100 */}
-      <div className="flex w-full items-stretch gap-5">
-        {ELEVATION.map((e) => (
-          <Reveal key={e.token} className="flex w-[296px] shrink-0">
-            <div
-              className="vb-elev flex h-[110px] w-full flex-col items-start justify-end gap-1.5 rounded-[20px] bg-white p-6"
-              style={{ "--e": e.e, "--e-hover": e.eh } as CSSProperties}
-            >
-              <Token>{e.token}</Token>
-              <p className="text-base leading-[1.5] font-semibold whitespace-nowrap text-[#14141a]">{t(e.use)}</p>
-            </div>
-          </Reveal>
-        ))}
+      <div className="flex h-[222px] w-full gap-5">
+        <div className="grid min-w-0 flex-1 grid-cols-5 gap-4">
+          {ELEVATION.map((e) => (
+            <Reveal key={e.token} className="min-w-0">
+              <div className="flex h-full flex-col items-center justify-end gap-3 rounded-[20px] bg-white p-7" style={{ boxShadow: "0 10px 30px rgba(26,33,77,.08)" }}>
+                <span className="vb-elev size-[84px] rounded-[16px] bg-white" style={{ "--e": e.e, "--e-hover": e.eh, boxShadow: e.e } as CSSProperties} />
+                <Token>{e.token}</Token>
+                <p className="text-center text-base font-semibold whitespace-nowrap text-[#14141a]">{t(e.use)}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <div className="flex w-[300px] shrink-0 flex-col gap-3 rounded-[20px] bg-white p-5 shadow-[0_10px_30px_rgba(26,33,77,.08)]">
+          <p className="text-[16px] font-semibold text-[#14182b]">Drop shadow · level-3</p>
+          {[["Y","6"],["Blur","21"],["Spread","0"],["Colour","Black · 10%"]].map(([k,v])=><div key={k} className="flex items-center justify-between text-[14px]"><span className="text-[#8a919e]">{k}</span><span className="rounded-[8px] bg-[#f3f4f6] px-2.5 py-1 font-mono text-[#3c4352]">{v}</span></div>)}
+        </div>
       </div>
 
-      <div className="flex w-full items-stretch gap-5">
-        {/* Radius 279:15122 */}
-        <Reveal className="flex w-[770px] shrink-0">
-          <div className={`${CARD} flex w-full flex-col items-start gap-[18px] p-10`}>
-            <CardTitle>Radius</CardTitle>
-            <div className="flex items-end gap-[22px]">
-              {RADII.map(([name, label, r, rh]) => (
-                <Reveal key={name} enter={40}>
-                  <div className="vb-radius-item flex flex-col items-center gap-2">
-                    <span className="vb-radius size-[76px] shrink-0 bg-[#fed7df]" style={{ "--r": `${r}px`, "--r-hover": `${rh}px` } as CSSProperties} />
-                    <Token>{name}</Token>
-                    <p className="text-[14px] leading-5 whitespace-nowrap text-[#6b7280]">{label}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
-        {/* Motion 279:15155 */}
-        <Reveal className="flex w-[770px] shrink-0">
-          <div className={`${CARD} flex w-full flex-col items-start gap-3.5 p-10`}>
-            <CardTitle>Motion · being standardised</CardTitle>
-            {MOTION.map((m) => (
-              <Reveal key={m.token} enter={40}>
-                {/* Hover plays the row's own duration and easing. */}
-                <div className="vb-motion flex items-center gap-3.5" style={{ "--d": `${m.ms}ms`, "--ease": m.css } as CSSProperties}>
-                  <div className="flex w-[170px] shrink-0 items-start">
-                    <Token>{m.token}</Token>
-                  </div>
-                  <div className="flex w-[120px] shrink-0 items-start">
-                    <p className="text-base leading-[1.5] font-semibold whitespace-nowrap text-[#14141a]">{t(m.dur)}</p>
-                  </div>
-                  <div className="flex w-[110px] shrink-0 items-start">
-                    <p className="text-[14px] leading-5 whitespace-nowrap text-[#6b7280]">{m.ease}</p>
-                  </div>
-                  <p className="text-base leading-6 tracking-[-0.2px] whitespace-nowrap text-[#4b5563]">{t(m.use)}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Reveal>
+      <div className="flex h-[560px] w-full items-end gap-8">
+        <div className="relative shrink-0"><Sticker tone="orange" className="-top-7 -left-4 -rotate-3">Figma variable</Sticker><VariableTable title="Radius" width={640} rows={RADII.map(([name, label]) => [name, label.replace("px", "")])} /></div>
+        <SelectionFrame className="grid h-[507px] min-w-0 flex-1 grid-cols-3 gap-6 p-7">
+          <Sticker tone="blue" className="-top-7 left-1/2 -translate-x-1/2 rotate-2">Radius tokens</Sticker>
+          {RADII.map(([name, label, r, rh]) => (
+            <Reveal key={name} enter={40}>
+              <div className="vb-radius-item flex h-full flex-col gap-3"><Token className="!bg-[#eef1fb] !text-[#526083]">--{name}</Token><span className="vb-radius min-h-0 flex-1 border-t-2 border-r-2 border-[#7f8eba] bg-[#eef0f8]" style={{ "--r": `${r}px`, "--r-hover": `${rh}px`, borderTopRightRadius: r === 38 ? 120 : r } as CSSProperties} /><p className="self-end rounded bg-white px-3 py-1 font-mono text-[13px] text-[#596171] shadow-sm">{label}</p></div>
+            </Reveal>
+          ))}
+        </SelectionFrame>
       </div>
+
+      <Reveal className="w-full">
+        <div className={`${CARD} flex w-full flex-col items-start gap-3.5 p-10`}>
+          <CardTitle>Motion · being standardised</CardTitle>
+          {MOTION.map((m) => (
+            <Reveal key={m.token} enter={40}>
+              <div className="vb-motion flex items-center gap-3.5" style={{ "--d": `${m.ms}ms`, "--ease": m.css } as CSSProperties}>
+                <div className="flex w-[170px] shrink-0 items-start"><Token>{m.token}</Token></div>
+                <div className="flex w-[120px] shrink-0 items-start"><p className="text-base font-semibold whitespace-nowrap text-[#14141a]">{t(m.dur)}</p></div>
+                <div className="flex w-[110px] shrink-0 items-start"><p className="text-[14px] whitespace-nowrap text-[#6b7280]">{m.ease}</p></div>
+                <p className="text-base tracking-[-0.2px] whitespace-nowrap text-[#4b5563]">{t(m.use)}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 }
