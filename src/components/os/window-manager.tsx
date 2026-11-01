@@ -17,7 +17,6 @@ import {
   type RefObject,
 } from "react";
 import { flushSync } from "react-dom";
-import { toCanvas } from "html-to-image";
 import type { AppId } from "@/lib/apps";
 import { blurRadiusFor, blurredWallpaper, prepareBlurredWallpaper } from "@/lib/glass-backdrop";
 import { holdMotion, motionActive } from "@/lib/motion";
@@ -385,91 +384,6 @@ function runGenie(el: HTMLElement, id: AppId, direction: "in" | "out") {
   );
 }
 
-const genieSnapshots = new Map<AppId, HTMLCanvasElement>();
-const GENIE_DURATION = 500;
-
-/** Canvas scanline renderer adapted from UI Layouts' Mac Genie component. */
-function runCanvasGenie(el: HTMLElement, id: AppId, direction: "in" | "out", snapshot?: HTMLCanvasElement) {
-  if (reduceMotion()) return Promise.resolve();
-  const box = el.getBoundingClientRect();
-  const dock = dockTarget(id) ?? { x: box.left + box.width / 2, y: box.bottom + 120, w: 52 };
-  const source = snapshot ?? genieSnapshots.get(id);
-  if (!source || !box.width || !box.height) return Promise.reject(new Error("Genie snapshot unavailable"));
-
-  const canvas = document.createElement("canvas");
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.className = "genie-canvas";
-  canvas.width = Math.round(window.innerWidth * dpr);
-  canvas.height = Math.round(window.innerHeight * dpr);
-  canvas.style.width = `${window.innerWidth}px`;
-  canvas.style.height = `${window.innerHeight}px`;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return Promise.reject(new Error("Canvas unavailable"));
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  document.body.appendChild(canvas);
-
-  const clamp = (value: number) => Math.max(0, Math.min(1, value));
-  const lerpValue = (from: number, to: number, t: number) => from + (to - from) * t;
-  const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  const easeInQuad = (t: number) => t * t;
-  const easeOutQuad = (t: number) => 1 - (1 - t) * (1 - t);
-
-  const render = (rawT: number) => {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    const rowStep = 1;
-    const sourceRow = source.height / box.height;
-    for (let y = 0; y < box.height; y += rowStep) {
-      const ratio = y / box.height;
-      const rowXStart = direction === "out" ? (1 - ratio) * 0.65 : ratio * 0.65;
-      const xProgress = clamp((rawT - rowXStart) / (1 - rowXStart));
-      const xEase = easeInOutCubic(xProgress);
-      const rowYStart = direction === "out" ? (1 - ratio) * 0.2 : ratio * 0.2;
-      const yProgress = clamp((rawT - rowYStart) / (1 - rowYStart));
-      const yEase = easeInQuad(yProgress);
-      const left = direction === "out" ? lerpValue(box.left, dock.x, xEase) : lerpValue(dock.x, box.left, xEase);
-      const right = direction === "out" ? lerpValue(box.right, dock.x, xEase) : lerpValue(dock.x, box.right, xEase);
-      const destY = direction === "out" ? lerpValue(box.top + y, dock.y, yEase) : lerpValue(dock.y, box.top + y, yEase);
-      const rowWidth = right - left;
-      if (rowWidth < 0.8) continue;
-      ctx.drawImage(source, 0, y * sourceRow, source.width, Math.max(1, sourceRow), left, destY, rowWidth, rowStep + 0.35);
-    }
-
-    const glowRaw = direction === "out" ? rawT : 1 - rawT;
-    if (glowRaw > 0.75) {
-      const alpha = easeOutQuad((glowRaw - 0.75) / 0.25) * 0.3;
-      const glow = ctx.createRadialGradient(dock.x, dock.y, 0, dock.x, dock.y, 55);
-      glow.addColorStop(0, `rgba(255,255,255,${alpha})`);
-      glow.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-    }
-  };
-
-  render(0);
-  el.style.visibility = "hidden";
-  return new Promise<void>((resolve) => {
-    let start = 0;
-    const frame = (time: number) => {
-      if (!start) start = time;
-      const progress = clamp((time - start) / GENIE_DURATION);
-      render(progress);
-      if (progress < 1) requestAnimationFrame(frame);
-      else {
-        canvas.remove();
-        el.style.visibility = "";
-        resolve();
-      }
-    };
-    requestAnimationFrame(frame);
-  });
-}
-
-async function captureGenieWindow(el: HTMLElement, id: AppId) {
-  const snapshot = await toCanvas(el, { pixelRatio: 1, cacheBust: false, skipFonts: true });
-  genieSnapshots.set(id, snapshot);
-  return snapshot;
-}
-
 /** First open: the window zooms up from slightly smaller, as macOS opens windows. */
 function runOpen(el: HTMLElement) {
   if (reduceMotion()) return;
@@ -818,15 +732,28 @@ export function WindowShell({
     if (busy.current || !el) return;
     busy.current = true;
     wasMinimized.current = true;
-    fakeGlass(el);
-    void captureGenieWindow(el, state.id)
-      .then((snapshot) => runCanvasGenie(el, state.id, "out", snapshot))
-      .catch(() => runGenie(el, state.id, "out"))
-      .then(() => {
-        flushSync(() => api.minimize());
+    if (canViewTransition()) {
+      // Snapshot the window, drop it from the DOM, and pour the bitmap into the dock.
+      const box = el.getBoundingClientRect();
+      const target = dockTarget(state.id);
+      fakeGlass(el);
+      nameWindow(el, state.id, "win-pop");
+      const transition = startViewTransition(() => flushSync(() => api.minimize()));
+      transition.ready
+        .then(() => animateSnapshot(state.id, "old", genieFor(box, target), { duration: 600, easing: "linear" }))
+        .catch(() => undefined);
+      transition.finished.finally(() => {
+        unnameWindow(state.id);
         releaseGlass(el, false);
         busy.current = false;
       });
+      return;
+    }
+    api.setLeaving(true);
+    void runGenie(el, state.id, "out").then(() => {
+      busy.current = false;
+      api.minimize();
+    });
   };
 
   const close = () => {
@@ -936,14 +863,6 @@ export function useWindowManager() {
     };
     const existing = latest.current.find((w) => w.id === id);
     const kind = !existing ? (DEFAULT_GEOMETRY[id] ? "open" : null) : existing.minimized ? "restore" : null;
-    if (kind === "restore" && genieSnapshots.has(id) && !reduceMotion()) {
-      flushSync(apply);
-      const el = windowEl(id);
-      if (!el) return;
-      fakeGlass(el);
-      void runCanvasGenie(el, id, "in", genieSnapshots.get(id)).finally(() => releaseGlass(el));
-      return;
-    }
     if (!kind || !canViewTransition()) {
       apply();
       return;

@@ -203,13 +203,6 @@ html {
   background-color: var(--surface-desktop);
 }
 
-.genie-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 2990;
-  pointer-events: none;
-}
-
 /*
  * Theme switch. With View Transitions the new theme is revealed as a circle
  * over a frozen snapshot of the old one (see lib/theme.ts), so nothing else
