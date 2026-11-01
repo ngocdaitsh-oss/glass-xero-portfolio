@@ -468,9 +468,14 @@ function Typography() {
             <div className="grid h-[50px] grid-cols-[248px_88px_84px] items-center px-5 text-[14px] font-semibold text-[#14182b]"><span>Style</span><span>Size</span><span>Line</span></div>
             {TYPE_SCALE.map((row, i) => <div key={row.name} className={`grid h-10 grid-cols-[248px_88px_84px] items-center px-5 text-[14px] ${i % 2 ? "bg-[#f5f6fa]" : ""}`}><span>{row.name}</span><span>{row.size}px</span><span>{row.lh}px</span></div>)}
           </div>
-          {/* Exact DS/Cursor Tag instance from Figma 726:28448. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={`${ASSET}/type-scale-cursor-tag.png`} className="pointer-events-none absolute top-[326px] left-[948px] h-16 w-[150px]" />
+          {/* Exact transparent DS/Cursor Tag instance from Figma 726:28448. */}
+          <div className="pointer-events-none absolute top-[326px] left-[948px] h-16 w-[150px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img alt="" src={`${ASSET}/cursor-pointer.svg`} className="absolute top-0 left-0 h-[26px] w-6" />
+            <div className="absolute top-6 left-[22px] flex items-start overflow-hidden rounded-lg bg-[#ec4fd0] px-3 py-1.5">
+              <p className="text-[16px] leading-[normal] font-semibold whitespace-nowrap text-white">Tuan Ngoc</p>
+            </div>
+          </div>
         </div>
       </Reveal>
     </section>

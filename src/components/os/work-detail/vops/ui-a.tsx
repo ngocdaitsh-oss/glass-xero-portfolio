@@ -578,8 +578,13 @@ function ButtonDeepDive() {
             </div>
           </Card>
         </Reveal>
-        {/* Exact cursor annotation position from Figma 720:28390. */}
-        <img alt="" src="/figma/vops/system-b/type-scale-cursor-tag.png" className="pointer-events-none absolute top-[588px] left-[1370px] z-20 h-16 w-[150px]" />
+        {/* Exact transparent cursor annotation from Figma 720:28390. */}
+        <div className="pointer-events-none absolute top-[588px] left-[1370px] z-20 h-16 w-[150px]">
+          <img alt="" src="/figma/vops/system-b/cursor-pointer.svg" className="absolute top-0 left-0 h-[26px] w-6" />
+          <div className="absolute top-6 left-[22px] flex items-start overflow-hidden rounded-lg bg-[#ec4fd0] px-3 py-1.5">
+            <p className="text-[16px] leading-[normal] font-semibold whitespace-nowrap text-white">Tuan Ngoc</p>
+          </div>
+        </div>
       </div>
       {/* Row 2 */}
       <div className="flex w-full items-stretch gap-5">
