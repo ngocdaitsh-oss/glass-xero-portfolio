@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motionActive } from "@/lib/motion";
+import { isLowPerf, subscribePerf } from "@/lib/perf";
 
 type Spec = { duration: number; fps: number; vertex: string; fragment: string };
 
@@ -14,9 +15,28 @@ type Spec = { duration: number; fps: number; vertex: string; fragment: string };
 export function LiveWallpaper({ name, theme, className }: { name: string; theme: "dark" | "light"; className: string }) {
   const canvas = useRef<HTMLCanvasElement>(null);
 
+  // Only the wallpaper on screen spends anything: the other theme's shader starts on its first
+  // switch. Weak machines (lib/perf) keep the still image underneath.
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    const update = () => {
+      const current = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      if (isLowPerf()) setActive(false);
+      else if (current === theme) setActive(true);
+    };
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    const unsubscribe = subscribePerf(update);
+    return () => {
+      observer.disconnect();
+      unsubscribe();
+    };
+  }, [theme]);
+
   useEffect(() => {
     const el = canvas.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!active || !el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const gl = el.getContext("webgl", { alpha: false, antialias: false, powerPreference: "low-power" });
     if (!gl) return;
     let raf = 0;
@@ -94,8 +114,9 @@ export function LiveWallpaper({ name, theme, className }: { name: string; theme:
     return () => {
       alive = false;
       cancelAnimationFrame(raf);
+      el.style.opacity = "0";
     };
-  }, [name, theme]);
+  }, [active, name, theme]);
 
   return (
     <div aria-hidden className={`${className} pointer-events-none absolute inset-0`}>

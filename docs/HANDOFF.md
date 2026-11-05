@@ -98,6 +98,14 @@ Figma file key: `jgHw7tWMTuA3rrvK7DFWtY`. Screen list and node ids: [`DESIGN.md`
 - **Works' hidden pre-rendered case study** (~4k layout objects) gets `content-visibility: hidden` while motion runs, so maximize/restore does not re-lay it out. Its idle pre-render runs in `startTransition` and waits until no transition is running. `useFitZoom` ignores 0-width measurements.
 - Oct 2026 numbers, 1920×1080, software GPU, frame time p50 before → after: About maximize 96 → 42 ms (paints per morph 362 → 38), About restore 75 → 21, minimize 50 → 12.5, theme wipe 21–38 → 21–25 (paints 442 → 43), language 33–46 → 25, Works maximize 33 → 8.4, Works scroll 25 → 8.3 (p95 42 → 8.4), case study open 25 → 4.2, case study scroll 29 → 17, AI Workflow maximize 25 → 4.2. On a desktop GPU at 4× CPU throttle, the main thread was not the bottleneck for these: p95 was 4.3 ms before and after.
 
+## Low-end tier and load splitting (Nov 2026)
+
+- **`html[data-perf="low"]`** (`lib/perf.ts`, boot script in layout.tsx): set before paint for <= 2 cores, <= 2 GB or Save-Data, or at runtime when `watchFrames` sees a median frame over 30 ms. It stops the live wallpaper, removes all backdrop blur, gives windows a solid backing (`[data-window]::before`) and skips hidden pre-rendering. Stored in sessionStorage. Test it with `sessionStorage.setItem("xero-perf","low")`.
+- **Code splitting**: windows (`Desktop.tsx`, fetched after the desktop goes idle), case studies (`WorkDetail.tsx`), `MobileOS` (`OS.tsx`) and the Vietnamese dictionary (`lib/i18n`, `currentLang()` stays "en" until it loads) are separate chunks. Do not import them statically from the first-load path.
+- **Live wallpaper** starts only for the theme on screen.
+- **Fonts**: JetBrains Mono must stay variable (no `weight`). With static weights Google returns extensionless URLs and `next build` crashes in the next/font loader.
+- **Images**: PNGs over 150 KB referenced by a literal path were converted to WebP; the original PNGs remain in `public/` and can be deleted.
+
 ## Boot, dock icons (GenBI motion pack)
 
 - **Boot screen** (`BootScreen.tsx`, `src/lib/comet-logo.ts`): the canvas comet N logo loops until fonts + wallpaper/avatar are decoded; the first comet always runs its full course (~3s total with the fade); then the last comet runs out, the logo lights up and the overlay dissolves. The background is the dark optimized asset `public/boot/loading-bg-dark.webp`, used in both themes; the former circular glow behind the logo is intentionally hidden. `Desktop` keeps `data-phase="boot"|"enter"|"idle"` on the stage; `.boot-top/.boot-dock/.boot-item/.boot-icon` hide in boot and animate in during enter (CSS in globals.css, stagger via `--bi`). Hard timeout 9s.

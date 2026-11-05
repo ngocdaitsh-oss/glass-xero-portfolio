@@ -3,7 +3,7 @@
 
 import { useT } from "@/lib/i18n";
 
-const imgIPhone14Pro = "/figma/wd/anatomy/5d747.png";
+const imgIPhone14Pro = "/figma/wd/anatomy/5d747.webp";
 const imgDot = "/figma/wd/anatomy/1f231.svg";
 const imgEllipse = "/figma/wd/anatomy/b33cc.svg";
 const imgFrame = "/figma/wd/anatomy/7fba8.svg";

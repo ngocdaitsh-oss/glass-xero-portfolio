@@ -3,6 +3,7 @@
 
 import { createContext, useCallback, useContext, useEffect, startTransition, useRef, useState, type RefObject } from "react";
 import { motionActive } from "@/lib/motion";
+import { isLowPerf } from "@/lib/perf";
 import { useLang, useT } from "@/lib/i18n";
 import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { graphicWorks, uiWorks, type Work } from "@/lib/works";
@@ -53,6 +54,7 @@ export function WorksWindow({
     // Its first layout (~4k objects) cannot be split, so it never starts while a window /
     // theme transition is running — it waits for the next idle moment instead.
     let id = 0;
+    if (isLowPerf()) return; // A weak machine renders the case study when it is asked for.
     const idle = (fn: () => void) =>
       "requestIdleCallback" in window ? window.requestIdleCallback(fn, { timeout: 2500 }) : (setTimeout(fn, 1200) as unknown as number);
     const warmFirst = () => {

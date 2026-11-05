@@ -217,9 +217,9 @@ function Hero() {
       <LogoBubble src="/figma/aiw/logo-figma.png" className="top-[75px] left-[132px]" />
       <LogoBubble src="/figma/aiw/logo-claude.png" className="top-[92px] left-[1266px]" />
       <LogoBubble src="/figma/aiw/logo-terminal.png" className="top-[344px] left-[64px]" />
-      <LogoBubble src="/figma/aiw/logo-jira.png" className="top-[478px] left-[301px]" />
+      <LogoBubble src="/figma/aiw/logo-jira.webp" className="top-[478px] left-[301px]" />
       <LogoBubble src="/figma/aiw/logo-openai.png" className="top-[464px] left-[992px]" />
-      <LogoBubble src="/figma/aiw/logo-antigravity.png" className="top-[412px] left-[1242px]" />
+      <LogoBubble src="/figma/aiw/logo-antigravity.webp" className="top-[412px] left-[1242px]" />
 
       <div className="absolute top-[130px] left-1/2 flex w-[860px] -translate-x-1/2 -rotate-2 justify-center">
         <div className="flex items-center gap-8 rounded-[27px] bg-[#9b3bff] py-[22px] pr-7 pl-11 shadow-[0_18px_40px_rgba(155,59,255,0.28)]">
@@ -346,7 +346,7 @@ function WorkflowMap() {
   return (
     <section id="workflow-map" className="relative mt-16 scroll-mt-6">
       <img
-        src="/figma/aiw/map-bg.png"
+        src="/figma/aiw/map-bg.webp"
         alt=""
         className="pointer-events-none absolute -top-14 -right-[88px] z-0 w-[1280px] max-w-none select-none"
       />
@@ -730,7 +730,7 @@ function PhaseTwo() {
                 <p className="mt-4">{t(COPY.output2[1])}</p>
               </>
             ),
-            visual: <img src="/figma/aiw/output-phase2.png" alt={t("AI design execution outputs, from the UX brief through the self-review checklist")} className="aiw-output-float aiw-output-float-delayed mx-auto w-full max-w-[560px]" />,
+            visual: <img src="/figma/aiw/output-phase2.webp" alt={t("AI design execution outputs, from the UX brief through the self-review checklist")} className="aiw-output-float aiw-output-float-delayed mx-auto w-full max-w-[560px]" />,
           },
         ]}
       />

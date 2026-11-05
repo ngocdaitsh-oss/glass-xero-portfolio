@@ -3,26 +3,40 @@
 import Image from "next/image";
 import { Activity, useCallback, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
 import type { AppId } from "@/lib/apps";
-import { AboutWindow } from "./AboutWindow";
-import { AiWorkflowWindow } from "./AiWorkflowWindow";
+import dynamic from "next/dynamic";
 import { ContextMenu } from "./ContextMenu";
 import { ControlCenter } from "./ControlCenter";
 import { DateWeatherPanel } from "./DateWeatherPanel";
 import { BootScreen } from "./BootScreen";
 import { Dock } from "./Dock";
 import { DesktopIcons, Intro } from "./Intro";
-import { MailWindow } from "./MailWindow";
-import { NotesWindow } from "./NotesWindow";
-import { PhotosWindow } from "./PhotosWindow";
 import { SearchPanel } from "./SearchPanel";
-import { TerminalWindow } from "./TerminalWindow";
 import { TopBar } from "./TopBar";
 import { KEEP_ALIVE, pinFrame, prepareGlass, useWindowManager, WindowProvider } from "./window-manager";
 import { motionActive } from "@/lib/motion";
-import { WorksWindow } from "./WorksWindow";
+import { isLowPerf } from "@/lib/perf";
 import { LiveWallpaper } from "./LiveWallpaper";
 import { HomeWidgets } from "./HomeWidgets";
 import { useLayoutMode } from "@/lib/layout-mode";
+
+// Windows are split out of the first load, then fetched once the desktop is idle (see below)
+// so the first open still has its window ready for the open transition.
+const WINDOW_CHUNKS = [
+  () => import("./AboutWindow"),
+  () => import("./MailWindow"),
+  () => import("./TerminalWindow"),
+  () => import("./NotesWindow"),
+  () => import("./PhotosWindow"),
+  () => import("./WorksWindow"),
+  () => import("./AiWorkflowWindow"),
+];
+const AboutWindow = dynamic(() => import("./AboutWindow").then((m) => m.AboutWindow));
+const MailWindow = dynamic(() => import("./MailWindow").then((m) => m.MailWindow));
+const TerminalWindow = dynamic(() => import("./TerminalWindow").then((m) => m.TerminalWindow));
+const NotesWindow = dynamic(() => import("./NotesWindow").then((m) => m.NotesWindow));
+const PhotosWindow = dynamic(() => import("./PhotosWindow").then((m) => m.PhotosWindow));
+const WorksWindow = dynamic(() => import("./WorksWindow").then((m) => m.WorksWindow));
+const AiWorkflowWindow = dynamic(() => import("./AiWorkflowWindow").then((m) => m.AiWorkflowWindow));
 import {
   appFromPathname,
   appPath,
@@ -308,7 +322,8 @@ export function Desktop({
   const { prewarm } = wm;
   useEffect(() => {
     if (phase !== "idle") return;
-    const queue: (AppId | "glass")[] = ["glass", ...KEEP_ALIVE];
+    // Weak machines fetch the code but skip pre-rendering hidden windows.
+    const queue: (AppId | "glass")[] = isLowPerf() ? ["glass"] : ["glass", ...KEEP_ALIVE];
     let id = 0;
     const idle = (fn: () => void) =>
       "requestIdleCallback" in window ? window.requestIdleCallback(fn, { timeout: 4000 }) : (setTimeout(fn, 800) as unknown as number);
@@ -323,7 +338,10 @@ export function Desktop({
       else prewarm(app);
       id = idle(next);
     };
-    id = idle(next);
+    id = idle(() => {
+      WINDOW_CHUNKS.forEach((load) => void load());
+      next();
+    });
     return () => ("cancelIdleCallback" in window ? window.cancelIdleCallback(id) : clearTimeout(id));
   }, [phase, prewarm]);
 
@@ -384,7 +402,7 @@ export function Desktop({
           alt=""
           fill
           sizes="100vw"
-          loading="eager"
+          loading="lazy"
           className="wallpaper wallpaper-light pointer-events-none object-cover"
         />
         <LiveWallpaper name="dark" theme="dark" className="wallpaper wallpaper-dark" />

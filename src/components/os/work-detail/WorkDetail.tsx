@@ -1,13 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import type { Work } from "@/lib/works";
-import { BaveDetail } from "./BaveDetail";
-import { BscDetail } from "./bsc/BscDetail";
-import { ThucDetail } from "./thuc/ThucDetail";
-import { RumDetail } from "./rum/RumDetail";
-import { SappDetail } from "./sapp/SappDetail";
-import { VopsDetail } from "./vops/VopsDetail";
+
+// Each case study is its own chunk: together they were 1.4 MB of JS that nobody needs up front.
+const BaveDetail = dynamic(() => import("./BaveDetail").then((m) => m.BaveDetail));
+const BscDetail = dynamic(() => import("./bsc/BscDetail").then((m) => m.BscDetail));
+const ThucDetail = dynamic(() => import("./thuc/ThucDetail").then((m) => m.ThucDetail));
+const RumDetail = dynamic(() => import("./rum/RumDetail").then((m) => m.RumDetail));
+const SappDetail = dynamic(() => import("./sapp/SappDetail").then((m) => m.SappDetail));
+const VopsDetail = dynamic(() => import("./vops/VopsDetail").then((m) => m.VopsDetail));
 
 /** Case studies that have a built detail page. */
 export const DETAIL_READY = new Set(["bave", "sapp", "vops", "bsc", "thuc", "rum"]);

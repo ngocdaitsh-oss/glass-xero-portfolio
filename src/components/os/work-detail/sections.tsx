@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section id="wd-overview-hero" className="p-8">
       <HeroFit className="overflow-hidden rounded-[50px]">
-        <img src="/figma/wd/hero-bg.png" alt="" className="absolute top-[-8.91%] left-0 h-[127.06%] w-full max-w-none" />
+        <img src="/figma/wd/hero-bg.webp" alt="" className="absolute top-[-8.91%] left-0 h-[127.06%] w-full max-w-none" />
         <img data-rv src="/figma/wd/hero-logo.svg" alt="bave" className="absolute top-[232.78px] left-1/2 h-[154.383px] w-[474.722px] -translate-x-1/2" />
         <img data-rv src="/figma/wd/hero-tagline.svg" alt={t("Driving connected")} className="absolute top-[423.82px] left-1/2 h-[25.41px] w-[474.722px] -translate-x-1/2" />
         <div data-rv className="absolute top-[610px] left-1/2 flex w-[846px] -translate-x-1/2 justify-between rounded-[24px] bg-[rgba(0,134,163,0.5)] px-8 py-6 text-white shadow-[0_4.178px_17.34px_0_rgba(0,0,0,0.15)] ">
@@ -195,7 +195,7 @@ export function DesignProcess() {
       <div role="img" aria-label={t("Design sprint: 01 Research, 02 Synthesis, 03 Ideation, 04 Final Designs, 05 Research")} className={`${live ? "hidden" : "theme-light-only"} relative h-[299px] w-[1483px]`}>
         {SPRINT_COLS.map(([x, w]) => (
           <div key={x} data-rv className="absolute top-0 h-[299px] overflow-hidden" style={{ left: x, width: w }}>
-            <img src="/figma/wd/sprint.png" alt="" width={1483} height={299} className="absolute top-0 h-[299px] w-[1483px] max-w-none" style={{ left: -x }} />
+            <img src="/figma/wd/sprint.webp" alt="" width={1483} height={299} className="absolute top-0 h-[299px] w-[1483px] max-w-none" style={{ left: -x }} />
           </div>
         ))}
       </div>
@@ -341,10 +341,10 @@ export function InitialProblem() {
         </div>
         <div className="relative h-[602px] w-[475px]">
           <div data-rv className="absolute top-0 left-0">
-            <PhoneMock screen="/figma/wd/phone-screen-welcome.png" mask="/figma/wd/phone-mask-a.svg" width={297.6} height={602.4} />
+            <PhoneMock screen="/figma/wd/phone-screen-welcome.webp" mask="/figma/wd/phone-mask-a.svg" width={297.6} height={602.4} />
           </div>
           <div data-rv className="absolute top-[96.23px] left-[225.78px]">
-            <PhoneMock screen="/figma/wd/phone-screen-home.png" mask="/figma/wd/phone-mask-b.svg" width={249.2} height={506.1} />
+            <PhoneMock screen="/figma/wd/phone-screen-home.webp" mask="/figma/wd/phone-mask-b.svg" width={249.2} height={506.1} />
           </div>
         </div>
       </div>
@@ -622,7 +622,7 @@ export function UserJourney() {
       <div className="flex flex-col gap-8 text-[var(--wd-ink)]">
         <div data-rv className="flex items-center gap-8 px-20">
           <div className="relative size-[192.4px] shrink-0 overflow-hidden rounded-full bg-[var(--wd-feel-bg)]">
-            <img src="/figma/wd/journey-dude.png" alt="" className="absolute top-[30px] left-[46.8px] h-[379.3px] w-[112.6px] max-w-none object-cover" />
+            <img src="/figma/wd/journey-dude.webp" alt="" className="absolute top-[30px] left-[46.8px] h-[379.3px] w-[112.6px] max-w-none object-cover" />
           </div>
           <div className="flex w-[766px] flex-col gap-6">
             <p className="text-2xl leading-[1.5] font-bold tracking-[0.24px]">{t("An Incredible Average Dude")}</p>

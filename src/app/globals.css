@@ -2470,3 +2470,20 @@ html[data-layout="mobile"] body {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* Low-end tier (lib/perf.ts): no backdrop blur at all. Blur per surface is the largest GPU cost. */
+html[data-perf="low"] * {
+  backdrop-filter: none !important;
+}
+/* Without blur, what sits behind a translucent window shows through its text: back each window solidly. */
+html[data-perf="low"] [data-window]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 20px;
+  background: rgb(14 20 34 / 0.96);
+}
+html[data-perf="low"][data-theme="light"] [data-window]::before {
+  background: rgb(232 238 247 / 0.97);
+}

@@ -11,11 +11,11 @@ import type { Work } from "@/lib/works";
 
 /** Thumbnail videos: muted, looping, inline. The still poster shows until the first frame is ready. */
 export const COVER_VIDEO: Partial<Record<Work["cover"], { src: string; type: string; poster: string; fit: "cover" | "contain" }>> = {
-  sapp: { src: "/video/sapp.mp4", type: "video/mp4", poster: "/figma/works/sapp-poster.png", fit: "cover" },
+  sapp: { src: "/video/sapp.mp4", type: "video/mp4", poster: "/figma/works/sapp-poster.webp", fit: "cover" },
   bave: { src: "/video/bave-thumbnail.mp4", type: "video/mp4", poster: "/figma/works/bave-poster.png", fit: "cover" },
   bsc: { src: "/video/bsc-thumbnail.mp4", type: "video/mp4", poster: "/figma/works/bsc-thumbnail-poster.webp", fit: "cover" },
   // 16:9 with a background that changes per scene: show the whole frame instead of cropping it.
-  vops: { src: "/video/vops.mp4", type: "video/mp4", poster: "/figma/works/vops-mockup.png", fit: "contain" },
+  vops: { src: "/video/vops.mp4", type: "video/mp4", poster: "/figma/works/vops-mockup.webp", fit: "contain" },
 };
 
 /** Videos only play while their list is on screen (not under the case-study drawer, not in the pre-rendered hidden copy). */

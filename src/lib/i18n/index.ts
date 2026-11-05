@@ -2,7 +2,6 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
-import { vi } from "./vi";
 
 /*
  * Tiny client-side i18n. English is the source language: components pass the
@@ -24,8 +23,24 @@ export type TFn = (en: string, vars?: Vars) => string;
 const KEY = "xero-lang";
 const EVENT = "xero-lang";
 
+// The Vietnamese dictionary is its own chunk (~300 KB), loaded only for people who use it.
+let vi: Record<string, string> | null = null;
+let viLoading: Promise<void> | null = null;
+
+function loadVi() {
+  viLoading ??= import("./vi").then((m) => {
+    vi = m.vi;
+  });
+  return viLoading;
+}
+
+if (typeof document !== "undefined" && document.documentElement.lang === "vi") {
+  // Saved preference: English until the chunk lands (behind the boot screen), then re-render.
+  void loadVi().then(() => window.dispatchEvent(new Event(EVENT)));
+}
+
 export function currentLang(): Lang {
-  return document.documentElement.lang === "vi" ? "vi" : "en";
+  return document.documentElement.lang === "vi" && vi ? "vi" : "en";
 }
 
 export function subscribeLang(onChange: () => void) {
@@ -45,7 +60,7 @@ function fill(s: string, vars?: Vars) {
 }
 
 export function translate(lang: Lang, en: string, vars?: Vars): string {
-  return fill(lang === "vi" ? (vi[en] ?? en) : en, vars);
+  return fill(lang === "vi" ? (vi?.[en] ?? en) : en, vars);
 }
 
 export function useT(): TFn {
@@ -128,6 +143,10 @@ export function applyLang(lang: Lang, _origin?: { x: number; y: number }) {
   // the active run halfway through and could leave stale text nodes behind.
   if (root.dataset.langScramble !== undefined) return;
   if (lang === currentLang()) return;
+  if (lang === "vi" && !vi) {
+    void loadVi().then(() => applyLang(lang));
+    return;
+  }
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) {
     commit(lang);
