@@ -523,7 +523,8 @@ function morphFrame(id: AppId, from: DOMRect, to: DOMRect) {
 const GLASS_PAD = 40; // the blurred layer overhangs the window, so its edges sample real neighbours
 
 function fakeGlass(el: HTMLElement | null) {
-  if (!el || !el.classList.contains("glass")) return;
+  // Both window shells are frosted: the Figma glass and the reference-dark utility apps (AppWindow).
+  if (!el || !(el.classList.contains("glass") || el.classList.contains("reference-app-window"))) return;
   const theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
   const img = document.querySelector<HTMLImageElement>(`img.wallpaper-${theme}`);
   const style = getComputedStyle(el);
@@ -537,7 +538,8 @@ function fakeGlass(el: HTMLElement | null) {
   const dh = img.naturalHeight * cover;
   const x = (box.left + (box.width - dw) / 2 - win.left) / r + GLASS_PAD;
   const y = (box.top + (box.height - dh) / 2 - win.top) / r + GLASS_PAD;
-  const blurPx = parseFloat(style.getPropertyValue("--glass-blur")) || 20;
+  const blurPx =
+    parseFloat(style.getPropertyValue("--glass-blur")) || parseFloat(/blur\(([\d.]+)px\)/.exec(style.backdropFilter)?.[1] ?? "") || 20;
   // Pre-blurred still when it is ready (no live filter during the morph), else a CSS blur.
   const radius = blurRadiusFor(img, blurPx, dw / r);
   const still = blurredWallpaper(img, radius);
@@ -563,7 +565,8 @@ export function prepareGlass() {
     if (!img.naturalWidth) return;
     const box = img.getBoundingClientRect();
     const cover = Math.max(box.width / img.naturalWidth, box.height / img.naturalHeight);
-    prepareBlurredWallpaper(img, blurRadiusFor(img, 20, (img.naturalWidth * cover) / r));
+    // 20px: glass windows. 22px: the reference-dark utility apps (About, Mail, Notes, Terminal).
+    for (const blur of [20, 22]) prepareBlurredWallpaper(img, blurRadiusFor(img, blur, (img.naturalWidth * cover) / r));
   });
 }
 
