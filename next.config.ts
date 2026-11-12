@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
       headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
     }));
   },
+  // Links to the CV shared before it was versioned keep working and get the current file.
+  async redirects() {
+    return [{ source: "/cv/TrinhTuanNgoc-CV.pdf", destination: "/cv/TrinhTuanNgoc-CV-2026-11.pdf", permanent: false }];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
