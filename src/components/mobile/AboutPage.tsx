@@ -10,7 +10,7 @@ import { Card, Chip, IconTile, Label, ListCard, ListRow, M, NavBar, Page, Segmen
 type Tab = "Overview" | "Experience" | "Skills";
 const TABS: Tab[] = ["Overview", "Experience", "Skills"];
 const SOFTWARE = ["Figma", "Photoshop", "InDesign", "Illustrator", "After Effects"];
-const CV = "/cv/TrinhTuanNgoc-CV.pdf";
+const CV = "/cv/TrinhTuanNgoc-CV-2026-11.pdf";
 
 /** Mobile — About Me · Overview / Experience / Skills (367:22285, 375:194815, 375:195037). The segmented control switches them. */
 export function AboutPage({ onHome, onMail }: { onHome: () => void; onMail: () => void }) {
