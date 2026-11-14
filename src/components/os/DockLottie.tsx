@@ -12,6 +12,7 @@ const SLUG: Partial<Record<AppId, string>> = {
   notes: "note",
   linkedin: "linkedin",
   photos: "photos",
+  glossary: "glossary",
   // "ai-workflow": the pack has no AI icon (its "App Project" is the whack-a-mole grid), so it uses AI_MOTION below.
 };
 
@@ -23,6 +24,9 @@ const POSE: Record<string, { hold: number }> = {
   note: { hold: 52 },
   linkedin: { hold: 24 },
   photos: { hold: 48 },
+  // UX Glossary (scripts/build-glossary-lottie.mjs): cover open, "Aa" raised. Map an app id to
+  // "glossary" in SLUG once the Glossary app exists.
+  glossary: { hold: 26 },
 };
 const easeOut = (t: number) => 1 - (1 - t) ** 2;
 

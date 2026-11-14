@@ -17,6 +17,7 @@ export const SEARCH_WORKS: (Searchable & { id: string })[] = [
 export const SEARCH_PAGES: (Searchable & { app: AppId })[] = [
   { app: "about", title: "About me", meta: "Experience, skills, contact", keywords: ["profile", "bio", "experience", "skills", "contact", "giới thiệu", "kinh nghiệm", "kỹ năng"] },
   { app: "ai-workflow", title: "AI Workflow", meta: "How I design with AI", keywords: ["ai", "workflow", "process", "design process", "quy trình", "trí tuệ nhân tạo"] },
+  { app: "glossary", title: "UX Glossary", meta: "77 UX terms, A–Z or by function", keywords: ["glossary", "ux glossary", "terms", "definitions", "dictionary", "vocabulary", "thuật ngữ", "từ điển"] },
   { app: "terminal", title: "AI Terminal", meta: "Ask Xero AI", keywords: ["terminal", "assistant", "chat", "ask", "hỏi"] },
   { app: "mail", title: "Mail", meta: "Leave an email", keywords: ["mail", "email", "message", "contact", "liên hệ"] },
 ];
@@ -30,6 +31,7 @@ export const SEARCH_APP_KEYWORDS: Partial<Record<AppId, string[]>> = {
   notes: ["note", "notes", "my notes", "ghi chú"],
   terminal: ["terminal", "ai terminal", "assistant", "chat", "ask", "hỏi"],
   photos: ["photo", "photos", "image", "gallery", "ảnh"],
+  glossary: ["glossary", "ux glossary", "terms", "definitions", "dictionary", "thuật ngữ"],
   about: ["about", "about me", "profile", "bio", "experience", "skills", "giới thiệu", "kinh nghiệm"],
 };
 

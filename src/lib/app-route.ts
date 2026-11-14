@@ -10,6 +10,7 @@ export const APP_PATHS: Record<InternalAppId, `/${string}`> = {
   "ai-workflow": "/ai-workflow",
   notes: "/notes",
   photos: "/photos",
+  glossary: "/glossary",
 };
 
 const PATH_APPS = new Map<string, InternalAppId>(

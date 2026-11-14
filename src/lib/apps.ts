@@ -6,7 +6,8 @@ export type AppId =
   | "ai-workflow"
   | "notes"
   | "linkedin"
-  | "photos";
+  | "photos"
+  | "glossary";
 
 export type AppDefinition = {
   id: AppId;
@@ -73,6 +74,15 @@ export const apps: Record<Exclude<AppId, "about">, AppDefinition> = {
     inset: "9.38%",
     href: LINKEDIN_URL,
   },
+  // Figma "OS Icon/UX Glossary" (yal6CdLdWWhvDCKXPsJcuE 2033:30224): the 46×52 book at (9, 6) in the 64px frame.
+  glossary: {
+    id: "glossary",
+    desktopLabel: "UX Glossary",
+    dockName: "UX Glossary",
+    desktopIcon: "/figma/os-glossary.svg",
+    dockIcon: "/figma/dock-glossary.svg",
+    inset: "9.38% 14.06%",
+  },
   photos: {
     id: "photos",
     desktopLabel: "My Photos",
@@ -94,6 +104,7 @@ export const desktopGrid = [
   apps.notes,
   apps.terminal,
   apps.linkedin,
+  apps.glossary,
   apps.photos,
 ].filter((app) => !HIDDEN_APPS.has(app.id));
 
@@ -104,6 +115,7 @@ export const dockApps = [
   apps.terminal,
   apps["ai-workflow"],
   apps.notes,
+  apps.glossary,
   apps.linkedin,
   apps.photos,
 ].filter((app) => !HIDDEN_APPS.has(app.id));

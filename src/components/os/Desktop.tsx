@@ -29,6 +29,7 @@ const WINDOW_CHUNKS = [
   () => import("./PhotosWindow"),
   () => import("./WorksWindow"),
   () => import("./AiWorkflowWindow"),
+  () => import("./GlossaryWindow"),
 ];
 const AboutWindow = dynamic(() => import("./AboutWindow").then((m) => m.AboutWindow));
 const MailWindow = dynamic(() => import("./MailWindow").then((m) => m.MailWindow));
@@ -37,6 +38,7 @@ const NotesWindow = dynamic(() => import("./NotesWindow").then((m) => m.NotesWin
 const PhotosWindow = dynamic(() => import("./PhotosWindow").then((m) => m.PhotosWindow));
 const WorksWindow = dynamic(() => import("./WorksWindow").then((m) => m.WorksWindow));
 const AiWorkflowWindow = dynamic(() => import("./AiWorkflowWindow").then((m) => m.AiWorkflowWindow));
+const GlossaryWindow = dynamic(() => import("./GlossaryWindow").then((m) => m.GlossaryWindow));
 import {
   appFromPathname,
   appPath,
@@ -287,6 +289,7 @@ export function Desktop({
       photos: <PhotosWindow />,
       projects: <WorksWindow onOpenAi={() => openApp("ai-workflow")} initialDetail={activeWork ?? undefined} onDetailChange={setWorkRoute} />,
       "ai-workflow": <AiWorkflowWindow onNext={() => openApp("projects")} />,
+      glossary: <GlossaryWindow onOpenAi={() => openApp("ai-workflow")} />,
     }),
     [activeWork, openApp, setWorkRoute],
   );

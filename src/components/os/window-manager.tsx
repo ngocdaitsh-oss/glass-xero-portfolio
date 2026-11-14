@@ -47,6 +47,7 @@ export const DEFAULT_GEOMETRY: Partial<Record<AppId, Geometry>> = {
   photos: { x: 460, y: 170, w: 1000, h: 660 },
   projects: { x: 280, y: 120, w: 1360, h: 820 },
   "ai-workflow": { x: 280, y: 120, w: 1360, h: 820 },
+  glossary: { x: 280, y: 120, w: 1360, h: 820 },
 };
 
 /**
@@ -82,9 +83,9 @@ export function tabletGeometry(id: AppId | "photos-preview"): Geometry | null {
     const w = Math.max(320, stage.w - TABLET_MARGIN * 2);
     const availableH = Math.max(240, stage.h - TABLET_TOP - TABLET_MARGIN);
     const designWidth = "dw" in base ? base.dw : base.w;
-    const k = id === "projects" || id === "ai-workflow" ? 1 : Math.min(1, w / designWidth);
+    const k = OPENS_MAXIMIZED.includes(id as AppId) ? 1 : Math.min(1, w / designWidth);
     const sourceH = "h" in base ? base.h : 620;
-    const h = id === "projects" || id === "ai-workflow" ? availableH : Math.min(availableH, Math.max(620, sourceH * k));
+    const h = OPENS_MAXIMIZED.includes(id as AppId) ? availableH : Math.min(availableH, Math.max(620, sourceH * k));
     return {
       x: TABLET_MARGIN,
       y: TABLET_TOP + (availableH - h) / 2,
@@ -135,7 +136,7 @@ export const KEEP_ALIVE: ReadonlySet<AppId> = new Set<AppId>(["about", "mail", "
 export type WindowSlot = { state: WindowState; index: number; key: string; hidden: boolean };
 
 /** Apps whose Figma screen shows the window filling the desktop. */
-export const OPENS_MAXIMIZED: AppId[] = ["projects", "ai-workflow"];
+export const OPENS_MAXIMIZED: AppId[] = ["projects", "ai-workflow", "glossary"];
 
 const GRAB_MARGIN = 48;
 
