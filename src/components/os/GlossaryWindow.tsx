@@ -6,6 +6,7 @@ import { useT } from "@/lib/i18n";
 import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { GLOSSARY, GLOSSARY_FUNCTIONS, type GlossaryTerm } from "@/lib/glossary";
 import { WindowControls } from "./AppWindow";
+import { GLOSSARY_ARTICLES, GlossaryDetail } from "./glossary/GlossaryDetail";
 import { Reveal } from "./reveal";
 import { useFitZoom, useTitleBarDrag, WindowShell } from "./window-manager";
 
@@ -55,6 +56,8 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<string>("");
   const [stuck, setStuck] = useState(false);
+  // Open article (Glossary Detail). The list stays mounted underneath so search and scroll survive the round trip.
+  const [detail, setDetail] = useState<string | null>(null);
   const zoom = useFitZoom(scroller, 1872, true, 1.05);
 
   const results = useMemo(() => {
@@ -117,7 +120,8 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const win = scroller.current?.closest("[data-window]");
-      if (!win || win.closest("[inert]") || !win.isConnected) return;
+      // offsetParent is null while an article covers the list.
+      if (!win || win.closest("[inert]") || !win.isConnected || !searchRef.current?.offsetParent) return;
       const typing = (e.target as HTMLElement | null)?.closest?.("input, textarea, [contenteditable]");
       if (e.key === "/" && !typing) {
         e.preventDefault();
@@ -144,6 +148,8 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
 
   return (
     <WindowShell label={t("Glossary — UX Research & Design Terms")} className="works glossary rounded-[20px] shadow-[0_24px_80px_rgba(0,0,0,0.45)] select-text">
+      {detail ? <GlossaryDetail slug={detail} onBack={() => setDetail(null)} /> : null}
+      <div className={detail ? "hidden" : "contents"}>
       {/* Figma "Window Title Bar" (AIW/Window Title Bar): surface-1, logo, centred title, controls. */}
       <header {...drag} className="flex h-[52px] shrink-0 items-center justify-between bg-[var(--w-card)] pr-2.5 pl-4 select-none">
         <div className="flex w-[120px] items-center">
@@ -172,9 +178,9 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
               {results.length === 0 ? (
                 <p className="py-24 text-center text-[18px] leading-7 text-[var(--w-secondary)]">{t("No terms match “{q}”.", { q: query.trim() })}</p>
               ) : view === "az" ? (
-                <AZ results={results} />
+                <AZ results={results} onOpen={setDetail} />
               ) : (
-                <ByFunction results={results} />
+                <ByFunction results={results} onOpen={setDetail} />
               )}
             </div>
 
@@ -226,6 +232,7 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
             </span>
           </button>
         </div>
+      </div>
       </div>
     </WindowShell>
   );
@@ -412,7 +419,7 @@ function LifecycleTrack({ results, active, onJump }: { results: Entry[]; active:
 }
 
 /** Glossary — A–Z (2008:28541): a letter head beside a three-column card grid per letter. */
-function AZ({ results }: { results: Entry[] }) {
+function AZ({ results, onOpen }: { results: Entry[]; onOpen: (slug: string) => void }) {
   const t = useT();
   const groups = LETTERS.map((l, i) => ({ letter: l, index: i + 1, items: results.filter((e) => e.letter === l) })).filter((g) => g.items.length);
   return (
@@ -433,7 +440,15 @@ function AZ({ results }: { results: Entry[] }) {
           <div className="grid flex-1 grid-cols-3 gap-6">
             {g.items.map((e) => (
               <Reveal key={e.term} className="flex">
-                <Card id={e.azId} tag={t(FUNCTION_BY_INDEX.get(e.fn)!.stage)} term={e.term} definition={e.definition} minH={300} footer={<FunctionTag fn={e.fn} />} />
+                <Card
+                  id={e.azId}
+                  tag={t(FUNCTION_BY_INDEX.get(e.fn)!.stage)}
+                  term={e.term}
+                  definition={e.definition}
+                  minH={300}
+                  footer={<FunctionTag fn={e.fn} />}
+                  onOpen={GLOSSARY_ARTICLES[e.term] ? () => onOpen(GLOSSARY_ARTICLES[e.term]) : undefined}
+                />
               </Reveal>
             ))}
           </div>
@@ -444,7 +459,7 @@ function AZ({ results }: { results: Entry[] }) {
 }
 
 /** Glossary — By function (2008:30511): one section per lifecycle function, 100px apart. */
-function ByFunction({ results }: { results: Entry[] }) {
+function ByFunction({ results, onOpen }: { results: Entry[]; onOpen: (slug: string) => void }) {
   const t = useT();
   const sections = GLOSSARY_FUNCTIONS.map((f) => ({ f, items: results.filter((e) => e.fn === f.index) })).filter((s) => s.items.length);
   return (
@@ -469,7 +484,14 @@ function ByFunction({ results }: { results: Entry[] }) {
           <div className="grid grid-cols-3 gap-6">
             {items.map((e) => (
               <Reveal key={e.term} className="flex">
-                <Card id={e.fnId} tag={e.letter} term={e.term} definition={e.definition} minH={208} />
+                <Card
+                  id={e.fnId}
+                  tag={e.letter}
+                  term={e.term}
+                  definition={e.definition}
+                  minH={208}
+                  onOpen={GLOSSARY_ARTICLES[e.term] ? () => onOpen(GLOSSARY_ARTICLES[e.term]) : undefined}
+                />
               </Reveal>
             ))}
           </div>
@@ -480,18 +502,44 @@ function ByFunction({ results }: { results: Entry[] }) {
 }
 
 /** Term card (2008:28548 in A–Z, 2008:30686 by function). Cards in a row share the row's height. */
-function Card({ id, tag, term, definition, minH, footer }: { id: string; tag: string; term: string; definition: string; minH: number; footer?: ReactNode }) {
+function Card({
+  id,
+  tag,
+  term,
+  definition,
+  minH,
+  footer,
+  onOpen,
+}: {
+  id: string;
+  tag: string;
+  term: string;
+  definition: string;
+  minH: number;
+  footer?: ReactNode;
+  onOpen?: () => void;
+}) {
   return (
     <article
-      className={`glossary-card flex w-full flex-col gap-4 rounded-[24px] bg-[var(--w-card)] px-8 pt-8 ${footer ? "pb-7" : "pb-8"}`}
+      className={`glossary-card relative flex w-full flex-col gap-4 rounded-[24px] bg-[var(--w-card)] px-8 pt-8 ${footer ? "pb-7" : "pb-8"} ${onOpen ? "cursor-pointer" : ""}`}
       style={{ minHeight: minH }}
     >
       <div className="flex justify-between font-mono text-[14px] leading-5 whitespace-nowrap text-[var(--w-muted)]">
         <span className="tracking-[0.4px]">{id}</span>
         <span className="tracking-[1.2px]">{tag}</span>
       </div>
-      <h4 className="text-[28px] leading-9 font-semibold tracking-[-0.6px]">{term}</h4>
+      <h4 className="text-[28px] leading-9 font-semibold tracking-[-0.6px]">
+        {onOpen ? (
+          // The heading carries the real button so keyboard and screen readers reach the article.
+          <button type="button" onClick={onOpen} className="text-left after:absolute after:inset-0 after:rounded-[24px] after:content-['']">
+            {term}
+          </button>
+        ) : (
+          term
+        )}
+      </h4>
       <p className={`text-[18px] leading-7 tracking-[-0.1px] text-[var(--w-secondary)] ${footer ? "flex-1" : ""}`}>{definition}</p>
+      {onOpen ? <span className="font-mono text-[14px] leading-5 tracking-[0.4px] text-[var(--w-accent)]">ĐỌC BÀI →</span> : null}
       {footer ? <Fragment>{footer}</Fragment> : null}
     </article>
   );

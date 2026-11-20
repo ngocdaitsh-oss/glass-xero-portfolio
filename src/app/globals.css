@@ -837,6 +837,119 @@ input[type="range"] {
 }
 
 /* Lifecycle Track connector: 6px dashes on a ~12px period, as the Figma export. */
+/*
+ * Glossary detail (Figma 2011:28710, drawn Light). Light values are the frame's; Dark keeps the same roles on
+ * the Works dark surfaces, with the accent lifted for contrast on near-black.
+ */
+.glossary {
+  --d-accent: #8fb0ff;
+  --d-accent-strong: #b9cdff;
+  --d-fill: #295ca9;
+  --d-fill-sub: #dfe7f5;
+  --d-fill-tile: rgba(255, 255, 255, 0.14);
+  --d-soft: rgba(103, 152, 255, 0.14);
+  --d-well: #1c1c1c;
+  --d-well-on: #262626;
+  --d-line: rgba(255, 255, 255, 0.08);
+  --d-ink: #1b2538;
+  --d-ink-strong: #2d2d2d;
+  --d-ink-fg: #ffffff;
+  --d-ink-sub: rgba(255, 255, 255, 0.68);
+  --d-ink-tile: rgba(255, 255, 255, 0.1);
+  --d-ink-accent: #8fb0ff;
+  --d-warn: rgba(255, 196, 64, 0.1);
+  --d-warn-tile: rgba(255, 196, 64, 0.2);
+  --d-warn-title: #ffd27a;
+  --d-bad: #ff8577;
+  --d-bad-soft: rgba(255, 110, 96, 0.12);
+  --d-callout-body: #d4d4d4;
+  --d-ci: rgba(103, 152, 255, 0.45);
+  --d-ci-weak: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="light"] .glossary {
+  --d-accent: #295ca9;
+  --d-accent-strong: #1d4682;
+  --d-fill: #295ca9;
+  --d-fill-sub: #dfe7f5;
+  --d-fill-tile: rgba(255, 255, 255, 0.14);
+  --d-soft: #e8eef8;
+  --d-well: #f0f1f4;
+  --d-well-on: #e9ebf0;
+  --d-line: rgba(10, 10, 15, 0.08);
+  --d-ink: #0a0a0a;
+  --d-ink-strong: #0a0a0a;
+  --d-ink-fg: #ffffff;
+  --d-ink-sub: rgba(255, 255, 255, 0.68);
+  --d-ink-tile: #1e1e1e;
+  --d-ink-accent: #8fb0ff;
+  --d-warn: #fff4dc;
+  --d-warn-tile: #ffe7b0;
+  --d-warn-title: #5c4300;
+  --d-bad: #c0392b;
+  --d-bad-soft: #fbeaea;
+  --d-callout-body: #2c2f36;
+  --d-ci: #b4c6e6;
+  --d-ci-weak: #d9dbe0;
+}
+
+/* Edit mode: copy shows it is editable on hover/focus (a tint, not an outline), blocks get a delete button. */
+.g-detail.is-editing .g-editable {
+  border-radius: 6px;
+  cursor: text;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+}
+.g-detail.is-editing .g-editable:hover {
+  background-color: color-mix(in srgb, var(--d-fill) 10%, transparent);
+}
+.g-detail.is-editing .g-editable:focus {
+  outline: none;
+  background-color: color-mix(in srgb, var(--d-fill) 14%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--d-fill) 14%, transparent);
+}
+.g-blk.is-editing {
+  position: relative;
+}
+.g-blk-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 5;
+  display: none;
+  min-width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--d-bad);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+/* Only the innermost hovered block shows its button and ring, so nested blocks never stack controls. */
+.g-blk.is-editing:hover:not(:has(.g-blk.is-editing:hover)) > .g-blk-btn,
+.g-blk-btn.is-undo {
+  display: flex;
+}
+.g-blk-btn.is-undo {
+  background: var(--d-fill);
+}
+.g-blk.is-editing:hover:not(:has(.g-blk.is-editing:hover)) {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--d-bad) 35%, transparent);
+  border-radius: 12px;
+}
+.g-blk.is-gone {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+.g-blk.is-gone > :not(.g-blk-btn) {
+  pointer-events: none;
+}
+.g-check {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--d-fill);
+}
+
 .glossary-connector {
   background: repeating-linear-gradient(90deg, var(--g-dash) 0 6px, transparent 6px 11.95px);
 }
