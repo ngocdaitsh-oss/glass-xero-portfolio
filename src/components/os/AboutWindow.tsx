@@ -11,34 +11,14 @@ type Tab = (typeof TABS)[number];
 
 const ACCENT = "var(--azure-600)";
 
-const RING = "/figma/about/ring-progress.svg";
-
-/** Grouped as on the CV's "Software Using" block. */
+/** Grouped and drawn as on the CV's "Software Using" block. */
 const SOFTWARE = [
-  {
-    group: "For Designing",
-    tools: [
-      { name: "Figma", logo: "figma", ring: "/figma/about/ring-figma.svg" },
-      { name: "Illustrator", logo: "/figma/about/logo-illustrator.svg", ring: RING },
-      { name: "Photoshop", logo: "/figma/about/logo-photoshop.svg", ring: RING },
-      { name: "InDesign", logo: "/figma/about/logo-indesign.svg", ring: RING },
-    ],
-  },
-  {
-    group: "For Animating",
-    tools: [
-      { name: "LottieFiles", logo: "/figma/about/logo-lottiefiles.svg", ring: RING },
-      { name: "After Effects", logo: "/figma/about/logo-after-effects.svg", ring: RING },
-    ],
-  },
-  {
-    group: "For Workflow",
-    tools: [
-      { name: "Jira", logo: "/figma/about/logo-jira.svg", ring: RING },
-      { name: "Confluence", logo: "/figma/about/logo-confluence.svg", ring: RING },
-    ],
-  },
+  { group: "For Designing", tools: ["Figma", "Illustrator", "Photoshop", "InDesign"] },
+  { group: "For Animating", tools: ["LottieFiles", "After Effects"] },
+  { group: "For Workflow", tools: ["Jira", "Confluence"] },
 ];
+
+const toolLogo = (name: string) => `/figma/about/cv/${name.toLowerCase().replace(/ /g, "-")}.svg`;
 
 export function AboutWindow() {
   const [tab, setTab] = useState<Tab>("Overview");
@@ -163,49 +143,18 @@ function Profile() {
       <span className="bg-divider h-px w-full shrink-0" />
       <p className="text-fg-tertiary text-sm leading-5 font-semibold">{t("SOFTWARE")}</p>
       {SOFTWARE.map(({ group, tools }) => (
-        <div key={group} className="flex flex-col gap-2.5">
-          <p className="text-fg-secondary text-[13px] leading-5 font-semibold">{t(group)}</p>
-          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
-            {tools.map((tool) => (
-              <div key={tool.name} className="flex flex-col items-center gap-1.5">
-                <span className="relative block size-12">
-                  <img src="/figma/about/ring-track.svg" alt="" className="theme-dark-only absolute inset-0 size-12" />
-                  <img src="/figma/about/ring-track-light.svg" alt="" className="theme-light-only absolute inset-0 size-12" />
-                  <span className="absolute inset-[0.15%_0_0_0]">
-                    <img src={tool.ring} alt="" className="block size-full max-w-none" />
-                  </span>
-                  <ToolLogo logo={tool.logo} />
-                </span>
-                <span className="text-sm leading-[22px] font-semibold whitespace-nowrap">{tool.name}</span>
-              </div>
+        <div key={group} className="flex flex-col gap-2">
+          <p className="text-fg-secondary text-sm leading-5 font-semibold">{t(group)}</p>
+          <ul className="flex items-center gap-3">
+            {tools.map((name) => (
+              <li key={name} title={name}>
+                <img src={toolLogo(name)} alt={name} width={36} height={36} className="block size-9" />
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       ))}
     </aside>
-  );
-}
-
-function ToolLogo({ logo }: { logo: string }) {
-  if (logo === "figma") {
-    return (
-      <span className="absolute top-3 left-3 size-6 rounded-lg drop-shadow-[0_10px_12px_rgba(3,5,15,0.45)]">
-        <span className="absolute inset-0 rounded-lg bg-gradient-to-b from-[#2c3445] to-[#1c2230]" />
-        <span className="absolute inset-[17.19%_28.41%_17.71%_28.13%]">
-          <span className="absolute inset-[-4.68%_-14.02%_-14.04%_-14.02%]">
-            <img src="/figma/about/logo-figma-glyph.svg" alt="" className="block size-full max-w-none" />
-          </span>
-        </span>
-        <span className="absolute inset-0 rounded-[inherit] shadow-[inset_0_-10px_18px_0_rgba(3,5,15,0.35),inset_0_2px_2px_0_rgba(255,255,255,0.08),inset_0_-3px_2px_0_rgba(255,255,255,0.22)]" />
-      </span>
-    );
-  }
-  return (
-    <span className="absolute top-3 left-3 size-6">
-      <span className="absolute inset-[-10.94%_-18.75%_-26.56%_-18.75%]">
-        <img src={logo} alt="" className="block size-full max-w-none" />
-      </span>
-    </span>
   );
 }
 
