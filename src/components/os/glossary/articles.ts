@@ -35,6 +35,17 @@ import { LEAN_UX } from "./lean-ux";
 import { LIKERT_SCALE } from "./likert-scale";
 import { LONGITUDINAL_STUDY } from "./longitudinal-study";
 import { LOW_FIDELITY_PROTOTYPE } from "./low-fidelity-prototype";
+import { MARKET_RESEARCH } from "./market-research";
+import { MENTAL_MODEL } from "./mental-model";
+import { MICROCOPY } from "./microcopy";
+import { MINIMUM_VIABLE_PRODUCT } from "./minimum-viable-product";
+import { MODERATED_TESTING, MODERATED_USABILITY_TESTING } from "./moderated-testing";
+import { MULTIVARIATE_TESTING } from "./multivariate-testing";
+import { NET_PROMOTER_SCORE } from "./net-promoter-score";
+import { ONBOARDING } from "./onboarding";
+import { PROTOTYPE } from "./prototype";
+import { QUALITATIVE_RESEARCH } from "./qualitative-research";
+import { QUANTITATIVE_RESEARCH } from "./quantitative-research";
 import type { Article } from "./types";
 
 /** Published articles in the list's A–Z order (src/lib/glossary.ts); the detail footer's "next term" walks this list. */
@@ -76,6 +87,18 @@ export const ARTICLES: Article[] = [
   LIKERT_SCALE,
   LONGITUDINAL_STUDY,
   LOW_FIDELITY_PROTOTYPE,
+  MARKET_RESEARCH,
+  MENTAL_MODEL,
+  MICROCOPY,
+  MINIMUM_VIABLE_PRODUCT,
+  MODERATED_TESTING,
+  MODERATED_USABILITY_TESTING,
+  MULTIVARIATE_TESTING,
+  NET_PROMOTER_SCORE,
+  ONBOARDING,
+  PROTOTYPE,
+  QUALITATIVE_RESEARCH,
+  QUANTITATIVE_RESEARCH,
 ];
 
 export const ARTICLE_BY_SLUG: Record<string, Article> = Object.fromEntries(ARTICLES.map((a) => [a.slug, a]));
