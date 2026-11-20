@@ -314,3 +314,5 @@ export const ONBOARDING: Article = {
   sections: SECTIONS,
   Body,
 };
+
+export const USER_ONBOARDING: Article = { ...ONBOARDING, slug: "user-onboarding", term: "User Onboarding" };

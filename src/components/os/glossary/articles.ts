@@ -46,6 +46,32 @@ import { ONBOARDING } from "./onboarding";
 import { PROTOTYPE } from "./prototype";
 import { QUALITATIVE_RESEARCH } from "./qualitative-research";
 import { QUANTITATIVE_RESEARCH } from "./quantitative-research";
+import { RATING_SCALES } from "./rating-scales";
+import { REMOTE_TESTING, REMOTE_USER_TESTING } from "./remote-testing";
+import { RESEARCH_OPERATIONS } from "./research-operations";
+import { SENTIMENT_ANALYSIS } from "./sentiment-analysis";
+import { SERVICE_DESIGN } from "./service-design";
+import { SESSION_REPLAY } from "./session-replay";
+import { SNOWBALL_SAMPLING } from "./snowball-sampling";
+import { STATISTICAL_SIGNIFICANCE } from "./statistical-significance";
+import { SURVEY } from "./survey";
+import { SYNTHETIC_USER } from "./synthetic-user";
+import { TASK_ANALYSIS } from "./task-analysis";
+import { TASK_SCENARIO } from "./task-scenario";
+import { THINK_ALOUD_PROTOCOL } from "./think-aloud-protocol";
+import { TREE_TESTING } from "./tree-testing";
+import { UMUX } from "./umux";
+import { UX_METRICS } from "./ux-metrics";
+import { USABILITY_HEURISTICS } from "./usability-heuristics";
+import { USABILITY_TESTING } from "./usability-testing";
+import { USER_EXPERIENCE } from "./ux-user-experience";
+import { USER_JOURNEY } from "./customer-journey";
+import { USER_ONBOARDING } from "./onboarding";
+import { USER_PERSONA } from "./user-persona";
+import { VISUAL_HIERARCHY } from "./visual-hierarchy";
+import { VOICE_OF_THE_CUSTOMER } from "./voice-of-the-customer";
+import { WIREFRAME } from "./wireframe";
+import { WIZARD_OF_OZ } from "./wizard-of-oz";
 import type { Article } from "./types";
 
 /** Published articles in the list's A–Z order (src/lib/glossary.ts); the detail footer's "next term" walks this list. */
@@ -99,6 +125,33 @@ export const ARTICLES: Article[] = [
   PROTOTYPE,
   QUALITATIVE_RESEARCH,
   QUANTITATIVE_RESEARCH,
+  RATING_SCALES,
+  REMOTE_TESTING,
+  REMOTE_USER_TESTING,
+  RESEARCH_OPERATIONS,
+  SENTIMENT_ANALYSIS,
+  SERVICE_DESIGN,
+  SESSION_REPLAY,
+  SNOWBALL_SAMPLING,
+  STATISTICAL_SIGNIFICANCE,
+  SURVEY,
+  SYNTHETIC_USER,
+  TASK_ANALYSIS,
+  TASK_SCENARIO,
+  THINK_ALOUD_PROTOCOL,
+  TREE_TESTING,
+  UMUX,
+  UX_METRICS,
+  USABILITY_HEURISTICS,
+  USABILITY_TESTING,
+  USER_EXPERIENCE,
+  USER_JOURNEY,
+  USER_ONBOARDING,
+  USER_PERSONA,
+  VISUAL_HIERARCHY,
+  VOICE_OF_THE_CUSTOMER,
+  WIREFRAME,
+  WIZARD_OF_OZ,
 ];
 
 export const ARTICLE_BY_SLUG: Record<string, Article> = Object.fromEntries(ARTICLES.map((a) => [a.slug, a]));

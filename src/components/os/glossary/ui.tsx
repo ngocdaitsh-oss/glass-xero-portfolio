@@ -92,6 +92,7 @@ const INLINE: Record<string, ReactNode> = {
     </>
   ),
   x: <path d="M7 7l10 10M17 7 7 17" />,
+  "arrow-right": <path d="M5 12h14M13 6l6 6-6 6" />,
   pencil: (
     <>
       <path d="M15.5 4.5l4 4L9 19H5v-4L15.5 4.5Z" />

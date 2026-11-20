@@ -354,3 +354,5 @@ export const CUSTOMER_JOURNEY: Article = {
   sections: SECTIONS,
   Body,
 };
+
+export const USER_JOURNEY: Article = { ...CUSTOMER_JOURNEY, slug: "user-journey", term: "User Journey" };
