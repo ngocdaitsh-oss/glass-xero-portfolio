@@ -141,19 +141,22 @@ function Profile() {
       </a>
 
       <span className="bg-divider h-px w-full shrink-0" />
-      <p className="text-fg-tertiary text-sm leading-5 font-semibold">{t("SOFTWARE")}</p>
-      {SOFTWARE.map(({ group, tools }) => (
-        <div key={group} className="flex flex-col gap-2">
-          <p className="text-fg-secondary text-sm leading-5 font-semibold">{t(group)}</p>
-          <ul className="flex items-center gap-3">
-            {tools.map((name) => (
-              <li key={name} title={name}>
-                <img src={toolLogo(name)} alt={name} width={36} height={36} className="block size-9" />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {/* Groups sit 20px apart so each label reads with its own logos. */}
+      <div className="flex flex-col gap-5">
+        <p className="text-fg-tertiary text-sm leading-5 font-semibold">{t("SOFTWARE")}</p>
+        {SOFTWARE.map(({ group, tools }) => (
+          <div key={group} className="flex flex-col gap-2.5">
+            <p className="text-fg-secondary text-sm leading-5 font-semibold">{t(group)}</p>
+            <ul className="flex items-center gap-3">
+              {tools.map((name) => (
+                <li key={name} title={name}>
+                  <img src={toolLogo(name)} alt={name} width={36} height={36} className="block size-9" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </aside>
   );
 }
