@@ -4,7 +4,7 @@
 import { createContext, useCallback, useContext, useEffect, startTransition, useRef, useState, type RefObject } from "react";
 import { motionActive } from "@/lib/motion";
 import { isLowPerf } from "@/lib/perf";
-import { useLang, useT } from "@/lib/i18n";
+import { useT } from "@/lib/i18n";
 import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { graphicWorks, uiWorks, type Work } from "@/lib/works";
 import { MaskIcon, WindowControls } from "./AppWindow";
@@ -352,7 +352,6 @@ function Header({
   onView: (view: View) => void;
 }) {
   const t = useT();
-  const lang = useLang();
   return (
     <div id="top" className="scroll-mt-6">
       <Reveal>
@@ -369,10 +368,10 @@ function Header({
                 2024
               </p>
             ) : null}
-            <h2 className="text-[136px] leading-[128px] font-normal tracking-[-6.8px] whitespace-nowrap">
-              {lang === "vi" ? "Dự án" : "Selected"}
+            <h2 className="text-[136px] leading-[128px] font-display whitespace-nowrap">
+              Selected
               <br />
-              {lang === "vi" ? "tiêu biểu" : "works"}
+              works
             </h2>
           </div>
           <div className="w-[600px]">
@@ -386,7 +385,7 @@ function Header({
                 ["02", "BRAND IDENTITY"],
               ].map(([value, label]) => (
                 <div key={label} className="flex flex-col gap-1">
-                  <dt className="text-[48px] leading-[52px] font-semibold tracking-[-1.44px]">{value}</dt>
+                  <dt className="text-[48px] leading-[52px] font-display">{value}</dt>
                   <dd className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-muted)]">{t(label)}</dd>
                 </div>
               ))}
@@ -428,7 +427,7 @@ function WorkSection({
       <div className="flex items-end justify-between whitespace-nowrap">
         <h3 className="flex items-baseline gap-6">
           <span className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-accent)]">{index}</span>
-          <span className="text-[56px] leading-[60px] font-bold tracking-[-1.96px]">{heading}</span>
+          <span className="text-[56px] leading-[60px] font-display">{heading}</span>
         </h3>
         <p className="font-mono text-[24px] leading-8 tracking-[0.4px] text-[var(--w-muted)]">{count}</p>
       </div>
@@ -492,7 +491,7 @@ function ProjectCard({ work, onOpen }: { work: Work; onOpen: (id: string) => voi
             ))}
           </div>
           <div className="flex w-full flex-col items-start gap-4">
-            <h4 className="w-full text-[30px] leading-9 font-semibold tracking-[-0.6px]">{t(work.title)}</h4>
+            <h4 className="w-full text-[30px] leading-9 font-display">{t(work.title)}</h4>
             {work.highlights ? (
               <ul className="flex w-full flex-col gap-2.5 overflow-hidden">
                 {work.highlights.map((line) => (
@@ -535,7 +534,7 @@ function ProjectRow({ work, onOpen }: { work: Work; onOpen: (id: string) => void
       </div>
       <div className="flex min-w-0 flex-col items-start gap-2.5">
         <Logo kind={work.logo} row />
-        <h4 className="text-[30px] leading-9 font-semibold tracking-[-0.6px]">{t(work.title)}</h4>
+        <h4 className="text-[30px] leading-9 font-display">{t(work.title)}</h4>
         <p className="text-[18px] leading-7 tracking-[-0.2px] text-[var(--w-secondary)]">{t(work.blurb)}</p>
       </div>
       <div className="flex flex-wrap gap-2">

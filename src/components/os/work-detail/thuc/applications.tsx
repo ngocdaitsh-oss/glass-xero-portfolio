@@ -106,7 +106,7 @@ function PhaseBand({ id, num, title, text, chips, height, top, copyShift, solid,
             style={{ left: glow.left, top: glow.top, width: glow.size, height: glow.size, backgroundImage: GLOW }}
           />
           <div aria-hidden className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] mix-blend-multiply" style={dots} />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap" style={{ color: ink, opacity: numOpacity }}>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap" style={{ color: ink, opacity: numOpacity }}>
             {num}
           </p>
           <div
@@ -114,7 +114,7 @@ function PhaseBand({ id, num, title, text, chips, height, top, copyShift, solid,
             style={{ color: ink, top: `calc(50% + ${copyShift}px)` }}
           >
             <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">{t("PHASE {n}", { n: num })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t(title)}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t(title)}</p>
             <p className="w-[860px] text-[20px] leading-[28px]">{t(text)}</p>
             <div className="flex items-start gap-2">
               {chips.map((c) => (
@@ -332,7 +332,7 @@ function Swatch({ s }: { s: SwatchDef }) {
         <p className={`relative whitespace-nowrap ${MONO_S}`} style={{ color: s.soft }}>
           {t(s.role)}
         </p>
-        <p className="relative text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap" style={{ color: s.ink }}>
+        <p className="relative text-[24px] leading-8 font-display whitespace-nowrap" style={{ color: s.ink }}>
           {t(s.name)}
         </p>
         <div className="relative flex flex-col items-start gap-1">

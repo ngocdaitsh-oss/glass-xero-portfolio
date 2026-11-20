@@ -14,7 +14,7 @@ const L = `${A}/lib`;
 /** Figma "Card/Soft". */
 const CARD_SOFT = "0 12px 32px -4px rgba(15,23,41,0.06), 0 1px 3px 0 rgba(15,23,41,0.04)";
 const INK = "#14141a";
-const H3 = "text-[24px] leading-[32px] font-semibold tracking-[-0.24px] whitespace-nowrap";
+const H3 = "text-[24px] leading-[32px] font-display whitespace-nowrap";
 const MONO14 = "font-mono text-[14px] leading-5 whitespace-nowrap";
 
 /* ================================================================== */
@@ -412,7 +412,7 @@ function ComponentLibrary() {
         />
         <Reveal className="w-full" enter={40}>
           <div className="flex w-full flex-col items-start gap-4">
-            <p className="text-[24px] leading-8 font-bold whitespace-nowrap text-[#1b1b1b]">{t("Full Design System")}</p>
+            <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[#1b1b1b]">{t("Full Design System")}</p>
             <div className="flex w-full flex-col items-start gap-2">
               <p className="w-full text-[16px] leading-6 text-[#1b1b1b]">{t("You can checkout my full design system in this link:")}</p>
               <div className="flex items-center gap-1">
@@ -807,10 +807,10 @@ function PhaseUi() {
               backgroundSize: "25.2308px 24px",
             }}
           />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap text-white">03</p>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap text-white">03</p>
           <div className="absolute left-[626px] flex w-[674px] -translate-y-1/2 flex-col items-start gap-[18px] text-white" style={{ top: "calc(50% - 0.07px)" }}>
             <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">{t("PHASE {n}", { n: "03" })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t("UI Design phase")}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t("UI Design phase")}</p>
             <p className="w-full text-[20px] leading-[28px]">{t("The release: a Discovery feed that brings work to each employee, and 27+ mini apps that all speak VIC.")}</p>
           </div>
         </div>

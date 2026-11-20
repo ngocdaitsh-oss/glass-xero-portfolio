@@ -194,6 +194,18 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
+/*
+ * Clayful display face — the text library's Title/*, Display/*, Cmd/Display–H3 and Wrk/*
+ * styles. Clayful ships one Regular weight, so weight is pinned to 400 and synthesis is off
+ * (no faux bold). The library tracks these styles at 0 (Title/XLarge −0.5px), so drop the
+ * Open Sans tracking-* classes where it is applied. Glyphs Clayful lacks fall back to Open Sans.
+ */
+@utility font-display {
+  font-family: var(--font-clayful), var(--font-open-sans), system-ui, sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
 html,
 body {
   height: 100%;

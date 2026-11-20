@@ -277,7 +277,7 @@ export function Intro({
                 </div>
                 <h1
                   id="intro-name"
-                  className="boot-item text-fg text-[56px] leading-[64px] font-bold tracking-[-1px] whitespace-nowrap"
+                  className="boot-item text-fg text-[56px] leading-[64px] font-display whitespace-nowrap"
                   style={{ ["--bi" as string]: 2 }}
                 >
                   Tuan Ngoc

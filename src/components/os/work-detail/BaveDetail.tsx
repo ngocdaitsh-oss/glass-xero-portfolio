@@ -89,7 +89,7 @@ function DesignSystem() {
             data-rv
             className="wd-hover flex h-[138px] flex-1 flex-col gap-1.5 rounded-[24px] bg-[var(--cmd-surface-1)] p-7 shadow-[inset_0_1px_0_0_var(--cmd-edge)]"
           >
-            <p className="text-[44px] leading-[52px] font-semibold tracking-[-1px] text-[var(--cmd-text-primary)]">{value}</p>
+            <p className="text-[44px] leading-[52px] font-display text-[var(--cmd-text-primary)]">{value}</p>
             <p className="text-base leading-6 text-[var(--cmd-text-secondary)]">{t(label)}</p>
           </div>
         ))}

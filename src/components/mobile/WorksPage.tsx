@@ -131,10 +131,10 @@ export function WorksPage({ onHome, onOpenWork }: { onHome: () => void; onOpenWo
             <div className="flex flex-col gap-14">
               <Reveal>
                 <div className="flex flex-col gap-7">
-                  <h2 className="text-[56px] leading-none font-normal tracking-[-2.8px] whitespace-nowrap text-[var(--cmd-text-primary)]">
-                    {lang === "vi" ? "Dự án" : "Selected"}
+                  <h2 className="text-[56px] leading-none font-display whitespace-nowrap text-[var(--cmd-text-primary)]">
+                    Selected
                     <br />
-                    {lang === "vi" ? "tiêu biểu" : "works"}
+                    works
                   </h2>
                   <div className="flex flex-col gap-10">
                     <p className="text-[16px] leading-7 font-semibold tracking-[-0.2px] text-[var(--cmd-text-secondary)]">
@@ -147,7 +147,7 @@ export function WorksPage({ onHome, onOpenWork }: { onHome: () => void; onOpenWo
                         ["02", "BRAND IDENTITY"],
                       ].map(([value, label]) => (
                         <div key={label} className="flex min-w-0 flex-1 flex-col gap-1">
-                          <dt className="text-[32px] leading-[52px] font-semibold tracking-[-0.96px] text-[var(--cmd-text-primary)]">{value}</dt>
+                          <dt className="text-[32px] leading-[52px] font-display text-[var(--cmd-text-primary)]">{value}</dt>
                           <dd className={`${mono} text-[18px] leading-[26px] text-[var(--cmd-text-muted)]`}>{t(label)}</dd>
                         </div>
                       ))}
@@ -278,7 +278,7 @@ function Section({
         <div className={`flex justify-between gap-3 whitespace-nowrap ${align === "center" ? "items-center" : "items-end"}`}>
           <h3 className="flex min-w-0 items-baseline gap-6">
             <span className={`${mono} text-[18px] leading-[26px] text-[var(--cmd-accent)]`}>{index}</span>
-            <span className="text-[28px] leading-[60px] font-bold tracking-[-0.98px] text-[var(--cmd-text-primary)]">{heading}</span>
+            <span className="text-[28px] leading-[60px] font-display text-[var(--cmd-text-primary)]">{heading}</span>
           </h3>
           <p className={`${mono} text-[14px] leading-8 text-[var(--cmd-text-muted)]`}>{count}</p>
         </div>
@@ -371,7 +371,7 @@ function Card({ work, onOpen }: { work: Work; onOpen: (id: string) => void }) {
             <div className="flex flex-col gap-2">
               {tags}
               <div className="flex flex-col gap-4">
-                <h4 className="text-[24px] leading-9 font-semibold tracking-[-0.48px] text-[var(--cmd-text-primary)]">{t(work.title)}</h4>
+                <h4 className="text-[24px] leading-9 font-display text-[var(--cmd-text-primary)]">{t(work.title)}</h4>
                 <ul className="flex flex-col gap-2.5">
                   {work.highlights?.map((line) => (
                     <li key={line} className="flex items-center gap-3 text-[16px] leading-6 tracking-[-0.2px] text-[var(--cmd-text-secondary)]">

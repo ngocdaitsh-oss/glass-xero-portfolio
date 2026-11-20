@@ -35,7 +35,7 @@ function BlockHead({ title, children, tone = "primary" }: { title: string; child
   const t = useT();
   return (
     <div className="flex flex-col items-start gap-2.5">
-      <h3 className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap text-[#0a0a0a]">{t(title)}</h3>
+      <h3 className="text-[32px] leading-10 font-display whitespace-nowrap text-[#0a0a0a]">{t(title)}</h3>
       <p className={`w-[820px] text-base leading-6 tracking-[-0.2px] ${tone === "primary" ? "text-[var(--cmd-text-primary)]" : "text-[#4b5563]"}`}>{children}</p>
     </div>
   );
@@ -179,7 +179,7 @@ export function SappDesignSystem() {
         {FACTS.map((f) => (
           <Reveal key={f.label} className="min-w-px flex-1">
             <div className={`${CARD} flex flex-col items-start gap-1.5 p-7 whitespace-nowrap`}>
-              <p className="text-[48px] leading-[52px] font-semibold tracking-[-1.44px] text-[var(--cmd-text-primary)]">{f.n}</p>
+              <p className="text-[48px] leading-[52px] font-display text-[var(--cmd-text-primary)]">{f.n}</p>
               <p className="text-base leading-6 tracking-[-0.2px] text-[var(--cmd-text-muted)]">{t(f.label)}</p>
             </div>
           </Reveal>
@@ -198,7 +198,7 @@ export function SappDesignSystem() {
             <Fragment key={l.title}>
               {i > 0 ? (
                 <div className="flex w-[46px] shrink-0 items-center justify-center self-center">
-                  <span className="sys-arrow text-[24px] leading-8 font-semibold tracking-[-0.7px] text-[#ffb700]">→</span>
+                  <span className="sys-arrow text-[24px] leading-8 font-display text-[#ffb700]">→</span>
                 </div>
               ) : null}
               <Reveal className="flex w-[436px] shrink-0">
@@ -208,7 +208,7 @@ export function SappDesignSystem() {
                   <div className="flex items-center gap-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img alt="" src={`${ASSET}/${l.icon}`} className="size-8 shrink-0" />
-                    <p className={`text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap ${l.dark ? "text-white" : "text-[#0a0a0a]"}`}>{t(l.title)}</p>
+                    <p className={`text-[24px] leading-8 font-display whitespace-nowrap ${l.dark ? "text-white" : "text-[#0a0a0a]"}`}>{t(l.title)}</p>
                   </div>
                   <p className={`w-[372px] text-[14px] leading-5 ${l.dark ? "text-[#d1d5db]" : "text-[#4b5563]"}`}>{t(l.desc)}</p>
                   <div className="flex w-[372px] flex-wrap content-start items-start gap-2">
@@ -246,12 +246,12 @@ export function SappDesignSystem() {
                   <p className="font-mono text-[14px] leading-[22px] whitespace-nowrap text-[var(--cmd-text-secondary)]">{t(tier.eyebrow)}</p>
                   {tier.inline ? (
                     <div className="flex items-center gap-3.5">
-                      <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#0a0a0a]">{t(tier.title)}</p>
+                      <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[#0a0a0a]">{t(tier.title)}</p>
                       <Chip grey>{t(tier.chip)}</Chip>
                     </div>
                   ) : (
                     <>
-                      <p className="w-full text-[24px] leading-8 font-semibold tracking-[-0.24px] text-[#0a0a0a]">{t(tier.title)}</p>
+                      <p className="w-full text-[24px] leading-8 font-display text-[#0a0a0a]">{t(tier.title)}</p>
                       <Chip grey>{t(tier.chip)}</Chip>
                     </>
                   )}

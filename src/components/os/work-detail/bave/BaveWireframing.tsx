@@ -64,7 +64,7 @@ export function BaveWireframing() {
               <div data-copy className="w-[400px] shrink-0">
                 <div data-rv className="flex flex-col gap-4">
                   <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap text-[var(--cmd-accent)]">{t(f.kicker)}</p>
-                  <p className="text-[30px] leading-9 font-semibold tracking-[-0.6px] text-[var(--cmd-text-primary)]">{t(f.title)}</p>
+                  <p className="text-[30px] leading-9 font-display text-[var(--cmd-text-primary)]">{t(f.title)}</p>
                   <p className="text-base leading-6 tracking-[-0.2px] text-[var(--cmd-text-secondary)]">{t(f.body)}</p>
                   {f.chip ? (
                     <span className="w-fit rounded-full bg-[var(--cmd-surface-2)] px-3 py-1.5 text-sm leading-5 whitespace-nowrap text-[var(--cmd-text-primary)] shadow-[inset_0_1px_0_0_var(--cmd-edge)]">

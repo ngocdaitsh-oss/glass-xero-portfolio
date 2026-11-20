@@ -292,7 +292,7 @@ export function RelatedProjects({
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-4">
           <Eyebrow label={t("UP NEXT  ·  MORE WORK")} phase="next" />
-          <h2 className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] text-[var(--cmd-text-primary)]">{t("Related projects")}</h2>
+          <h2 className="text-[56px] leading-[60px] font-display text-[var(--cmd-text-primary)]">{t("Related projects")}</h2>
         </div>
         <button
           type="button"
@@ -316,7 +316,7 @@ export function CaseFooter({ variant }: { variant?: "bave" } = {}) {
     return (
       <footer id="wd-footer" className="works-ink flex flex-col items-center gap-10 bg-[var(--cmd-bg-related)] px-[156px] pt-[100px] pb-[72px]">
         <div className="h-px w-full bg-[#2a2a2a]" />
-        <p className="text-[24px] leading-8 font-semibold tracking-[-0.7px] whitespace-nowrap text-[var(--cmd-text-primary)]">© Tuan Ngoc Portfolio 2027</p>
+        <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[var(--cmd-text-primary)]">© Tuan Ngoc Portfolio 2027</p>
       </footer>
     );
   }

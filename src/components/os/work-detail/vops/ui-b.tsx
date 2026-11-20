@@ -124,7 +124,7 @@ function Stage({
     >
       <div className="flex flex-col items-start gap-2.5">
         <p
-          className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap"
+          className="text-[32px] leading-10 font-display whitespace-nowrap"
           style={{ color: INK }}
         >
           {t(title)}

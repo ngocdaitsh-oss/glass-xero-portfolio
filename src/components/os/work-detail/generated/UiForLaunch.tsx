@@ -82,7 +82,7 @@ export function UiForLaunch() {
             <p className="[word-break:break-word] font-mono font-normal leading-[26px] relative shrink-0 text-[18px] text-[color:var(--cmd-text-secondary,#a7a7a7)] tracking-[0.4px] whitespace-pre">{t(`FINAL DESIGNS  ·  03.1`)}</p>
             <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_0px_0px_var(--cmd-edge,rgba(255,255,255,0.07))]" />
           </div>
-          <p className="[word-break:break-word] font-bold font-bold leading-[60px] relative shrink-0 text-[56px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-1.96px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="[word-break:break-word] font-display leading-[60px] relative shrink-0 text-[56px] text-[color:var(--brand-bave,#2ed3dc)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
             {t("UI for launch")}
           </p>
         </div>
@@ -200,7 +200,7 @@ export function UiForLaunch() {
         </div>
         <div data-rv className="-translate-x-1/2 absolute content-stretch flex flex-col gap-[64px] items-center left-[calc(50%-0.1px)] top-[596.91px] w-[1193.794px]">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 text-center w-[630px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>{t(`Homepage & Searching`)}</p>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>{t(`Homepage & Searching`)}</p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>{t(`The main goal of the product is to search and filter categories, the search includes searching for the user's vehicle and from there filtering out the services and garages corresponding to each type of user's vehicle.`)}</p>
           </div>
           <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0">
@@ -260,7 +260,7 @@ export function UiForLaunch() {
         </div>
         <div data-rv className="-translate-x-1/2 absolute content-stretch flex gap-[64px] items-center left-1/2 top-[1971px]">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[369px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
               {t("Service Detail")}
             </p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>{t(`Service details include all necessary information about the garage's products. Service offers, service notes, location, procedures, ratings and reviews.`)}</p>
@@ -582,7 +582,7 @@ export function UiForLaunch() {
             </div>
           </div>
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[398px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
               {t("Profile")}
             </p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
@@ -602,7 +602,7 @@ export function UiForLaunch() {
         </div>
         <div className="-translate-x-1/2 absolute contents left-1/2 top-[4134.4px]">
           <div data-rv className="[word-break:break-word] absolute content-stretch flex flex-col gap-[12px] items-center justify-center left-[465px] text-center top-[4170.4px] w-[630px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
               {t("Vehicles Manage")}
             </p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>{t(`Users can add or manage their vehicles and view spare parts, or manage their vehicle's condition and pricing based on the data provided by the garage. Each user can add multiple vehicles and review the services they have ordered and paid for.`)}</p>
@@ -711,7 +711,7 @@ export function UiForLaunch() {
         </div>
         <div data-rv className="-translate-x-1/2 absolute content-stretch flex flex-col gap-[64px] items-center left-[calc(50%-0.19px)] top-[5487.07px] w-[933.612px]">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-center justify-center relative shrink-0 text-center w-[630px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
               {t("Booking Manage")}
             </p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
@@ -770,7 +770,7 @@ export function UiForLaunch() {
           </div>
           <div className="content-stretch flex flex-col gap-[46px] items-start relative shrink-0 w-[569.014px]">
             <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
-              <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
                 {t("Loyalty")}
               </p>
               <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>{t(`The Bave Rewards program offers exclusive benefits for each user's level, the more you order, the higher your level will be and the benefits will be reduced each time you order. User levels will be managed and tasks will be provided to easily level up.`)}</p>
@@ -795,7 +795,7 @@ export function UiForLaunch() {
         <img data-rv alt="" src="/figma/wd/v2/loyalty-crown@3x.png" width={60} height={63} className="absolute max-w-none" style={{ top: 6420.3, left: 751, width: 59.667, height: 63.333 }} />
         <div data-rv className="-translate-x-1/2 absolute content-stretch flex gap-[114px] items-center left-[calc(50%+0.15px)] top-[6993.07px]">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[305px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
               {t("Loyalty’s Reward")}
             </p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
@@ -814,7 +814,7 @@ export function UiForLaunch() {
               <img alt={t("Bave Rewards: my rewards screen")} src="/figma/wd/v2/rank-phone.webp" width={394} height={477} className="absolute top-0 left-[-65.4px] h-[477px] w-[393.5px] max-w-none" />
             </div>
             <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 text-center w-full">
-              <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
                 {t("Ranking Prize")}
               </p>
               <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
@@ -833,7 +833,7 @@ export function UiForLaunch() {
               <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgIPhone14Pro} />
             </div>
             <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start relative shrink-0 text-center w-full">
-              <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+              <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
                 {t("Bave Coin Promotion")}
               </p>
               <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
@@ -844,7 +844,7 @@ export function UiForLaunch() {
         </div>
         <div className="absolute contents left-[289px] top-[2567.91px]">
           <div data-rv className="[word-break:break-word] absolute content-stretch flex flex-col gap-[12px] items-center justify-center left-[453px] text-center top-[2567.91px] w-[630px]">
-            <p className="font-semibold font-semibold leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-0.64px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="font-display leading-[40px] relative shrink-0 text-[32px] text-[color:var(--brand-bave,#2ed3dc)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
               {t("Booking Flow")}
             </p>
             <p className=" font-normal leading-[24px] relative shrink-0 text-[16px] text-[color:var(--cmd-text-primary,white)] tracking-[-0.2px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>

@@ -98,7 +98,7 @@ function Overview({ onMail }: { onMail: () => void }) {
           ["6", "Tools"],
         ].map(([n, label]) => (
           <Card key={label} className="flex min-w-0 flex-1 flex-col items-start gap-1 p-4 leading-[normal]">
-            <p className="text-fg text-[28px] font-medium whitespace-nowrap leading-[normal]">{n}</p>
+            <p className="text-fg text-[28px] font-display whitespace-nowrap leading-[normal]">{n}</p>
             <p className="text-fg-secondary truncate text-sm leading-[normal]">{t(label)}</p>
           </Card>
         ))}
@@ -133,7 +133,7 @@ function Experience() {
   return (
     <>
       <div className="flex items-center gap-2">
-        <h2 className="text-fg text-xl leading-[normal] font-semibold whitespace-nowrap">{t("Work Experience")}</h2>
+        <h2 className="text-fg text-xl leading-[normal] font-display whitespace-nowrap">{t("Work Experience")}</h2>
         <span className="bg-overlay text-fg-secondary rounded-full px-[9px] py-0.5 text-sm leading-[normal] font-semibold">{JOBS.length}</span>
       </div>
       <ol className="flex w-full flex-col">

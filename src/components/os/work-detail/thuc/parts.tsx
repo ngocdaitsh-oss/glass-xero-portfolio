@@ -17,7 +17,7 @@ export function ThucEyebrow({ label, dot = "var(--brand-thuc)" }: { label: strin
 /** Figma "Wrk/H2": Open Sans Bold 56/60, Thực Vị Thiên red. */
 export function ThucHeading({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <h2 className={`text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap text-[var(--brand-thuc)] ${className}`}>{children}</h2>
+    <h2 className={`text-[56px] leading-[60px] font-display whitespace-nowrap text-[var(--brand-thuc)] ${className}`}>{children}</h2>
   );
 }
 

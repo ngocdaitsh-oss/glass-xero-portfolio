@@ -371,12 +371,12 @@ export function BscPhaseBand({
             />
           ) : null}
           <div aria-hidden className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] mix-blend-multiply" style={dotGrid} />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap" style={{ color: ink }}>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap" style={{ color: ink }}>
             {num}
           </p>
           <div className="absolute top-1/2 flex -translate-y-1/2 flex-col items-start gap-[18px]" style={{ left: copyLeft, color: ink }}>
             <p className={MONO}>{t("PHASE {num}", { num })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t(title)}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t(title)}</p>
             <p className="w-[860px] text-[20px] leading-[28px]">{typeof text === "string" ? t(text) : text}</p>
             <div className="flex flex-wrap content-start items-start gap-2" style={{ width: stepsWidth }}>
               {chips.map((c) => (

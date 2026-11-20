@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { InteractionSounds } from "@/components/InteractionSounds";
 import "./globals.css";
@@ -13,6 +14,18 @@ const openSans = Open_Sans({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin", "vietnamese"],
+});
+
+/*
+ * Clayful — display face for the text library's Title/*, Display/*, Cmd/Display–H3 and Wrk/*
+ * styles (Figma yal6CdLdWWhvDCKXPsJcuE). One Regular weight, Latin only: apply it with the
+ * `font-display` utility (globals.css), which pins weight 400 and falls back to Open Sans.
+ */
+const clayful = localFont({
+  src: "./fonts/Clayful.otf",
+  variable: "--font-clayful",
+  weight: "400",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -57,7 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="dark"
       data-cursor="dark"
       suppressHydrationWarning
-      className={`${openSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${openSans.variable} ${jetbrainsMono.variable} ${clayful.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: desktopScaleScript }} />

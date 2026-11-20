@@ -250,10 +250,10 @@ function PhaseSystem() {
         <div className="relative size-full overflow-clip rounded-[40px] bg-[#ffb81c]" style={{ boxShadow: "12px 12px 0 0 #b37a00" }}>
           <div aria-hidden className="pointer-events-none absolute" style={{ left: 1025, top: -136.114, width: 912, height: 912, backgroundImage: GLOW }} />
           <div aria-hidden className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] mix-blend-multiply" style={DOT_GRID} />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap text-white">02</p>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap text-white">02</p>
           <div className="absolute top-[calc(50%-0.11px)] left-[520px] flex -translate-y-1/2 flex-col items-start gap-[18px] text-white">
             <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">{t("PHASE {num}", { num: "02" })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t("Design System phase")}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t("Design System phase")}</p>
             <p className="w-[860px] text-[20px] leading-[28px]">
               {t("From structure to system: wireframe every template, then lock the BSC colours, type and icons into one website style guide.")}
             </p>

@@ -47,7 +47,7 @@ function Token({ children, className = "" }: { children: ReactNode; className?: 
 
 function CardTitle({ children }: { children: ReactNode }) {
   const t = useT();
-  return <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{typeof children === "string" ? t(children) : children}</p>;
+  return <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[#14141a]">{typeof children === "string" ? t(children) : children}</p>;
 }
 
 function Sticker({ children, tone = "mint", className = "" }: { children: ReactNode; tone?: "mint" | "orange" | "blue" | "pink"; className?: string }) {
@@ -116,7 +116,7 @@ function SystemArchitecture() {
                 >
                   <p className="vb-layer-n font-mono text-[14px] leading-5 font-bold">{l.n}</p>
                   <div className="flex w-[240px] shrink-0 items-start">
-                    <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px]">{t(l.name)}</p>
+                    <p className="text-[24px] leading-8 font-display">{t(l.name)}</p>
                   </div>
                   <p className="text-base leading-6 tracking-[-0.2px]">{t(l.desc)}</p>
                 </div>
@@ -310,7 +310,7 @@ function Colour() {
         <Sticker className="-top-6 left-6 -rotate-2">Base colors</Sticker>
         <Reveal className="w-full">
           <div className={`${CARD} flex w-full flex-col items-start gap-6 p-10`}>
-          <p className="text-[30px] leading-9 font-semibold tracking-[-0.6px] whitespace-nowrap text-[var(--cmd-text-primary)]">{t("Colors Accent")}</p>
+          <p className="text-[30px] leading-9 font-display whitespace-nowrap text-[var(--cmd-text-primary)]">{t("Colors Accent")}</p>
           <div className="flex w-full flex-col items-start gap-2.5">
             {RAMPS.map(([name, hexes]) => (
               <Reveal key={name} enter={40} className="w-full">
@@ -342,7 +342,7 @@ function Colour() {
               <div className={`vb-sem ${CARD} flex w-full flex-col items-start overflow-clip`}>
                 <div className="vb-sem-band h-24 w-full shrink-0" style={{ background: s.hex }} />
                 <div className="flex w-full flex-col items-start gap-2 p-6">
-                  <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{s.name}</p>
+                  <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[#14141a]">{s.name}</p>
                   <Token>{s.hex}</Token>
                   <p className="w-[327px] text-base leading-6 tracking-[-0.2px] text-[#4b5563]">{t(s.use)}</p>
                 </div>
@@ -411,7 +411,7 @@ function Typography() {
         <Reveal className="flex w-[770px] shrink-0">
           <div className="vb-spec wd-hover flex w-full flex-col items-start gap-2 rounded-[24px] bg-[#14141a] p-10">
             <p className="vb-aa text-[140px] leading-[1.15] font-bold whitespace-nowrap text-[#ee0033]">Aa</p>
-            <p className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap text-white">FS PF BeauSans Pro</p>
+            <p className="text-[32px] leading-10 font-display whitespace-nowrap text-white">FS PF BeauSans Pro</p>
             <p className="text-[18px] leading-7 font-semibold tracking-[-0.2px] whitespace-nowrap text-[#d1d5db]">{tr("Heading · Title · Metric")}</p>
             <p className="font-mono text-[14px] leading-5 whitespace-nowrap text-[#9ca3af]">{tr("Weights: Book · SemiBold · Bold")}</p>
             <p className="w-[690px] text-base leading-6 tracking-[-0.2px] whitespace-pre-wrap text-[#e5e7eb]">{ALPHABET}</p>
@@ -421,7 +421,7 @@ function Typography() {
         <Reveal className="flex w-[770px] shrink-0">
           <div className={`vb-spec ${CARD} flex h-[413px] w-full flex-col items-start gap-2 p-10`}>
             <p className={`vb-aa text-[140px] leading-[1.15] font-bold whitespace-nowrap text-[#14141a] ${ROBOTO}`}>Aa</p>
-            <p className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap text-[#14141a]">Roboto</p>
+            <p className="text-[32px] leading-10 font-display whitespace-nowrap text-[#14141a]">Roboto</p>
             <p className="text-[18px] leading-7 font-semibold tracking-[-0.2px] whitespace-nowrap text-[#4b5563]">{tr("Body · Label · Data")}</p>
             <p className="font-mono text-[14px] leading-5 whitespace-nowrap text-[#6b7280]">{tr("Weights: Regular · Medium · SemiBold · Bold")}</p>
             <p className={`w-[690px] text-base leading-[1.5] whitespace-pre-wrap text-[#374151] ${ROBOTO}`}>{ALPHABET}</p>

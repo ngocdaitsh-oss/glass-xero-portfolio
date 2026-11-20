@@ -469,7 +469,7 @@ export function RumPhaseBand({
               style={dotGrid}
             />
             <p
-              className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap"
+              className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap"
               style={{ color: ink }}
             >
               {num}
@@ -481,7 +481,7 @@ export function RumPhaseBand({
               <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">
                 {t("PHASE {n}", { n: num })}
               </p>
-              <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">
+              <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">
                 {t(title)}
               </p>
               <p className="w-[860px] text-[20px] leading-[28px]">

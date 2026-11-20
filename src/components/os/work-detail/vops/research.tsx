@@ -13,7 +13,7 @@ const CARD_SOFT = "0 12px 32px -4px rgba(15,23,41,0.06), 0 1px 3px 0 rgba(15,23,
 const RED = "#e50030";
 const INK = "#14141a";
 const BODY = "text-[16px] leading-[24px] tracking-[-0.2px]";
-const H3 = "text-[24px] leading-[32px] font-semibold tracking-[-0.24px] whitespace-nowrap";
+const H3 = "text-[24px] leading-[32px] font-display whitespace-nowrap";
 
 /* ================================================================== */
 /* Phase band (Figma 272:14774; reused by Phase 02 / 03)               */
@@ -81,12 +81,12 @@ export function VopsPhaseBand({
             />
           ) : null}
           <div aria-hidden className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] mix-blend-multiply" style={dotGrid} />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap" style={{ color: ink }}>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap" style={{ color: ink }}>
             {num}
           </p>
           <div className="absolute top-1/2 left-[520px] flex -translate-y-1/2 flex-col items-start gap-[18px]" style={{ color: ink }}>
             <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">{t("PHASE {n}", { n: num })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t(title)}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t(title)}</p>
             <p className="w-[860px] text-[20px] leading-[28px]">{typeof text === "string" ? t(text) : text}</p>
             <div className="flex w-[900px] flex-wrap content-start items-start gap-2">
               {chips.map((c) => (
@@ -213,7 +213,7 @@ function ResearchPlan() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`${A}/${m.icon}.svg`} alt="" className="vr-deco block size-24 max-w-none" />
                 </div>
-                <p className="relative text-[48px] leading-[52px] font-semibold tracking-[-1.44px] whitespace-nowrap" style={{ color: RED }}>
+                <p className="relative text-[48px] leading-[52px] font-display whitespace-nowrap" style={{ color: RED }}>
                   {m.n}
                 </p>
                 <p className="relative text-[18px] leading-[28px] font-semibold tracking-[-0.2px] whitespace-nowrap" style={{ color: INK }}>
@@ -360,7 +360,7 @@ function SurveyHighlights() {
         {STATS.map((s) => (
           <Reveal key={s.n} className="flex shrink-0" enter={40}>
             <div className="wd-hover flex h-[174px] w-[375px] flex-col items-start gap-2.5 rounded-[24px] p-8 text-white" style={{ background: RED }}>
-              <p className="text-[48px] leading-[52px] font-semibold tracking-[-1.44px] whitespace-nowrap">{t(s.n)}</p>
+              <p className="text-[48px] leading-[52px] font-display whitespace-nowrap">{t(s.n)}</p>
               <p className={`w-[310px] ${BODY}`}>{t(s.t)}</p>
             </div>
           </Reveal>

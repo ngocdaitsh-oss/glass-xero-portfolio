@@ -62,7 +62,7 @@ function StageCopy({ title, children }: { title: string; children: string }) {
   const t = useT();
   return (
     <Reveal className="flex flex-col items-center gap-3">
-      <p className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap text-[var(--brand-bsc)]">{t(title)}</p>
+      <p className="text-[32px] leading-10 font-display whitespace-nowrap text-[var(--brand-bsc)]">{t(title)}</p>
       <p className="w-[720px] text-center text-base leading-6 tracking-[-0.2px] text-[var(--cmd-text-secondary)]">{t(children)}</p>
     </Reveal>
   );

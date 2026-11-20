@@ -111,10 +111,10 @@ function PersonaCard({ p }: { p: Persona }) {
       <div className="wd-hover flex w-full flex-col items-start gap-4 rounded-[24px] bg-white p-8" style={{ boxShadow: CARD_SOFT }}>
         <div className="flex items-center gap-4">
           <div className="flex size-16 shrink-0 items-center justify-center rounded-full" style={{ background: p.avatar }}>
-            <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[#14141a]">{p.initial}</p>
+            <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[#14141a]">{p.initial}</p>
           </div>
           <div className="flex flex-col items-start gap-0.5 whitespace-nowrap">
-            <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] text-[#14141a]">{p.name}</p>
+            <p className="text-[24px] leading-8 font-display text-[#14141a]">{p.name}</p>
             <p className="text-[16px] leading-6 tracking-[-0.2px] text-[var(--cmd-text-secondary)]">{t(p.role)}</p>
           </div>
         </div>
@@ -470,7 +470,7 @@ function Synthesis() {
       <Reveal className="w-full">
         <div className="wd-hover relative flex w-full flex-col items-start gap-3.5 overflow-clip rounded-[24px] bg-[#e50030] p-12">
           <p className="font-mono text-[14px] leading-[1.4] font-bold whitespace-nowrap text-[#ffd0d9]">{tr("PROBLEM STATEMENT")}</p>
-          <p className="relative w-[1168px] text-[32px] leading-10 font-semibold tracking-[-0.64px] text-white">
+          <p className="relative w-[1168px] text-[32px] leading-10 font-display text-white">
             {tr("Viettel employees lose time and confidence moving between disconnected systems, because no single place tells them what needs their attention and lets them act on it — especially on mobile.")}
           </p>
           <img src={`${A}/quote-mark.svg`} alt="" className="pointer-events-none absolute block max-w-none" style={{ left: 1294, top: 23, width: 229, height: 179 }} />
@@ -556,10 +556,10 @@ function PhaseSystem() {
             className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] opacity-[0.24]"
             style={{ backgroundImage: "radial-gradient(circle at 1.05px 1px, #fff 0.8px, transparent 1.2px)", backgroundSize: "25.2308px 24px" }}
           />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap text-white">02</p>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap text-white">02</p>
           <div className="absolute left-[520px] flex w-[813px] -translate-y-1/2 flex-col items-start gap-[18px] text-white" style={{ top: "calc(50% + 0.11px)" }}>
             <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">{t("PHASE {n}", { n: "02" })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t("Design System phase")}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t("Design System phase")}</p>
             <p className="w-[860px] text-[20px] leading-7">{t("From audit to system: VIC for every Viettel IT product, then a vOps layer for mini apps and GenHub.")}</p>
             <div className="flex w-full flex-col items-start gap-2">
               {BAND_STEPS.map((row) => (
@@ -606,7 +606,7 @@ function Principles() {
                 <div className={`flex flex-col items-start whitespace-nowrap ${first ? "gap-3" : "gap-2"}`}>
                   <p className="font-mono text-[16px] leading-[1.4] font-bold text-[#e03]">{p.n}</p>
                   <div className="flex flex-col items-start gap-1 font-semibold">
-                    <p className="text-[24px] leading-8 tracking-[-0.7px] text-[#14141a]">{t(p.title)}</p>
+                    <p className="font-display text-[24px] leading-8 text-[#14141a]">{t(p.title)}</p>
                     <p className="text-[16px] leading-[1.5] text-[#6b7280]">{lang === "vi" ? p.title : p.sub}</p>
                   </div>
                 </div>

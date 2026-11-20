@@ -479,7 +479,7 @@ export function SappComponentLibrary() {
             {t("46 components, each documented with variants, properties and usage. Generic UI covers most of the product; the learning-specific set is what makes LMS Pro feel like a place to study rather than a generic dashboard.")}
           </p>
           <div className="flex w-full flex-col items-start gap-4">
-            <p className="text-[24px] leading-8 font-bold whitespace-nowrap text-[#1b1b1b]">{t("Full Design System")}</p>
+            <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[#1b1b1b]">{t("Full Design System")}</p>
             <div className="flex w-full flex-col items-start gap-2">
               <p className="text-[16px] leading-6 text-[#1b1b1b]">{t("You can checkout my full design system in this link:")}</p>
               <a
@@ -502,7 +502,7 @@ export function SappComponentLibrary() {
       <div className="relative h-[1823px] w-[1400px]">
         <Reveal>
           <div className="flex w-[820px] flex-col items-start gap-2.5">
-            <p className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap text-[#0a0a0a]">{t("Core components in use")}</p>
+            <p className="text-[32px] leading-10 font-display whitespace-nowrap text-[#0a0a0a]">{t("Core components in use")}</p>
             <p className="w-[820px] text-[16px] leading-6 tracking-[-0.2px] text-[#4b5563]">
               {t("Banner toast, cursors, buttons, input, iconography and variables — rebuilt here as live components from the library.")}
             </p>

@@ -200,7 +200,7 @@ function ProfileWidget({ onOpen }: { onOpen: (el: HTMLElement) => void }) {
           <img src={`${M}/wave.png`} alt="" className="wave-hand size-[19.2px] object-cover" />
           <span className="text-fg text-base leading-[22.4px] font-medium whitespace-nowrap">{t("Hello, I’m")}</span>
         </span>
-        <span className="text-fg text-[28px] leading-[normal] font-bold whitespace-nowrap">Tuan Ngoc</span>
+        <span className="text-fg text-[28px] leading-[normal] font-display whitespace-nowrap">Tuan Ngoc</span>
         <span className="text-sm leading-[normal] font-semibold whitespace-nowrap text-[var(--m-role)] [[data-theme=light]_&]:underline [[data-theme=light]_&]:decoration-from-font">
           {t("UI/UX & Product Designer")}
         </span>

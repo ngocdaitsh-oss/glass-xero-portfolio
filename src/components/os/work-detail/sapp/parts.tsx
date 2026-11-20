@@ -24,7 +24,7 @@ export function SappEyebrow({ label, phase = "brand" }: { label: string; phase?:
 /** Figma "Wrk/H2": Open Sans Bold 56/60, brand orange. */
 export function SappHeading({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <h2 className={`text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap text-[var(--brand-sapp)] ${className}`}>{children}</h2>
+    <h2 className={`text-[56px] leading-[60px] font-display whitespace-nowrap text-[var(--brand-sapp)] ${className}`}>{children}</h2>
   );
 }
 

@@ -22,7 +22,7 @@ export function Eyebrow({ label, phase = "research" }: { label: string; phase?: 
 
 export function Heading({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <h2 className={`text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap text-[var(--brand-bave)] ${className}`}>
+    <h2 className={`text-[56px] leading-[60px] font-display whitespace-nowrap text-[var(--brand-bave)] ${className}`}>
       {children}
     </h2>
   );

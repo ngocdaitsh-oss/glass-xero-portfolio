@@ -35,7 +35,7 @@ export function DesignAnatomy() {
             <p className="[word-break:break-word] font-mono font-normal leading-[26px] relative shrink-0 text-[18px] text-[color:var(--cmd-text-secondary,#a7a7a7)] tracking-[0.4px] whitespace-pre">{t(`FINAL DESIGN  ·  02.4`)}</p>
             <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_0px_0px_var(--cmd-edge,rgba(255,255,255,0.07))]" />
           </div>
-          <p className="[word-break:break-word] font-bold font-bold leading-[60px] relative shrink-0 text-[56px] text-[color:var(--brand-bave,#2ed3dc)] tracking-[-1.96px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="[word-break:break-word] font-display leading-[60px] relative shrink-0 text-[56px] text-[color:var(--brand-bave,#2ed3dc)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
             {t("Design anatomy")}
           </p>
         </div>

@@ -41,7 +41,7 @@ export function SappHero() {
           <div className="wd-hover flex items-start justify-between rounded-[24px] bg-[rgba(255,255,255,0.5)] px-8 py-6 text-[#404041] shadow-[0_4.178px_17.34px_0_rgba(0,0,0,0.15)]">
             {HERO_FACTS.map((f) => (
               <div key={f.label} className="flex shrink-0 flex-col items-start gap-2 whitespace-nowrap">
-                <p className="text-[24px] leading-8 font-bold">{t(f.label)}</p>
+                <p className="text-[24px] leading-8 font-display">{t(f.label)}</p>
                 <div className="text-base leading-6">
                   {f.lines.map((l) => (
                     <p key={l}>{t(l)}</p>
@@ -313,7 +313,7 @@ export function SappDesignProcess() {
   return (
     <section id="wd-process" className="relative flex flex-col items-center justify-center gap-12 px-[156px] pt-40">
       <div className="flex w-full flex-col items-center justify-center gap-[22px]">
-        <h2 className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">
+        <h2 className="text-[56px] leading-[60px] font-display whitespace-nowrap">
           <span className="text-[#f5a300]">{t("Design overall ")}</span>
           <span className="text-[#8a8f98]">{t("process")}</span>
         </h2>
@@ -405,12 +405,12 @@ function PhaseBand({ id, num, title, lead, steps, phase, text, dotOpacity, glow 
           style={{ left: glow.left, top: glow.top, width: glow.size, height: glow.size, backgroundImage: glow.gradient }}
         />
         <div aria-hidden className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] mix-blend-multiply" style={dotGrid} />
-        <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap" style={{ color: text }}>
+        <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap" style={{ color: text }}>
           {num}
         </p>
         <div className="absolute top-1/2 left-[520px] flex -translate-y-1/2 flex-col items-start gap-[18px]" style={{ color: text }}>
           <p className={MONO}>{t("PHASE {num}", { num })}</p>
-          <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t(title)}</p>
+          <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t(title)}</p>
           <p className="w-[860px] text-[22px] leading-[34px] tracking-[-0.11px]">{t(lead)}</p>
           <div className="flex w-[900px] flex-wrap content-start items-start gap-2">
             {steps.map((s) => (

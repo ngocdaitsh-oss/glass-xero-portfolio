@@ -103,7 +103,7 @@ export function SappDesignSolution() {
                 <div className="flex h-full min-w-px flex-1 flex-col items-center justify-between">
                   {g.image}
                   <div className={`sol-goal-copy flex w-full shrink-0 flex-col items-center gap-4 text-center text-[#1b1b1b] ${g.trail ? "pb-6" : ""}`}>
-                    <p className="text-[24px] leading-8 font-bold">{t(g.title)}</p>
+                    <p className="text-[24px] leading-8 font-display">{t(g.title)}</p>
                     <p className="sol-goal-desc text-base leading-6" style={{ width: g.bodyWidth }}>
                       {t(g.body)}
                     </p>

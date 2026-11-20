@@ -182,7 +182,7 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
             <Reveal>
               <footer className="mt-[100px] flex flex-col items-center gap-10 pt-12 pb-6">
                 <span className="h-px w-full bg-[var(--g-line)]" />
-                <p className="text-[24px] leading-8 font-semibold tracking-[-0.7px]">© Tuan Ngoc Portfolio 2027</p>
+                <p className="text-[24px] leading-8 font-display">© Tuan Ngoc Portfolio 2027</p>
               </footer>
             </Reveal>
           </div>
@@ -242,7 +242,7 @@ function Intro() {
   return (
     <Reveal>
       <div className="flex items-end justify-between">
-        <h2 className="text-[136px] leading-[128px] font-normal tracking-[-6.8px] whitespace-nowrap">
+        <h2 className="text-[136px] leading-[128px] font-display whitespace-nowrap">
           UX
           <br />
           Glossary
@@ -256,7 +256,7 @@ function Intro() {
           <div className="flex">
             {stats.map(([value, label]) => (
               <div key={label} className="flex flex-1 flex-col gap-1">
-                <span className="text-[48px] leading-[52px] font-semibold tracking-[-1.44px]">{value}</span>
+                <span className="text-[48px] leading-[52px] font-display">{value}</span>
                 <span className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-muted)]">{t(label)}</span>
               </div>
             ))}
@@ -456,7 +456,7 @@ function ByFunction({ results }: { results: Entry[] }) {
               <div className="flex flex-col gap-3">
                 <div className="flex items-baseline gap-6">
                   <span className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-accent)]">{pad(f.index)}</span>
-                  <h3 className="text-[56px] leading-[60px] font-bold tracking-[-3.5px]">{t(f.name)}</h3>
+                  <h3 className="text-[56px] leading-[60px] font-display">{t(f.name)}</h3>
                 </div>
                 <p className="text-[18px] leading-7 tracking-[-0.2px] text-[var(--w-secondary)]">{t(f.blurb)}</p>
               </div>

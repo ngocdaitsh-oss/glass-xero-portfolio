@@ -25,7 +25,7 @@ function SubHead({ title, children, center = false, width }: { title: string; ch
   const t = useT();
   return (
     <div className={`flex flex-col gap-[14px] ${center ? "items-center text-center" : "items-start"}`} style={width ? { width } : undefined}>
-      <p className="text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[var(--brand-sapp)]">{t(title)}</p>
+      <p className="text-[24px] leading-8 font-display whitespace-nowrap text-[var(--brand-sapp)]">{t(title)}</p>
       {children}
     </div>
   );
@@ -44,7 +44,7 @@ function BlockHead({ kicker, kickerClass, title, lead, width }: { kicker: string
   return (
     <div className="flex flex-col items-start gap-2.5" style={{ width }}>
       <p className={`font-mono font-bold whitespace-nowrap text-[#e68200] ${kickerClass}`}>{t(kicker)}</p>
-      <p className="text-[32px] leading-10 font-semibold tracking-[-0.64px] whitespace-nowrap text-[#0a0a0a]">{t(title)}</p>
+      <p className="text-[32px] leading-10 font-display whitespace-nowrap text-[#0a0a0a]">{t(title)}</p>
       <p className="text-base leading-6 tracking-[-0.2px] text-[#4b5563]">{t(lead)}</p>
     </div>
   );
@@ -425,7 +425,7 @@ function ModelCard({ dark, icon, title, formula, note }: { dark?: boolean; icon:
     <div className={`wd-hover ut-emph flex w-[420px] shrink-0 flex-col items-start gap-[14px] self-stretch rounded-[24px] p-8 ${OFFSET} ${dark ? "bg-[#29353c]" : "bg-[var(--cmd-surface-1)]"}`}>
       <div className="flex items-center gap-3">
         {icon}
-        <p className={`text-[24px] leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap ${dark ? "text-white" : "text-[#0a0a0a]"}`}>{t(title)}</p>
+        <p className={`text-[24px] leading-8 font-display whitespace-nowrap ${dark ? "text-white" : "text-[#0a0a0a]"}`}>{t(title)}</p>
       </div>
       <div className={`w-full rounded-[12px] px-4 py-[14px] ${dark ? "bg-[#404041]" : "bg-[#fffbf2]"}`}>
         <p className={`w-[324px] font-mono text-base leading-6 whitespace-pre-wrap ${dark ? "text-[#ffd466]" : "text-[#664a00]"}`}>{formula.join("\n")}</p>
@@ -1032,7 +1032,7 @@ function AffinityBlock() {
       <Reveal className="flex w-full items-stretch gap-5">
         {STATS.map(([n, l], i) => (
           <div key={l} className={`wd-hover flex min-w-px flex-1 flex-col items-start gap-1.5 rounded-[24px] bg-[var(--cmd-surface-1)] p-7 ${OFFSET}`}>
-            <p className="ut-fade text-[48px] leading-[52px] font-semibold tracking-[-1.44px] whitespace-nowrap text-[#0a0a0a]" style={vi(i * 3)}>
+            <p className="ut-fade text-[48px] leading-[52px] font-display whitespace-nowrap text-[#0a0a0a]" style={vi(i * 3)}>
               {n}
             </p>
             <p className="text-sm leading-5 whitespace-nowrap text-[#6b7280]">{t(l)}</p>

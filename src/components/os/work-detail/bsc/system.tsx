@@ -314,7 +314,7 @@ function UiKit() {
         {FACTS.map(([v, l]) => (
           <div key={l} data-rv className="min-w-px flex-1">
             <div className="bsys-card wd-hover flex flex-col items-start gap-1.5 rounded-[24px] bg-[var(--cmd-surface-1)] p-7">
-              <p className="text-[48px] leading-[52px] font-semibold tracking-[-1.44px] whitespace-nowrap text-[var(--cmd-text-primary)]">{v}</p>
+              <p className="text-[48px] leading-[52px] font-display whitespace-nowrap text-[var(--cmd-text-primary)]">{v}</p>
               <p className="text-[16px] leading-[24px] tracking-[-0.2px] whitespace-nowrap text-[var(--cmd-text-muted)]">{t(l)}</p>
             </div>
           </div>
@@ -362,10 +362,10 @@ function PhaseUi() {
             className="pointer-events-none absolute inset-[0_1.41%_3.5%_0] mix-blend-multiply"
             style={{ backgroundImage: "radial-gradient(circle at 1.05px 1px, #17397a 0.75px, transparent 1.15px)", backgroundSize: "25.2308px 24px" }}
           />
-          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap text-white">03</p>
+          <p className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap text-white">03</p>
           <div className="absolute left-[520px] flex -translate-y-1/2 flex-col items-start gap-[18px] text-white" style={{ top: "calc(50% + 0.07px)" }}>
             <p className={MONO}>{t("PHASE {num}", { num: "03" })}</p>
-            <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{t("UI Design phase")}</p>
+            <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{t("UI Design phase")}</p>
             <p className="w-[860px] text-[20px] leading-[28px]">
               {t("The launch: six page families — from the homepage and mega menu to trading platforms, brokerage, finance services and reports.")}
             </p>
@@ -434,7 +434,7 @@ function Outcome() {
           />
           <div data-rv className="w-full">
             <div className="bsys-card wd-hover flex w-full flex-col items-start gap-5 rounded-[28px] bg-[var(--cmd-surface-1)] p-8">
-              <p className="text-[24px] leading-[32px] font-semibold tracking-[-0.24px] whitespace-nowrap text-[var(--brand-bsc)]">{t("My key takeaways")}</p>
+              <p className="text-[24px] leading-[32px] font-display whitespace-nowrap text-[var(--brand-bsc)]">{t("My key takeaways")}</p>
               {TAKEAWAYS.map((item) => (
                 <div key={item} className="bsys-row flex items-center gap-3">
                   <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[var(--brand-bsc)]">

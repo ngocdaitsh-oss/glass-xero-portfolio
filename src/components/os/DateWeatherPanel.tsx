@@ -99,10 +99,10 @@ export function DateWeatherPanel({ className = "" }: { className?: string }) {
 
       <div className="relative flex flex-col items-start whitespace-nowrap">
         <div className="flex items-baseline gap-2">
-          <p className="text-fg text-[56px] leading-[64px] font-bold tracking-[-1px] tabular-nums">
+          <p className="text-fg text-[56px] leading-[64px] font-display tabular-nums">
             {t.hour12}:{t.minute}
           </p>
-          <p className="text-fg-secondary text-[17px] leading-6 font-semibold">{periodLabel(t, lang)}</p>
+          <p className="text-fg-secondary text-[17px] leading-6 font-display">{periodLabel(t, lang)}</p>
         </div>
         <p className="text-fg-tertiary text-base leading-6">
           {longDate(t, lang)}
@@ -155,7 +155,7 @@ export function DateWeatherPanel({ className = "" }: { className?: string }) {
           <p className="text-fg-secondary text-base leading-6 font-semibold">{tr("Today")}</p>
           <div className="flex items-center gap-3.5">
             <Icon src="/figma/weather-sun-lg.svg" size={40} />
-            <p className="text-fg text-[56px] leading-[64px] font-bold tracking-[-1px]">26°</p>
+            <p className="text-fg text-[56px] leading-[64px] font-display">26°</p>
           </div>
           <div className="flex w-full items-center justify-between text-sm leading-5">
             <span className="text-fg-tertiary">{tr("Feels like 28°")}</span>

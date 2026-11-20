@@ -103,7 +103,7 @@ function Profile() {
               <img src="/figma/about/wave.png" alt="" width={24} height={24} className="size-6 object-cover" />
               <span className="text-xl leading-7 font-medium whitespace-nowrap">{t("Hello, I’m")}</span>
             </div>
-            <p className="text-[32px] leading-10 font-bold tracking-[-0.5px] whitespace-nowrap">Tuan Ngoc</p>
+            <p className="text-[32px] leading-10 font-display tracking-[-0.5px] whitespace-nowrap">Tuan Ngoc</p>
           </div>
           <p className="text-fg-tertiary text-[13px] leading-5 font-semibold whitespace-nowrap">UI/UX Designer</p>
         </div>
@@ -203,7 +203,7 @@ function Overview() {
     <>
       <div className="flex flex-col gap-2">
         <p className="text-accent text-sm leading-5 font-semibold">{t("ABOUT ME")}</p>
-        <h3 className="text-2xl leading-8 font-bold">{t("Turning complex problems into clear product experiences")}</h3>
+        <h3 className="text-2xl leading-8 font-display">{t("Turning complex problems into clear product experiences")}</h3>
         <p className="text-fg-secondary text-base leading-6">
           {t("I’m a Product Designer with a background in Graphic Design, focused on understanding people, simplifying complex workflows, and shaping digital products that are useful, intuitive, and scalable.")}
         </p>
@@ -218,7 +218,7 @@ function Overview() {
           ["6", "Design tools"],
         ].map(([n, label]) => (
           <div key={label} className="about-card bg-overlay flex min-h-[100px] flex-1 flex-col rounded-2xl p-4">
-            <p className="text-[32px] leading-10 font-bold tracking-[-0.5px]">{n}</p>
+            <p className="text-[32px] leading-10 font-display tracking-[-0.5px]">{n}</p>
             <p className="text-fg-tertiary flex min-h-11 items-start text-sm leading-[22px] font-semibold">{t(label)}</p>
           </div>
         ))}
@@ -252,13 +252,13 @@ function Experience() {
   const t = useT();
   return (
     <>
-      <h3 className="text-2xl leading-8 font-bold">{t("Work Experience")}</h3>
+      <h3 className="text-2xl leading-8 font-display">{t("Work Experience")}</h3>
       <ol className="flex w-full flex-col">
         {JOBS.map((job, index) => (
           <li key={job.year} className="flex w-full items-stretch">
             <div className="flex w-[165px] shrink-0 flex-col">
               <span
-                className={`text-[32px] leading-10 font-bold tracking-[-0.5px] ${job.muted ? "text-fg-secondary" : ""}`}
+                className={`text-[32px] leading-10 font-display tracking-[-0.5px] ${job.muted ? "text-fg-secondary" : ""}`}
               >
                 {job.year}
               </span>

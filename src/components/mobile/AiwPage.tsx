@@ -88,7 +88,7 @@ const mono = "font-mono text-[18px] leading-[26px] tracking-[0.4px]";
 const monoM = "font-mono text-[16px] leading-6 font-medium tracking-[0.2px]";
 const small = "text-[14px] leading-5";
 const h4 = "text-[20px] leading-7 font-semibold tracking-[-0.4px]";
-const h3 = "text-[24px] leading-8 font-semibold tracking-[-0.7px]";
+const h3 = "text-[24px] leading-8 font-display";
 
 export function AiwPage({ onHome }: { onHome: () => void }) {
   const t = useT();
@@ -191,7 +191,7 @@ export function AiwPage({ onHome }: { onHome: () => void }) {
                     <p className={monoM} style={{ color: C.accent }}>
                       {t("01 — OVERVIEW")}
                     </p>
-                    <h2 className="text-[32px] leading-[1.2] font-semibold tracking-[-1.4px]">{t("AI Workflow Overview")}</h2>
+                    <h2 className="text-[32px] leading-[1.2] font-display">{t("AI Workflow Overview")}</h2>
                   </div>
                   <div className={`${small} flex flex-col gap-3`} style={{ color: C.secondary }}>
                     <OverviewCopy />
@@ -223,7 +223,7 @@ export function AiwPage({ onHome }: { onHome: () => void }) {
                     <p className={mono} style={{ color: C.accent }}>
                       {t("02 — WORKFLOW MAP")}
                     </p>
-                    <h2 className="text-[32px] leading-[1.2] font-semibold tracking-[-1.4px]">{t("From documents to handoff")}</h2>
+                    <h2 className="text-[32px] leading-[1.2] font-display">{t("From documents to handoff")}</h2>
                   </div>
                   <p className={small} style={{ color: C.secondary }}>
                     {t(MAP_BODY)}
@@ -328,7 +328,7 @@ export function AiwPage({ onHome }: { onHome: () => void }) {
             <Reveal>
               <footer className="flex flex-col items-center gap-5 border-t border-[#ddd] pt-20 pb-10 text-center">
                 <span className="block h-px w-full" style={{ background: C.s2 }} />
-                <p className="text-[40px] leading-[80px] font-semibold tracking-[-2.6px] whitespace-nowrap">{t("Thanks for watching")}</p>
+                <p className="text-[40px] leading-[80px] font-display whitespace-nowrap">{t("Thanks for watching")}</p>
                 <div className="flex flex-col items-center gap-4">
                   <p className={`${mono} whitespace-nowrap`} style={{ color: C.muted }}>
                     © TUAN NGOC PORTFOLIO 2027
@@ -613,7 +613,7 @@ function PhaseHead({ index, title, subtitle, people }: { index: string; title: s
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h2 className="text-[32px] leading-[1.4] font-semibold tracking-[-2.6px]">{t(title)}</h2>
+          <h2 className="text-[32px] leading-[1.4] font-display">{t(title)}</h2>
           <p className="text-[16px] leading-6 tracking-[-0.2px]" style={{ color: C.secondary }}>
             {t(subtitle)}
           </p>

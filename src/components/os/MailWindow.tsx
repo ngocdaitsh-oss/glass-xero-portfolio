@@ -29,7 +29,7 @@ export function MailWindow() {
         <div className="flex items-start gap-3 pb-[18px]">
           <MaskIcon src="/figma/logo.svg" size={48} className="text-fg" />
           <span className="flex min-w-0 flex-1 flex-col gap-0.5 whitespace-nowrap">
-            <h3 className="text-[17px] leading-6 font-semibold">{t("Send a message to me")}</h3>
+            <h3 className="text-[17px] leading-6 font-display">{t("Send a message to me")}</h3>
             <p className="text-fg-tertiary text-sm leading-5">UI/UX &amp; Product Designer · ngocdaitsh@gmail.com</p>
           </span>
         </div>

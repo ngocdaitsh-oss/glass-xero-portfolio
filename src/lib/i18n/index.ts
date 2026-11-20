@@ -2,6 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
+import { KEEP_ENGLISH } from "./keep-english";
 
 /*
  * Tiny client-side i18n. English is the source language: components pass the
@@ -60,7 +61,7 @@ function fill(s: string, vars?: Vars) {
 }
 
 export function translate(lang: Lang, en: string, vars?: Vars): string {
-  return fill(lang === "vi" ? (vi?.[en] ?? en) : en, vars);
+  return fill(lang === "vi" && !KEEP_ENGLISH.has(en) ? (vi?.[en] ?? en) : en, vars);
 }
 
 export function useT(): TFn {

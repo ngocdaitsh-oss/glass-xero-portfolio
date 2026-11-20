@@ -21,7 +21,7 @@ export function Hero() {
             ["Status:", ["Designing", "Developing"]],
           ].map(([label, lines]) => (
             <div key={label as string} className="flex flex-col gap-2 whitespace-nowrap">
-              <p className="text-2xl leading-8 font-bold">{t(label as string)}</p>
+              <p className="text-2xl leading-8 font-display">{t(label as string)}</p>
               <div className="text-base leading-6">
                 {(lines as string[]).map((line) => (
                   <p key={line}>{t(line)}</p>
@@ -182,7 +182,7 @@ export function DesignProcess() {
   return (
     <section id="wd-process" className="flex flex-col items-center gap-12 px-[156px] pt-40">
       <div data-rv className="flex w-[670px] flex-col items-center gap-[22px] text-center">
-        <h2 className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">
+        <h2 className="text-[56px] leading-[60px] font-display whitespace-nowrap">
           <span className="text-[var(--brand-bave)]">{t("Design Sprint")}</span>{" "}
           <span className="text-[var(--cmd-text-muted)]">{t("Process")}</span>
         </h2>
@@ -283,10 +283,10 @@ export function PhaseBand({
             backgroundSize: "25.23px 24px",
           }}
         />
-        <p data-rv className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-bold whitespace-nowrap text-white">{number}</p>
+        <p data-rv className="absolute top-[202px] left-12 text-[180px] leading-[168px] font-display whitespace-nowrap text-white">{number}</p>
         <div data-rv className="absolute top-1/2 left-[520px] flex -translate-y-1/2 flex-col items-start gap-[18px] text-white">
           <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] whitespace-nowrap">{t("PHASE {n}", { n: number })}</p>
-          <p className="text-[56px] leading-[60px] font-bold tracking-[-1.96px] whitespace-nowrap">{title}</p>
+          <p className="text-[56px] leading-[60px] font-display whitespace-nowrap">{title}</p>
           <p className="w-[860px] text-[20px] leading-7">{lead}</p>
           <div className="flex w-[900px] flex-wrap content-start gap-2">
             {steps.map((step) => (
@@ -332,7 +332,7 @@ export function InitialProblem() {
                   <img src={icon} alt="" width={32} height={32} />
                 </span>
                 <span className="flex flex-col gap-0.5 whitespace-nowrap">
-                  <span className="text-2xl leading-8 font-semibold tracking-[-0.24px] text-[var(--cmd-text-primary)]">{t(title)}</span>
+                  <span className="text-2xl leading-8 font-display text-[var(--cmd-text-primary)]">{t(title)}</span>
                   <span className="text-base leading-6 tracking-[-0.2px] text-[var(--cmd-text-secondary)]">{t(sub)}</span>
                 </span>
               </Card>
@@ -398,7 +398,7 @@ export function DeskResearch() {
                   <span className="flex size-10 items-center justify-center rounded-xl bg-[var(--cmd-surface-2)]">
                     <img src={card.icon} alt="" width={20} height={20} />
                   </span>
-                  <p className="text-2xl leading-8 font-semibold tracking-[-0.24px] text-[var(--cmd-text-primary)]">{t(card.title)}</p>
+                  <p className="text-2xl leading-8 font-display text-[var(--cmd-text-primary)]">{t(card.title)}</p>
                 </div>
                 <ul className="flex flex-col gap-4">
                   {card.items.map((item) => (
@@ -471,7 +471,7 @@ export function UserSurveys() {
                   <img src={q.icon} alt="" width={28} height={28} />
                 </span>
                 <span className="flex items-center gap-2">
-                  <span className="text-2xl leading-8 font-semibold tracking-[-0.24px] whitespace-nowrap text-[var(--cmd-text-primary)]">{t(q.title)}</span>
+                  <span className="text-2xl leading-8 font-display whitespace-nowrap text-[var(--cmd-text-primary)]">{t(q.title)}</span>
                   <Pill>{t(q.tag)}</Pill>
                 </span>
               </div>
@@ -697,7 +697,7 @@ export function DevelopingSolution() {
               <div className="relative h-[190px]">
                 <img src={img} alt="" className="absolute top-5 left-[calc(50%+0.5px)] size-[150px] -translate-x-1/2 object-contain" />
               </div>
-              <p className="text-[30px] leading-9 font-semibold tracking-[-0.6px] text-[var(--cmd-text-primary)]">{t(title)}</p>
+              <p className="text-[30px] leading-9 font-display text-[var(--cmd-text-primary)]">{t(title)}</p>
               <p className="text-base leading-6 tracking-[-0.2px] text-[var(--cmd-text-secondary)]">{t(body)}</p>
             </Card>
           ))}
@@ -711,7 +711,7 @@ export function SheetFrame({ title, height, children }: { title: string; height:
   return (
     <div data-rv className="wd-hover flex flex-col gap-[18px] rounded-[28px] bg-[var(--cmd-surface-1)] p-6 shadow-[inset_0_1px_0_0_var(--cmd-edge)]">
       <div className="flex items-center justify-between">
-        <p className="text-2xl leading-8 font-semibold tracking-[-0.24px] text-[var(--cmd-text-primary)]">{title}</p>
+        <p className="text-2xl leading-8 font-display text-[var(--cmd-text-primary)]">{title}</p>
         <p className="text-sm leading-5 text-[var(--cmd-text-muted)]">bave UI kit</p>
       </div>
       <div className="relative w-[722px] overflow-hidden rounded-2xl" style={{ height }}>

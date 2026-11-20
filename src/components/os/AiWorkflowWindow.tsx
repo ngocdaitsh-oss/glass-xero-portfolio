@@ -259,7 +259,7 @@ function Overview() {
     <section aria-labelledby="overview-heading" className="grid min-h-[800px] grid-cols-[520px_1fr] items-center gap-10">
       <div>
         <p className="font-mono text-[16px] leading-6 font-medium tracking-[0.2px] text-[#3d6fe8]">{t("01 — OVERVIEW")}</p>
-        <h2 id="overview-heading" className="mt-3 text-[44px] leading-[52px] font-semibold tracking-[-1.4px]">
+        <h2 id="overview-heading" className="mt-3 text-[44px] leading-[52px] font-display">
           {t("AI Workflow Overview")}
         </h2>
         <div className="mt-8 space-y-6 text-[16px] leading-6 tracking-[-0.2px] text-[#4b4f58]">
@@ -334,7 +334,7 @@ function PhaseCard({
     <div className={`aiw-hover absolute flex items-start gap-[18px] rounded-[18px] bg-white py-[22px] pr-8 pl-6 whitespace-nowrap shadow-[0_16px_40px_rgba(16,24,40,0.08)] ${className}`}>
       {icon}
       <div className="flex flex-col gap-2">
-        <p className="text-[24px] leading-8 font-semibold tracking-[-0.6px]">{t(title)}</p>
+        <p className="text-[24px] leading-8 font-display">{t(title)}</p>
         <p className="text-[16px] leading-6 tracking-[-0.2px] text-[#4b4f58]">{t(text)}</p>
       </div>
     </div>
@@ -354,7 +354,7 @@ function WorkflowMap() {
       <Reveal>
       <div>
       <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[#3d6fe8]">{t("02 — WORKFLOW MAP")}</p>
-      <h2 className="mt-3 text-[44px] leading-[52px] font-semibold tracking-[-1.4px]">{t("From documents to handoff")}</h2>
+      <h2 className="mt-3 text-[44px] leading-[52px] font-display">{t("From documents to handoff")}</h2>
       <p className="mt-8 w-[455px] text-[16px] leading-6 tracking-[-0.2px] text-[#4b4f58]">
         {t(MAP_BODY)}
       </p>
@@ -609,7 +609,7 @@ function StickyStory({ steps }: { steps: { kicker: string; title: string; body: 
         >
           <div data-copy className="flex flex-col gap-3.5">
             <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[#8a8f98]">{t(step.kicker)}</p>
-            <h3 className="text-[24px] leading-8 font-semibold tracking-[-0.7px] whitespace-nowrap">{t(step.title)}</h3>
+            <h3 className="text-[24px] leading-8 font-display whitespace-nowrap">{t(step.title)}</h3>
             <div className="text-[16px] leading-6 tracking-[-0.2px] text-[#4b4f58] [&>p+p]:!mt-3.5">{typeof step.body === "string" ? t(step.body) : step.body}</div>
           </div>
           <div className="min-w-0">{step.visual}</div>
@@ -854,7 +854,7 @@ function Footer({ onTop }: { onTop: () => void }) {
   const t = useT();
   return (
     <footer className="mt-[100px] flex flex-col items-center gap-5 border-t border-[#e9ebf0] pt-20 pb-10 text-center">
-      <p className="text-[72px] leading-[80px] font-semibold tracking-[-2.6px]">{t("Thanks for watching")}</p>
+      <p className="text-[72px] leading-[80px] font-display">{t("Thanks for watching")}</p>
       <div className="flex items-center justify-center gap-4">
         <p className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[#8a8f98]">© TUAN NGOC PORTFOLIO 2027</p>
         <button
@@ -900,7 +900,7 @@ function PhaseHead({
           ))}
         </div>
       </div>
-      <h2 className="text-[72px] leading-[80px] font-semibold tracking-[-2.6px]">{t(title)}</h2>
+      <h2 className="text-[72px] leading-[80px] font-display">{t(title)}</h2>
       <p className="text-[18px] leading-7 font-semibold tracking-[-0.2px] text-[#4b4f58]">{t(subtitle)}</p>
     </header>
   );
@@ -933,7 +933,7 @@ function RoleCard({
           <img src={ROLE_ICON[glyph]} alt="" className="size-10 shrink-0" />
           <TypeTag who={who} large />
         </div>
-        <h4 className="text-[24px] leading-8 font-semibold tracking-[-0.7px]" style={title === "BA / PO" ? { color: "#168eff" } : undefined}>
+        <h4 className="text-[24px] leading-8 font-display" style={title === "BA / PO" ? { color: "#168eff" } : undefined}>
           {t(title)}
         </h4>
         <p className="text-[14px] leading-5 text-[#4b4f58]">{t(body)}</p>
