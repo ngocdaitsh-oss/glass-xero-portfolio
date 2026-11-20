@@ -11,12 +11,33 @@ type Tab = (typeof TABS)[number];
 
 const ACCENT = "var(--azure-600)";
 
+const RING = "/figma/about/ring-progress.svg";
+
+/** Grouped as on the CV's "Software Using" block. */
 const SOFTWARE = [
-  { name: "Figma", logo: "figma", ring: "/figma/about/ring-figma.svg" },
-  { name: "Photoshop", logo: "/figma/about/logo-photoshop.svg", ring: "/figma/about/ring-progress.svg" },
-  { name: "InDesign", logo: "/figma/about/logo-indesign.svg", ring: "/figma/about/ring-progress.svg" },
-  { name: "Illustrator", logo: "/figma/about/logo-illustrator.svg", ring: "/figma/about/ring-progress.svg" },
-  { name: "After Effects", logo: "/figma/about/logo-after-effects.svg", ring: "/figma/about/ring-progress.svg" },
+  {
+    group: "For Designing",
+    tools: [
+      { name: "Figma", logo: "figma", ring: "/figma/about/ring-figma.svg" },
+      { name: "Illustrator", logo: "/figma/about/logo-illustrator.svg", ring: RING },
+      { name: "Photoshop", logo: "/figma/about/logo-photoshop.svg", ring: RING },
+      { name: "InDesign", logo: "/figma/about/logo-indesign.svg", ring: RING },
+    ],
+  },
+  {
+    group: "For Animating",
+    tools: [
+      { name: "LottieFiles", logo: "/figma/about/logo-lottiefiles.svg", ring: RING },
+      { name: "After Effects", logo: "/figma/about/logo-after-effects.svg", ring: RING },
+    ],
+  },
+  {
+    group: "For Workflow",
+    tools: [
+      { name: "Jira", logo: "/figma/about/logo-jira.svg", ring: RING },
+      { name: "Confluence", logo: "/figma/about/logo-confluence.svg", ring: RING },
+    ],
+  },
 ];
 
 export function AboutWindow() {
@@ -141,21 +162,26 @@ function Profile() {
 
       <span className="bg-divider h-px w-full shrink-0" />
       <p className="text-fg-tertiary text-sm leading-5 font-semibold">{t("SOFTWARE")}</p>
-      <div className="grid grid-cols-3 gap-x-2 gap-y-4">
-        {SOFTWARE.map((tool) => (
-          <div key={tool.name} className="flex flex-col items-center gap-1.5">
-            <span className="relative block size-12">
-              <img src="/figma/about/ring-track.svg" alt="" className="theme-dark-only absolute inset-0 size-12" />
-              <img src="/figma/about/ring-track-light.svg" alt="" className="theme-light-only absolute inset-0 size-12" />
-              <span className="absolute inset-[0.15%_0_0_0]">
-                <img src={tool.ring} alt="" className="block size-full max-w-none" />
-              </span>
-              <ToolLogo logo={tool.logo} />
-            </span>
-            <span className="text-sm leading-[22px] font-semibold whitespace-nowrap">{tool.name}</span>
+      {SOFTWARE.map(({ group, tools }) => (
+        <div key={group} className="flex flex-col gap-2.5">
+          <p className="text-fg-secondary text-[13px] leading-5 font-semibold">{t(group)}</p>
+          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
+            {tools.map((tool) => (
+              <div key={tool.name} className="flex flex-col items-center gap-1.5">
+                <span className="relative block size-12">
+                  <img src="/figma/about/ring-track.svg" alt="" className="theme-dark-only absolute inset-0 size-12" />
+                  <img src="/figma/about/ring-track-light.svg" alt="" className="theme-light-only absolute inset-0 size-12" />
+                  <span className="absolute inset-[0.15%_0_0_0]">
+                    <img src={tool.ring} alt="" className="block size-full max-w-none" />
+                  </span>
+                  <ToolLogo logo={tool.logo} />
+                </span>
+                <span className="text-sm leading-[22px] font-semibold whitespace-nowrap">{tool.name}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </aside>
   );
 }

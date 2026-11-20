@@ -64,7 +64,7 @@ export function answer(raw: string): Answer {
     };
   }
   if (q.includes("skill") || q.includes("tool") || q.includes("kỹ năng") || q.includes("công cụ")) {
-    return text("User research, usability testing, heuristic evaluation, information architecture and design systems. Tools: Figma, Photoshop, InDesign, Illustrator, After Effects.");
+    return text("User research, usability testing, heuristic evaluation, information architecture and design systems. Tools: Figma, Illustrator, Photoshop, InDesign, LottieFiles, After Effects, Jira, Confluence.");
   }
   if (q.includes("portfolio") || q.includes("project") || q.includes("dự án")) {
     return text("Selected work: SAPP LMS, bave, BSC, vOps, Thực Vị Thiên and 98rum. Open Project in the top bar for every case study.");

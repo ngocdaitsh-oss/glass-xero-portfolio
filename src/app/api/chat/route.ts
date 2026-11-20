@@ -9,7 +9,7 @@ const MODELS = [
 const CV = `Tuan Ngoc (Trịnh Tuấn Ngọc), UI/UX & Product Designer, Hanoi, Vietnam.
 Education: Bachelor of Graphic Design, Greenwich University, Vietnam.
 Contact: ngocdaitsh@gmail.com · +84 913 674 939
-Tools: Figma, Photoshop, InDesign, Illustrator, After Effects.
+Tools: Figma, Illustrator, Photoshop, InDesign, LottieFiles, After Effects, Jira, Confluence.
 Selected work: SAPP LMS, bave, BSC, vOps, Thực Vị Thiên, 98rum (case studies under Project in the top bar).
 
 EXPERIENCE

@@ -11,6 +11,9 @@ export const windows: Record<string, string> = {
   Hanoi: "Hà Nội",
   "Download CV": "Tải CV",
   SOFTWARE: "PHẦN MỀM",
+  "For Designing": "Thiết kế",
+  "For Animating": "Chuyển động",
+  "For Workflow": "Quy trình làm việc",
   "ABOUT ME": "VỀ TÔI",
   "Turning complex problems into clear product experiences": "Biến những vấn đề phức tạp thành trải nghiệm sản phẩm rõ ràng",
   "I’m a Product Designer with a background in Graphic Design, focused on understanding people, simplifying complex workflows, and shaping digital products that are useful, intuitive, and scalable.":
@@ -208,8 +211,8 @@ export const windows: Record<string, string> = {
     "Thử /experience, /skills, /portfolio hoặc /contact — hoặc hỏi theo cách của bạn.",
   "2026 → now": "2026 → nay",
   "Product Designer @ SAPP Academy — LMS redesign": "Product Designer @ SAPP Academy — thiết kế lại LMS",
-  "User research, usability testing, heuristic evaluation, information architecture and design systems. Tools: Figma, Photoshop, InDesign, Illustrator, After Effects.":
-    "Nghiên cứu người dùng, usability testing, đánh giá heuristic, kiến trúc thông tin và hệ thống thiết kế. Công cụ: Figma, Photoshop, InDesign, Illustrator, After Effects.",
+  "User research, usability testing, heuristic evaluation, information architecture and design systems. Tools: Figma, Illustrator, Photoshop, InDesign, LottieFiles, After Effects, Jira, Confluence.":
+    "Nghiên cứu người dùng, usability testing, đánh giá heuristic, kiến trúc thông tin và hệ thống thiết kế. Công cụ: Figma, Illustrator, Photoshop, InDesign, LottieFiles, After Effects, Jira, Confluence.",
   "Selected work: SAPP LMS, bave, BSC, vOps, Thực Vị Thiên and 98rum. Open Project in the top bar for every case study.":
     "Dự án tiêu biểu: SAPP LMS, bave, BSC, vOps, Thực Vị Thiên và 98rum. Mở mục Dự án trên thanh trên cùng để xem mọi case study.",
   "Email ngocdaitsh@gmail.com · Phone +84 913 674 939 · Hanoi, Vietnam.":
