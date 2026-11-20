@@ -215,3 +215,42 @@ export function Scenario({ children }: { children: ReactNode }) {
     </Callout>
   );
 }
+
+/** Fidelity on each dimension (interaction, visuals, content, navigation): one track per dimension, a marker at low or high. */
+export function FidelityDims({ title, rows, note }: { title: string; rows: [string, string, string, "low" | "high"][]; note?: string }) {
+  return (
+    <Blk label="sơ đồ" className="g-card flex flex-col gap-6 rounded-[28px] bg-[var(--w-card)] p-10">
+      <div className="flex items-center gap-3">
+        <Tile icon="component" size={36} iconSize={18} radius={10} />
+        <Eyebrow>{title}</Eyebrow>
+      </div>
+      <div className="flex flex-col gap-3">
+        {rows.map(([dim, lo, hi, at]) => (
+          <div key={dim} className="flex items-center gap-5">
+            <span className="w-[130px] shrink-0 text-[17px] leading-6 font-semibold">{dim}</span>
+            <div className="grid flex-1 grid-cols-2 gap-1.5">
+              <span className={`rounded-[12px] px-4 py-3 text-[15px] leading-[22px] ${at === "low" ? "bg-[var(--d-fill)] text-white" : "bg-[var(--d-well)] text-[var(--w-muted)]"}`}>
+                <T>{lo}</T>
+              </span>
+              <span className={`rounded-[12px] px-4 py-3 text-[15px] leading-[22px] ${at === "high" ? "bg-[var(--d-fill)] text-white" : "bg-[var(--d-well)] text-[var(--w-muted)]"}`}>
+                <T>{hi}</T>
+              </span>
+            </div>
+          </div>
+        ))}
+        <div className="flex items-center gap-5">
+          <span className="w-[130px] shrink-0" />
+          <div className="grid flex-1 grid-cols-2 gap-1.5 font-mono text-[13px] tracking-[0.4px] text-[var(--w-muted)]">
+            <span>ĐỘ TRUNG THỰC THẤP</span>
+            <span>ĐỘ TRUNG THỰC CAO</span>
+          </div>
+        </div>
+      </div>
+      {note ? (
+        <T as="p" className="text-[15px] leading-[22px] tracking-[-0.2px] text-[var(--w-muted)]">
+          {note}
+        </T>
+      ) : null}
+    </Blk>
+  );
+}

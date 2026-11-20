@@ -24,6 +24,17 @@ import { EYE_TRACKING } from "./eye-tracking";
 import { FIELD_STUDY } from "./field-study";
 import { FIRST_CLICK_TESTING } from "./first-click-testing";
 import { FOCUS_GROUP } from "./focus-group";
+import { HEATMAP } from "./heatmap";
+import { HEURISTIC_EVALUATION } from "./heuristic-evaluation";
+import { HIGH_FIDELITY_PROTOTYPE } from "./high-fidelity-prototype";
+import { IDEATION } from "./ideation";
+import { INFORMATION_ARCHITECTURE } from "./information-architecture";
+import { JOBS_TO_BE_DONE } from "./jobs-to-be-done";
+import { JOURNEY_MAPPING } from "./journey-mapping";
+import { LEAN_UX } from "./lean-ux";
+import { LIKERT_SCALE } from "./likert-scale";
+import { LONGITUDINAL_STUDY } from "./longitudinal-study";
+import { LOW_FIDELITY_PROTOTYPE } from "./low-fidelity-prototype";
 import type { Article } from "./types";
 
 /** Published articles in the list's A–Z order (src/lib/glossary.ts); the detail footer's "next term" walks this list. */
@@ -54,6 +65,17 @@ export const ARTICLES: Article[] = [
   FIELD_STUDY,
   FIRST_CLICK_TESTING,
   FOCUS_GROUP,
+  HEATMAP,
+  HEURISTIC_EVALUATION,
+  HIGH_FIDELITY_PROTOTYPE,
+  IDEATION,
+  INFORMATION_ARCHITECTURE,
+  JOBS_TO_BE_DONE,
+  JOURNEY_MAPPING,
+  LEAN_UX,
+  LIKERT_SCALE,
+  LONGITUDINAL_STUDY,
+  LOW_FIDELITY_PROTOTYPE,
 ];
 
 export const ARTICLE_BY_SLUG: Record<string, Article> = Object.fromEntries(ARTICLES.map((a) => [a.slug, a]));
