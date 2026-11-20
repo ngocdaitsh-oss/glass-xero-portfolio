@@ -1,7 +1,8 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Blk, T } from "./edit";
-import { Checks, Eyebrow, Icon, Tile, type IconName } from "./ui";
+import { Arrow, Callout, Checks, Eyebrow, Icon, InfoCard, Node, Tile, type IconName } from "./ui";
 
 /*
  * Composite blocks shared by the glossary articles (Figma 2011:28710): step cards, input → output pair,
@@ -120,5 +121,95 @@ export function RelatedCards({ items }: { items: [string, string, string][] }) {
         </Blk>
       ))}
     </div>
+  );
+}
+
+/** Grid of numbered Info Cards; an optional `last` card spans the row in ink. */
+export function InfoGrid({ items, cols = 2, last, minH }: { items: [IconName, string, string][]; cols?: 2 | 3; last?: [IconName, string, string]; minH?: number }) {
+  return (
+    <div className={`grid gap-4 ${cols === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+      {items.map(([icon, title, body], i) => (
+        <InfoCard key={title} icon={icon} n={i + 1} title={title} body={body} minH={minH} />
+      ))}
+      {last ? <InfoCard icon={last[0]} n={items.length + 1} tone="ink" className={cols === 3 ? "col-span-3" : "col-span-2"} title={last[1]} body={last[2]} /> : null}
+    </div>
+  );
+}
+
+/** Side-by-side cards, each an eyebrow title over a check list (Khi nào nên dùng). */
+export function CheckCards({ groups, mark }: { groups: [IconName, string, string[]][]; mark?: string }) {
+  return (
+    <div className="flex items-start gap-4">
+      {groups.map(([icon, title, items]) => (
+        <Blk key={title} label="thẻ" className="g-card flex flex-1 flex-col gap-6 self-stretch rounded-[24px] bg-[var(--w-card)] p-7">
+          <div className="flex items-center gap-3">
+            <Tile icon={icon} size={40} iconSize={20} />
+            <Eyebrow className="text-[var(--d-accent)]">{title}</Eyebrow>
+          </div>
+          <Checks items={items} mark={mark} />
+        </Blk>
+      ))}
+    </div>
+  );
+}
+
+/** One card: eyebrow title + check list. */
+export function CheckCard({ icon, title, items, mark }: { icon: IconName; title: string; items: string[]; mark?: string }) {
+  return <CheckCards groups={[[icon, title, items]]} mark={mark} />;
+}
+
+/** Horizontal flow of chips in a diagram card; `on` / `soft` mark highlighted steps, `note` sits below. */
+export function Flow({ title, icon = "split", steps, on = [], soft = [], note, wrap }: { title: string; icon?: IconName; steps: (string | [string, string])[]; on?: number[]; soft?: number[]; note?: string; wrap?: boolean }) {
+  return (
+    <Blk label="sơ đồ" className="g-card flex flex-col gap-6 rounded-[28px] bg-[var(--w-card)] p-10">
+      <div className="flex items-center gap-3">
+        <Tile icon={icon} size={36} iconSize={18} radius={10} />
+        <Eyebrow>{title}</Eyebrow>
+      </div>
+      <div className={`flex items-center gap-2 ${wrap ? "flex-wrap gap-y-3" : "justify-between"}`}>
+        {steps.map((s, i) => {
+          const [t, sub] = typeof s === "string" ? [s, undefined] : s;
+          return (
+            <span key={t + i} className="flex items-center gap-2">
+              {i ? <Arrow size={20} /> : null}
+              <Node title={t} sub={sub} on={on.includes(i)} soft={soft.includes(i)} />
+            </span>
+          );
+        })}
+      </div>
+      {note ? (
+        <T as="p" className="text-[15px] leading-[22px] tracking-[-0.2px] text-[var(--w-muted)]">
+          {note}
+        </T>
+      ) : null}
+    </Blk>
+  );
+}
+
+/** Formula card: eyebrow, the formula in 24px semibold, optional note. */
+export function Formula({ label, formula, note }: { label: string; formula: string; note?: string }) {
+  return (
+    <Blk label="công thức" className="g-card flex flex-1 flex-col gap-3 rounded-[24px] bg-[var(--w-card)] p-7">
+      <Eyebrow size={14} className="text-[var(--d-accent)]">
+        {label}
+      </Eyebrow>
+      <T as="p" className="text-[24px] leading-8 font-semibold tracking-[-0.6px]">
+        {formula}
+      </T>
+      {note ? (
+        <T as="p" className="text-[16px] leading-6 text-[var(--w-secondary)]">
+          {note}
+        </T>
+      ) : null}
+    </Blk>
+  );
+}
+
+/** "Tình huống giả định" callout + closing note, the frame every example uses. */
+export function Scenario({ children }: { children: ReactNode }) {
+  return (
+    <Callout tone="scenario" title="Tình huống giả định">
+      {children}
+    </Callout>
   );
 }

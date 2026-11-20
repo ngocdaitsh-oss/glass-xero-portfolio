@@ -1,7 +1,7 @@
 "use client";
 
 import { Blk, T } from "./edit";
-import { InOutCards, PairCards, RelatedCards, Steps } from "./blocks";
+import { Formula, InOutCards, PairCards, RelatedCards, Steps } from "./blocks";
 import type { Article } from "./types";
 import { Arrow, Callout, ChecklistColumn, Checks, Eyebrow, InfoCard, Node, P, Section, Stat, Subhead, Table, Tile, sectionProps, type IconName, type SectionDef } from "./ui";
 
@@ -273,24 +273,6 @@ function Apply() {
     <Section {...S.apply}>
       <Steps steps={steps} />
     </Section>
-  );
-}
-
-function Formula({ label, formula, note }: { label: string; formula: string; note?: string }) {
-  return (
-    <Blk label="công thức" className="g-card flex flex-1 flex-col gap-3 rounded-[24px] bg-[var(--w-card)] p-7">
-      <Eyebrow size={14} className="text-[var(--d-accent)]">
-        {label}
-      </Eyebrow>
-      <T as="p" className="text-[24px] leading-8 font-semibold tracking-[-0.6px]">
-        {formula}
-      </T>
-      {note ? (
-        <T as="p" className="text-[16px] leading-6 text-[var(--w-secondary)]">
-          {note}
-        </T>
-      ) : null}
-    </Blk>
   );
 }
 
