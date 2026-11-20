@@ -177,6 +177,10 @@ export function P({ children, strong, className }: { children: ReactNode; strong
 
 export type SectionDef = { id: string; title: string; icon: IconName };
 
+/** Section props keyed by id, numbered in table-of-contents order: `<Section {...S.problem}>`. */
+export const sectionProps = (sections: SectionDef[]) =>
+  Object.fromEntries(sections.map((s, i) => [s.id, { def: s, n: i + 1, total: sections.length }]));
+
 /** Glossary/Section Header: 64px icon tile, "NN / total" and a 48px bold title in accent. */
 export function Section({ def, n, total, intro, children }: { def: SectionDef; n: number; total: number; intro?: string; children: ReactNode }) {
   return (

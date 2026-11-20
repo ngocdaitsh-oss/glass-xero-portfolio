@@ -6,8 +6,9 @@ import { scrollToChild, useFrameThrottle } from "@/lib/scroll";
 import { GLOSSARY_FUNCTIONS } from "@/lib/glossary";
 import { WindowControls } from "../AppWindow";
 import { useFitZoom, useTitleBarDrag } from "../window-manager";
-import { AB_META, AB_SECTIONS, AB_VERSION, ABTestingBody } from "./ab-testing";
+import { ARTICLES, ARTICLE_BY_SLUG } from "./articles";
 import { Blk, EditProvider, htmlText, T, useArticleEdits } from "./edit";
+import type { Article } from "./types";
 import { Icon } from "./ui";
 
 /*
@@ -18,18 +19,21 @@ import { Icon } from "./ui";
  */
 
 /** Articles that have a detail page, keyed by term name in the glossary list. */
-export const GLOSSARY_ARTICLES: Record<string, string> = { "A/B Testing": AB_META.slug };
+export const GLOSSARY_ARTICLES: Record<string, string> = Object.fromEntries(ARTICLES.map((a) => [a.term, a.slug]));
 
-export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => void }) {
+export function GlossaryDetail({ slug, onBack, onOpen }: { slug: string; onBack: () => void; onOpen: (slug: string) => void }) {
+  const article = ARTICLE_BY_SLUG[slug];
+  const next = ARTICLES[ARTICLES.indexOf(article) + 1];
+  const { sections, Body } = article;
   const drag = useTitleBarDrag();
   const scroller = useRef<HTMLDivElement>(null);
   const zoom = useFitZoom(scroller, 1872, true, 1.05);
-  const edits = useArticleEdits(slug, AB_VERSION);
-  const [active, setActive] = useState(AB_SECTIONS[0].id);
+  const edits = useArticleEdits(slug, article.version);
+  const [active, setActive] = useState(sections[0].id);
   const [confirmReset, setConfirmReset] = useState(false);
-  const fn = GLOSSARY_FUNCTIONS.find((f) => f.index === 5)!; // A/B Testing sits in 05 · Usability Testing
+  const fn = GLOSSARY_FUNCTIONS.find((f) => f.index === article.fn)!;
 
-  const visible = AB_SECTIONS.filter((s) => !edits.hidden.has(`sec:${s.id}`));
+  const visible = sections.filter((s) => !edits.hidden.has(`sec:${s.id}`));
   const title = (id: string, fallback: string) => {
     const html = edits.text[`title:${id}`];
     return html === undefined ? fallback : htmlText(html) || fallback;
@@ -48,8 +52,8 @@ export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => v
       const all = root.querySelectorAll<HTMLElement>("[data-g-section]");
       current = all[all.length - 1]?.dataset.gSection ?? current;
     }
-    setActive(current || AB_SECTIONS[0].id);
-  }, []);
+    setActive(current || sections[0].id);
+  }, [sections]);
   const onScroll = useFrameThrottle(sync);
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 });
@@ -106,7 +110,7 @@ export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => v
             {fn.name}
           </button>
           <span className="text-[var(--w-muted)]">›</span>
-          <span className="px-1.5 py-0.5">{AB_META.term}</span>
+          <span className="px-1.5 py-0.5">{article.term}</span>
         </nav>
         <div className="flex w-[260px] items-center justify-end gap-2">
           <button
@@ -132,7 +136,7 @@ export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => v
           style={{ overflowX: "clip" }}
         >
           <div className="mx-auto w-[1872px] px-[156px] pt-[88px] pb-[120px]" style={{ zoom }}>
-            <Hero fnLabel={`${String(fn.index).padStart(2, "0")} · ${fn.stage} — ${fn.name}`} />
+            <Hero article={article} fnLabel={`${String(fn.index).padStart(2, "0")} · ${fn.stage} — ${fn.name}`} />
 
             <div className="mt-[120px] flex items-start gap-[72px]">
               {/* Progress Tracker — Glossary · Expanded (2012:28886) */}
@@ -173,7 +177,7 @@ export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => v
               </aside>
 
               <main className="min-w-0 flex-1">
-                <ABTestingBody />
+                <Body />
                 {/* Back (2017:29142) */}
                 <div className="mt-[120px] flex items-end justify-between border-t border-[var(--d-line)] pt-10">
                   <button
@@ -183,6 +187,15 @@ export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => v
                   >
                     ← Quay lại UX Glossary
                   </button>
+                  {/* Next term (2017:29146): only when the next term has its own article. */}
+                  {next ? (
+                    <button type="button" onClick={() => onOpen(next.slug)} className="group/next flex flex-col items-end gap-1 text-right">
+                      <span className="font-mono text-[14px] leading-5 tracking-[0.4px] text-[var(--w-muted)]">THUẬT NGỮ TIẾP THEO</span>
+                      <span className="text-[22px] leading-[30px] font-semibold tracking-[-0.4px] text-[var(--d-accent)] transition-transform duration-200 group-hover/next:translate-x-0.5">
+                        {next.term} →
+                      </span>
+                    </button>
+                  ) : null}
                 </div>
               </main>
             </div>
@@ -236,7 +249,7 @@ export function GlossaryDetail({ slug, onBack }: { slug: string; onBack: () => v
 }
 
 /** Section — Hero (2011:28797). */
-function Hero({ fnLabel }: { fnLabel: string }) {
+function Hero({ article, fnLabel }: { article: Article; fnLabel: string }) {
   return (
     <section className="flex flex-col gap-10">
       <div className="flex items-center gap-3">
@@ -248,36 +261,33 @@ function Hero({ fnLabel }: { fnLabel: string }) {
           {fnLabel}
         </span>
         <span className="rounded-full bg-[var(--w-card)] py-[7px] pr-3.5 pl-3 font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-secondary)] uppercase">
-          <T>{AB_META.kind}</T>
+          <T>{article.kind}</T>
         </span>
       </div>
       <div className="flex flex-col gap-5">
         <T as="h1" className="font-display text-[136px] leading-[136px] tracking-[-5px]">
-          {AB_META.term}
+          {article.term}
         </T>
         <T as="p" className="text-[32px] leading-[42px] tracking-[-0.8px] text-[var(--w-secondary)]">
-          {AB_META.vi}
+          {article.vi}
         </T>
       </div>
       <div className="flex overflow-hidden rounded-[28px] bg-[var(--w-card)]">
         <div className="flex min-w-0 flex-1 flex-col gap-6 px-14 py-12">
           <T as="p" className="text-[30px] leading-[42px] font-semibold tracking-[-0.8px]">
-            {AB_META.definition}
+            {article.definition}
           </T>
           <T as="p" className="text-[20px] leading-8 tracking-[-0.3px] text-[var(--w-secondary)]">
-            {AB_META.definitionMore}
+            {article.definitionMore}
           </T>
         </div>
         {/* At a glance */}
         <div className="flex w-[440px] shrink-0 flex-col gap-5 rounded-[28px] bg-[var(--d-fill)] p-12 text-white">
           <T as="p" className="text-[24px] leading-[34px] font-semibold tracking-[-0.5px]">
-            {AB_META.oneLine}
+            {article.oneLine}
           </T>
           <div className="mt-auto flex gap-3">
-            {[
-              ["A", "Đối chứng"],
-              ["B", "Thử nghiệm"],
-            ].map(([k, v]) => (
+            {article.glance.map(([k, v]) => (
               <div key={k} className="flex flex-1 flex-col gap-1 rounded-2xl bg-white/12 px-5 py-4">
                 <span className="text-[40px] leading-[44px] font-bold tracking-[-1.5px]">{k}</span>
                 <T className="text-[16px] leading-6 tracking-[-0.2px]">{v}</T>
@@ -288,7 +298,7 @@ function Hero({ fnLabel }: { fnLabel: string }) {
       </div>
       {/* Term facts */}
       <div className="flex overflow-hidden rounded-[28px] bg-[var(--w-card)]">
-        {AB_META.facts.map((f, i) => (
+        {article.facts.map((f, i) => (
           <Blk key={f.label} label="mục" className={`flex flex-1 flex-col gap-4 px-9 pt-8 pb-9 ${i ? "border-l border-[var(--d-line)]" : ""}`}>
             <T className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-secondary)] uppercase">{f.label}</T>
             <div className="flex flex-col gap-1.5">

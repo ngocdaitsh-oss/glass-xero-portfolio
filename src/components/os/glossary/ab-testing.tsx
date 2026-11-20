@@ -1,6 +1,7 @@
 "use client";
 
 import { Blk, T } from "./edit";
+import type { Article } from "./types";
 import {
   Arrow,
   Callout,
@@ -16,6 +17,7 @@ import {
   Subhead,
   Table,
   Tile,
+  sectionProps,
   type IconName,
   type SectionDef,
 } from "./ui";
@@ -27,12 +29,7 @@ import {
  * nào?" block are left out on purpose.
  */
 
-/** Bump when the structure below changes, so edits saved against the old structure are dropped. */
-export const AB_VERSION = 1;
-
-export const AB_META = {
-  slug: "ab-testing",
-  term: "A/B Testing",
+const META = {
   vi: "Kiểm thử A/B — thử nghiệm so sánh hai phiên bản",
   kind: "Phương pháp nghiên cứu / kiểm thử",
   definition:
@@ -48,7 +45,7 @@ export const AB_META = {
   ],
 };
 
-export const AB_SECTIONS: SectionDef[] = [
+const SECTIONS: SectionDef[] = [
   { id: "problem", title: "Vấn đề giải quyết", icon: "target" },
   { id: "parts", title: "Thành phần của một A/B test", icon: "component" },
   { id: "when", title: "Khi nào nên dùng", icon: "check-circle" },
@@ -64,9 +61,9 @@ export const AB_SECTIONS: SectionDef[] = [
   { id: "related", title: "Thuật ngữ liên quan", icon: "link" },
 ];
 
-const S = Object.fromEntries(AB_SECTIONS.map((s, i) => [s.id, { def: s, n: i + 1, total: AB_SECTIONS.length }]));
+const S = sectionProps(SECTIONS);
 
-export function ABTestingBody() {
+function Body() {
   return (
     <div className="flex flex-col gap-[120px]">
       <Problem />
@@ -1127,3 +1124,17 @@ function Related() {
     </Section>
   );
 }
+
+export const AB_TESTING: Article = {
+  slug: "ab-testing",
+  version: 1,
+  term: "A/B Testing",
+  fn: 5,
+  ...META,
+  glance: [
+    ["A", "Đối chứng"],
+    ["B", "Thử nghiệm"],
+  ],
+  sections: SECTIONS,
+  Body,
+};

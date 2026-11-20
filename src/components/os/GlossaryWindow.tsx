@@ -148,7 +148,8 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
 
   return (
     <WindowShell label={t("Glossary — UX Research & Design Terms")} className="works glossary rounded-[20px] shadow-[0_24px_80px_rgba(0,0,0,0.45)] select-text">
-      {detail ? <GlossaryDetail slug={detail} onBack={() => setDetail(null)} /> : null}
+      {/* Keyed by slug so moving to the next term starts a fresh page (scroll, edits, tracker). */}
+      {detail ? <GlossaryDetail key={detail} slug={detail} onBack={() => setDetail(null)} onOpen={setDetail} /> : null}
       <div className={detail ? "hidden" : "contents"}>
       {/* Figma "Window Title Bar" (AIW/Window Title Bar): surface-1, logo, centred title, controls. */}
       <header {...drag} className="flex h-[52px] shrink-0 items-center justify-between bg-[var(--w-card)] pr-2.5 pl-4 select-none">
@@ -539,7 +540,6 @@ function Card({
         )}
       </h4>
       <p className={`text-[18px] leading-7 tracking-[-0.1px] text-[var(--w-secondary)] ${footer ? "flex-1" : ""}`}>{definition}</p>
-      {onOpen ? <span className="font-mono text-[14px] leading-5 tracking-[0.4px] text-[var(--w-accent)]">ĐỌC BÀI →</span> : null}
       {footer ? <Fragment>{footer}</Fragment> : null}
     </article>
   );
