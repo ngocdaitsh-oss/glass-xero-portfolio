@@ -252,7 +252,7 @@ function Hero({ fnLabel }: { fnLabel: string }) {
         </span>
       </div>
       <div className="flex flex-col gap-5">
-        <T as="h1" className="text-[136px] leading-[136px] tracking-[-5px]">
+        <T as="h1" className="font-display text-[136px] leading-[136px] tracking-[-5px]">
           {AB_META.term}
         </T>
         <T as="p" className="text-[32px] leading-[42px] tracking-[-0.8px] text-[var(--w-secondary)]">
