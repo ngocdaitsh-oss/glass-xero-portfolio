@@ -14,6 +14,16 @@ import { CUSTOMER_EXPERIENCE } from "./customer-experience";
 import { CUSTOMER_FEEDBACK_LOOP } from "./customer-feedback-loop";
 import { CUSTOMER_JOURNEY } from "./customer-journey";
 import { CXO } from "./cxo";
+import { DESIGN_COMPARISON } from "./design-comparison";
+import { DESIGN_SPRINT } from "./design-sprint";
+import { DESIGN_THINKING } from "./design-thinking";
+import { DIARY_STUDY } from "./diary-study";
+import { EMPATHY_MAPPING } from "./empathy-mapping";
+import { ETHNOGRAPHIC_RESEARCH } from "./ethnographic-research";
+import { EYE_TRACKING } from "./eye-tracking";
+import { FIELD_STUDY } from "./field-study";
+import { FIRST_CLICK_TESTING } from "./first-click-testing";
+import { FOCUS_GROUP } from "./focus-group";
 import type { Article } from "./types";
 
 /** Published articles in the list's A–Z order (src/lib/glossary.ts); the detail footer's "next term" walks this list. */
@@ -34,6 +44,16 @@ export const ARTICLES: Article[] = [
   CUSTOMER_EXPERIENCE,
   CUSTOMER_FEEDBACK_LOOP,
   CUSTOMER_JOURNEY,
+  DESIGN_COMPARISON,
+  DESIGN_SPRINT,
+  DESIGN_THINKING,
+  DIARY_STUDY,
+  EMPATHY_MAPPING,
+  ETHNOGRAPHIC_RESEARCH,
+  EYE_TRACKING,
+  FIELD_STUDY,
+  FIRST_CLICK_TESTING,
+  FOCUS_GROUP,
 ];
 
 export const ARTICLE_BY_SLUG: Record<string, Article> = Object.fromEntries(ARTICLES.map((a) => [a.slug, a]));

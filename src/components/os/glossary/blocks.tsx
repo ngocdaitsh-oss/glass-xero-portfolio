@@ -24,9 +24,11 @@ export function Steps({ steps }: { steps: [string, string, string][] }) {
             <T as="h4" className="text-[22px] leading-[30px] font-semibold tracking-[-0.5px]">
               {title}
             </T>
-            <T as="p" className="text-[17px] leading-[26px] tracking-[-0.2px] text-[var(--w-secondary)]">
-              {body}
-            </T>
+            {body ? (
+              <T as="p" className="text-[17px] leading-[26px] tracking-[-0.2px] text-[var(--w-secondary)]">
+                {body}
+              </T>
+            ) : null}
             <span className="mt-2 flex items-center gap-2.5 self-start rounded-[10px] bg-[var(--d-well)] px-3 py-1.5">
               <Icon name="login" size={14} className="text-[var(--w-muted)]" />
               <span className="font-mono text-[13px] leading-[18px] tracking-[0.4px] text-[var(--w-muted)]">ĐẦU RA</span>

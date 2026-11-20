@@ -287,8 +287,8 @@ function Hero({ article, fnLabel }: { article: Article; fnLabel: string }) {
             {article.oneLine}
           </T>
           <div className="mt-auto flex gap-3">
-            {article.glance.map(([k, v]) => (
-              <div key={k} className="flex flex-1 flex-col gap-1 rounded-2xl bg-white/12 px-5 py-4">
+            {article.glance.map(([k, v], i) => (
+              <div key={i} className="flex flex-1 flex-col gap-1 rounded-2xl bg-white/12 px-5 py-4">
                 <span className="text-[40px] leading-[44px] font-bold tracking-[-1.5px]">{k}</span>
                 <T className="text-[16px] leading-6 tracking-[-0.2px]">{v}</T>
               </div>
