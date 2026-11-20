@@ -51,7 +51,7 @@ function CalendarDay({ cell }: { cell: Cell }) {
       }`}
       style={
         cell.today
-          ? { backgroundImage: "linear-gradient(149.66deg, var(--azure-300) 0%, var(--azure-600) 71.43%)" }
+          ? { backgroundColor: "var(--azure-600)" }
           : undefined
       }
       aria-current={cell.today ? "date" : undefined}

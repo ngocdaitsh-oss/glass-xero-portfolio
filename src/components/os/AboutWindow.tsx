@@ -9,7 +9,7 @@ import { JOBS, SKILL_GROUPS } from "@/lib/about";
 const TABS = ["Overview", "Experience", "Skills"] as const;
 type Tab = (typeof TABS)[number];
 
-const GRADIENT = "linear-gradient(135deg, var(--azure-300) 0%, var(--azure-600) 71.429%)";
+const ACCENT = "var(--azure-600)";
 
 const SOFTWARE = [
   { name: "Figma", logo: "figma", ring: "/figma/about/ring-figma.svg" },
@@ -65,7 +65,7 @@ function Tabs({ tab, onPick }: { tab: Tab; onPick: (tab: Tab) => void }) {
         <span
           aria-hidden
           className="absolute top-1 bottom-1 rounded-[10px] shadow-[0_4px_12px_rgba(33,115,214,0.35)] transition-[left,width] duration-[420ms] ease-[cubic-bezier(0.34,1.2,0.5,1)]"
-          style={{ left: pill.left, width: pill.width, backgroundImage: GRADIENT }}
+          style={{ left: pill.left, width: pill.width, backgroundColor: ACCENT }}
         />
       )}
       {TABS.map((item) => {
@@ -133,7 +133,7 @@ function Profile() {
         href="/cv/TrinhTuanNgoc-CV-2026-11.pdf"
         download="TrinhTuanNgoc-CV.pdf"
         className="flex shrink-0 items-center justify-center gap-1.5 rounded-xl py-[9px] pr-3.5 pl-4 text-base leading-6 font-semibold text-white shadow-[0_6px_16px_0_rgba(33,115,214,0.5)] transition-[transform,box-shadow] duration-200 hover:-translate-y-px hover:shadow-[0_10px_22px_0_rgba(33,115,214,0.55)] active:translate-y-0"
-        style={{ backgroundImage: GRADIENT }}
+        style={{ backgroundColor: ACCENT }}
       >
         {t("Download CV")}
         <img src="/figma/about/download.svg" alt="" width={24} height={24} />
@@ -234,7 +234,7 @@ function Overview() {
 function Highlight({ icon, kicker, title, meta }: { icon: string; kicker: string; title: string; meta: ReactNode }) {
   return (
     <div className="about-card bg-overlay flex flex-1 items-start gap-3 self-stretch rounded-2xl p-3.5">
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl" style={{ backgroundImage: GRADIENT }}>
+      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl" style={{ backgroundColor: ACCENT }}>
         <img src={icon} alt="" width={20} height={20} />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-2">

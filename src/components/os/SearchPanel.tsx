@@ -190,7 +190,7 @@ function SearchRow({ title, meta, onClick }: { title: string; meta: string; onCl
 function SearchAppIcon({ id }: { id: AppId }) {
   if (id === "about") {
     return (
-      <span className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-[14px] bg-gradient-to-b from-[#8cc4ff] to-[#1a5bb0] shadow-[0_6px_14px_var(--effect-shadow)]">
+      <span className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-[14px] bg-[var(--azure-600)] shadow-[0_6px_14px_var(--effect-shadow)]">
         <img src="/figma/mobile/logo.svg" alt="" className="size-8" />
       </span>
     );

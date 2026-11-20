@@ -7,7 +7,7 @@ import { useWindow } from "./window-manager";
 import { useT } from "@/lib/i18n";
 import { formatSize, SEND_NOTE, TOPICS, useCompose } from "@/lib/compose";
 
-const GRADIENT = "linear-gradient(166deg, var(--azure-300) 0%, var(--azure-600) 71.43%)";
+const ACCENT = "var(--azure-600)";
 
 /** Figma "Compose Window" (89:3609): header, To/From/Subject rows, topic chips, editor, Send. */
 export function MailWindow() {
@@ -75,7 +75,7 @@ export function MailWindow() {
                   className={`rounded-[20px] px-3 py-[5px] text-sm leading-[22px] font-semibold whitespace-nowrap transition-[background-color,color,transform] duration-200 active:scale-95 ${
                     on ? "text-white" : "bg-overlay-subtle text-fg-secondary hover:bg-overlay-strong hover:text-fg"
                   }`}
-                  style={on ? { backgroundImage: GRADIENT } : undefined}
+                  style={on ? { backgroundColor: ACCENT } : undefined}
                 >
                   {t(item)}
                 </button>
@@ -94,7 +94,7 @@ export function MailWindow() {
             <ul className="flex flex-wrap gap-2">
               {files.map((file) => (
                 <li key={file.id} className="bg-overlay flex w-fit items-center gap-2.5 rounded-xl py-1.5 pr-3 pl-2">
-                  <span className="flex size-7 items-center justify-center rounded-lg text-white" style={{ backgroundImage: GRADIENT }}>
+                  <span className="flex size-7 items-center justify-center rounded-lg text-white" style={{ backgroundColor: ACCENT }}>
                     <MaskIcon src="/figma/mail/file.svg" size={14} />
                   </span>
                   <span className="text-xs leading-[18px] font-semibold">{file.name}</span>
@@ -137,7 +137,7 @@ export function MailWindow() {
             type="submit"
             disabled={status === "sending" || status === "sent"}
             className="hover-lift flex disabled:opacity-60 items-center gap-1.5 rounded-xl py-[9px] pr-3.5 pl-4 text-base leading-6 font-semibold text-white shadow-[0_6px_16px_0_rgba(33,115,214,0.5)] hover:shadow-[0_10px_22px_0_rgba(33,115,214,0.55)]"
-            style={{ backgroundImage: GRADIENT }}
+            style={{ backgroundColor: ACCENT }}
           >
             {t("Send message")}
             <img src="/figma/term/send.svg" alt="" width={24} height={24} className="size-6" />

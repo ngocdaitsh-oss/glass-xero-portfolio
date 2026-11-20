@@ -101,8 +101,7 @@ export function useLongPress(onLong: (press: Press) => void) {
 export function AppGlyph({ id, pressed = false }: { id: AppId; pressed?: boolean }) {
   if (id === "about") {
     return (
-      <span data-m-glyph className="relative block size-14 shrink-0 overflow-clip rounded-full bg-gradient-to-b from-[#8cc4ff] to-[#1a5bb0] shadow-[0_6.857px_16px_0_var(--effect-shadow)]">
-        <span className="absolute top-0 left-0 h-8 w-16 bg-gradient-to-b from-[rgba(255,255,255,0.32)] to-transparent" />
+      <span data-m-glyph className="relative block size-14 shrink-0 overflow-clip rounded-full bg-[var(--azure-600)] shadow-[0_6.857px_16px_0_var(--effect-shadow)]">
         <span className="absolute top-[14.86px] left-[14.86px] size-[34.286px] overflow-clip">
           <img src={`${M}/logo.svg`} alt="" className="absolute top-[calc(50%+0.57px)] left-[calc(50%-0.57px)] block size-[42.286px] max-w-none -translate-x-1/2 -translate-y-1/2" />
         </span>

@@ -9,7 +9,7 @@ import { AnimatedAnswer } from "@/components/terminal/AnimatedAnswer";
 
 type T = ReturnType<typeof useT>;
 
-const GRADIENT = "linear-gradient(135deg, var(--azure-300) 0%, var(--azure-600) 71.429%)";
+const ACCENT = "var(--azure-600)";
 const QUICK = QUICK_PROMPTS;
 const TONE: Record<Tone, string> = { user: "term-user", cyan: "term-cyan", pink: "term-pink" };
 
@@ -66,7 +66,7 @@ export function TerminalWindow() {
       <div className="flex h-full flex-col gap-4 px-6 py-5">
         <div ref={output} className="os-scroll bg-desktop flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto rounded-2xl px-5 py-[18px]">
           <div className="bg-overlay-subtle flex w-fit items-center gap-2.5 rounded-xl py-2.5 pr-3.5 pl-3">
-            <span className="flex size-7 items-center justify-center rounded-lg" style={{ backgroundImage: GRADIENT }}>
+            <span className="flex size-7 items-center justify-center rounded-lg" style={{ backgroundColor: ACCENT }}>
               <MaskIcon src="/figma/term/sparkles-16.svg" size={16} className="text-fg" />
             </span>
             <span className="flex flex-col leading-5 whitespace-nowrap">
@@ -82,7 +82,7 @@ export function TerminalWindow() {
                 <span className="text-fg">{turn.question}</span>
               </p>
               <div className="flex w-full items-start gap-3">
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-xl" style={{ backgroundImage: GRADIENT }}>
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-xl" style={{ backgroundColor: ACCENT }}>
                   <MaskIcon src="/figma/term/sparkles-14.svg" size={14} className="text-fg" />
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col gap-2">{turn.loading ? (
@@ -142,7 +142,7 @@ export function TerminalWindow() {
             type="submit"
             aria-label={t("Send")}
             className="hover-lift flex size-9 items-center justify-center rounded-xl hover:brightness-110"
-            style={{ backgroundImage: GRADIENT }}
+            style={{ backgroundColor: ACCENT }}
           >
             <MaskIcon src="/figma/term/send.svg" size={24} className="text-fg" />
           </button>
