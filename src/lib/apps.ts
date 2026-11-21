@@ -24,54 +24,57 @@ export type AppDefinition = {
 
 export const LINKEDIN_URL = "https://www.linkedin.com/in/tuan-ngoc-trinh-164a40320/?isSelfProfile=true";
 
+/** Hover icon set (frame 0 of each hover Lottie, cropped to its 256px glyph box out of the 448px frame). */
+const ICON_INSET = "8%";
+
 export const apps: Record<Exclude<AppId, "about">, AppDefinition> = {
   projects: {
     id: "projects",
     desktopLabel: "My Project",
     dockName: "My Project",
-    desktopIcon: "/figma/os-layer-project.svg",
-    dockIcon: "/figma/dock-layer-project.svg",
-    inset: "8.59% 7.03% 10.52% 14.99%",
+    desktopIcon: "/figma/os-icons/folder.png",
+    dockIcon: "/figma/os-icons/folder.png",
+    inset: ICON_INSET,
   },
   mail: {
     id: "mail",
     desktopLabel: "Leave an Mail",
     dockName: "Mail",
-    desktopIcon: "/figma/os-mail.svg",
-    dockIcon: "/figma/dock-mail.svg",
-    inset: "13.25% 9.37% 7.81% 9.38%",
+    desktopIcon: "/figma/os-icons/mail.png",
+    dockIcon: "/figma/os-icons/mail.png",
+    inset: ICON_INSET,
   },
   "ai-workflow": {
     id: "ai-workflow",
     desktopLabel: "AI Workflow",
     dockName: "AI Workflow",
-    desktopIcon: "/figma/os-ai.svg",
-    dockIcon: "/figma/dock-ai.svg",
-    inset: "9.38%",
+    desktopIcon: "/figma/os-icons/ai.png",
+    dockIcon: "/figma/os-icons/ai.png",
+    inset: ICON_INSET,
   },
   notes: {
     id: "notes",
     desktopLabel: "My Note",
     dockName: "Note",
-    desktopIcon: "/figma/os-note.svg",
-    dockIcon: "/figma/dock-note.svg",
-    inset: "6.25% 3.72% 9.38% 9.38%",
+    desktopIcon: "/figma/os-icons/note.png",
+    dockIcon: "/figma/os-icons/note.png",
+    inset: ICON_INSET,
   },
   terminal: {
     id: "terminal",
     desktopLabel: "Ask Terminal",
     dockName: "Terminal AI",
-    desktopIcon: "/figma/os-terminal-ai.svg",
-    dockIcon: "/figma/dock-terminal-ai.svg",
-    inset: "6.25% 2.34% 7.81% 7.81%",
+    desktopIcon: "/figma/os-icons/terminal.png",
+    dockIcon: "/figma/os-icons/terminal.png",
+    inset: ICON_INSET,
   },
   linkedin: {
     id: "linkedin",
     desktopLabel: "Linkedin",
     dockName: "LinkedIn",
-    desktopIcon: "/figma/os-linkedin.svg",
-    dockIcon: "/figma/dock-linkedin.svg",
-    inset: "9.38%",
+    desktopIcon: "/figma/os-icons/linkedin.png",
+    dockIcon: "/figma/os-icons/linkedin.png",
+    inset: ICON_INSET,
     href: LINKEDIN_URL,
   },
   // Figma "OS Icon/UX Glossary" (yal6CdLdWWhvDCKXPsJcuE 2033:30224): the 46×52 book at (9, 6) in the 64px frame.
@@ -79,9 +82,9 @@ export const apps: Record<Exclude<AppId, "about">, AppDefinition> = {
     id: "glossary",
     desktopLabel: "UX Glossary",
     dockName: "UX Glossary",
-    desktopIcon: "/figma/os-glossary.svg",
-    dockIcon: "/figma/dock-glossary.svg",
-    inset: "9.38% 14.06%",
+    desktopIcon: "/figma/os-icons/glossary.png",
+    dockIcon: "/figma/os-icons/glossary.png",
+    inset: ICON_INSET,
   },
   photos: {
     id: "photos",

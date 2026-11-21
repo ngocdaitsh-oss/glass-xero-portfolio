@@ -6,14 +6,30 @@ import type { AppId } from "@/lib/apps";
 
 /** GenBI motion pack: one 96-frame @60fps Lottie per OS icon (frame 192px = icon 128px, so the frame is 1.5× the icon). */
 const SLUG: Partial<Record<AppId, string>> = {
-  projects: "layer-project",
-  mail: "mail",
-  terminal: "terminal-ai",
-  notes: "note",
-  linkedin: "linkedin",
+  projects: "hover-folder",
+  mail: "hover-mail",
+  terminal: "hover-terminal",
+  "ai-workflow": "hover-ai",
+  notes: "hover-note",
+  linkedin: "hover-linkedin",
+  glossary: "hover-glossary",
   photos: "photos",
-  glossary: "glossary",
-  // "ai-workflow": the pack has no AI icon (its "App Project" is the whack-a-mole grid), so it uses AI_MOTION below.
+};
+
+/*
+ * Hover icon set (448px frame, 60fps). The static icon is frame 0 cropped to the 256px glyph box and drawn at
+ * an 8% inset, so the Lottie box sits at 8% − (96 / 256) × 84% = −23.5% to line up exactly.
+ * "reverse": plays to the end and holds; leaving plays it back at 1.4×. "once": the clip ends on its rest
+ * pose, so a hover plays it through once and leaving does nothing.
+ */
+const HOVER: Record<string, "reverse" | "once"> = {
+  "hover-folder": "reverse",
+  "hover-mail": "reverse",
+  "hover-terminal": "reverse",
+  "hover-ai": "reverse",
+  "hover-linkedin": "reverse",
+  "hover-note": "once",
+  "hover-glossary": "once",
 };
 
 /** Frame the hover holds on (the icon peak pose). */
@@ -84,6 +100,20 @@ async function createLottie(slug: string, container: HTMLElement): Promise<Drive
     rendererSettings: { preserveAspectRatio: "xMidYMid meet" },
   });
   a.goToAndStop(0, true);
+  const mode = HOVER[slug];
+  if (mode)
+    return {
+      go: (forward) => {
+        if (mode === "once") {
+          if (forward && a.isPaused) a.goToAndPlay(0, true);
+          return;
+        }
+        a.setSpeed(forward ? 1 : 1.4);
+        a.setDirection(forward ? 1 : -1);
+        a.play();
+      },
+      destroy: () => a.destroy(),
+    };
   const { hold } = POSE[slug] ?? { hold: 48 };
   let raf = 0;
   let frame = 0;
@@ -120,7 +150,7 @@ async function createLottie(slug: string, container: HTMLElement): Promise<Drive
  */
 export function DockLottie({ app, hovered, children }: { app: AppId; hovered: boolean; children: ReactNode }) {
   const slug = SLUG[app];
-  const isAi = app === "ai-workflow";
+  const isAi = app === "ai-workflow" && !slug;
   const box = useRef<HTMLSpanElement>(null);
   const still = useRef<HTMLSpanElement>(null);
   const driver = useRef<Driver | null>(null);
@@ -178,7 +208,7 @@ export function DockLottie({ app, hovered, children }: { app: AppId; hovered: bo
         {children}
       </span>
       {slug ? (
-        <span ref={box} aria-hidden className="pointer-events-none absolute -inset-1/4" style={{ opacity: ready ? 1 : 0 }} />
+        <span ref={box} aria-hidden className="pointer-events-none absolute" style={{ inset: HOVER[slug] ? "-23.5%" : "-25%", opacity: ready ? 1 : 0 }} />
       ) : null}
     </span>
   );
