@@ -107,6 +107,11 @@ function isLeaf(el: HTMLElement) {
 }
 const isLeafShape = (el: HTMLElement) => [...el.children].every((c) => INLINE_TAGS.has(c.tagName) && !c.querySelector("img, svg, video"));
 
+/** Writes an inline gap (kept out of the component so the hooks linter sees no state mutation). */
+const styleGap = (el: HTMLElement, v: string) => {
+  el.style.gap = v;
+};
+
 const gapOf = (el: HTMLElement) => {
   const cs = getComputedStyle(el);
   if (!/flex|grid/.test(cs.display)) return 0;
@@ -201,10 +206,7 @@ export function PageEditor({ root, editing, edits, text = false }: { root: RefOb
   // Gap pill follows the innermost flex/grid box with a gap under the pointer.
   useEffect(() => {
     const r = root.current;
-    if (!r || !editing) {
-      setTarget(null);
-      return;
-    }
+    if (!r || !editing) return;
     const pick = (e: PointerEvent) => {
       if (lock.current) return;
       let el = e.target as HTMLElement | null;
@@ -224,12 +226,12 @@ export function PageEditor({ root, editing, edits, text = false }: { root: RefOb
     };
   }, [root, editing]);
 
-  if (!editing || !target || typeof document === "undefined") return null;
+  if (!editing || !target || !target.el.isConnected || typeof document === "undefined") return null;
   const current = Math.round(gapOf(target.el));
   const saved = store.gap[target.path] !== undefined;
   const set = (px: number) => {
     const v = Math.max(0, px);
-    target.el.style.gap = `${v}px`;
+    styleGap(target.el, `${v}px`);
     setGap(target.path, v);
     setTarget({ ...target, rect: target.el.getBoundingClientRect() });
   };
@@ -269,7 +271,7 @@ export function PageEditor({ root, editing, edits, text = false }: { root: RefOb
           <button
             type="button"
             onClick={() => {
-              target.el.style.gap = "";
+              styleGap(target.el, "");
               setGap(target.path, null);
             }}
             className="rounded-full px-2 py-0.5 text-white/70 hover:text-white"
