@@ -2077,7 +2077,7 @@ input[type="range"] {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #01030d url("/boot/loading-bg-dark.webp") center / cover no-repeat;
+  background: #01030d url("/boot/loading-bg-blue.webp") center / cover no-repeat;
   transition: opacity 620ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
