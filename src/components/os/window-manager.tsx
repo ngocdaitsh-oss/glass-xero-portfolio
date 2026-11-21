@@ -593,6 +593,189 @@ function genieFor(box: DOMRect, target: { x: number; y: number; w: number } | nu
   }));
 }
 
+/*
+ * Genie (macOS minimize), drawn the way the real one bends the window: the window is cut into thin
+ * horizontal bands and each band is squeezed to the width of the funnel at its own height, so the
+ * content is compressed into the dock icon rather than clipped. Each band is a static clone of the
+ * window clipped to its strip; a per-frame matrix maps it onto the funnel (scale for the width, skew for
+ * the side slope, translate + scaleY for the vertical pull). The real window hides while it plays.
+ */
+const GENIE_BANDS = 28;
+
+/** Funnel geometry at progress p: vertical mapping and the left / right edge at a given source row. */
+function genieShape(w: number, h: number, tx: number, ty: number, neck: number, p: number) {
+  const pinch = easeInOut(clamp01(p / 0.45));
+  const pull = easeIn(clamp01((p - 0.22) / 0.78));
+  const stretch = easeInOut(clamp01(p / 0.4));
+  const top = lerp(0, ty, pull);
+  const bottom = Math.max(top + 1, lerp(h, ty, stretch));
+  const sy = (bottom - top) / h;
+  const tip = easeInOut(clamp01((p - 0.6) / 0.4));
+  const tipNeck = lerp(neck * 0.9, Math.max(6, neck * 0.15), tip);
+  const lTop = lerp(0, tx - neck / 2, pull);
+  const rTop = lerp(w, tx + neck / 2, pull);
+  const lBot = lerp(0, tx - tipNeck / 2, pinch);
+  const rBot = lerp(w, tx + tipNeck / 2, pinch);
+  // Smoothstep bend: the sides leave the top edge straight down and flow into the neck, an S-curve.
+  const bend = (y: number) => {
+    const s = clamp01(y / h);
+    return s * s * (3 - 2 * s);
+  };
+  return {
+    top,
+    sy,
+    left: (y: number) => lerp(lTop, lBot, bend(y)),
+    right: (y: number) => lerp(rTop, rBot, bend(y)),
+    opacity: p > 0.86 ? 1 - (p - 0.86) / 0.14 : 1,
+  };
+}
+
+/**
+ * matrix3d taking the source band (0, ya)–(w, yb) onto the quad p0 p1 p2 p3 (top-left, top-right,
+ * bottom-right, bottom-left): a projective map, so a rectangle becomes any trapezoid exactly.
+ */
+function bandMatrix(w: number, ya: number, yb: number, p0: number[], p1: number[], p2: number[], p3: number[]) {
+  const [x0, y0] = p0;
+  const [x1, y1] = p1;
+  const [x2, y2] = p2;
+  const [x3, y3] = p3;
+  const dx1 = x1 - x2;
+  const dx2 = x3 - x2;
+  const dx3 = x0 - x1 + x2 - x3;
+  const dy1 = y1 - y2;
+  const dy2 = y3 - y2;
+  const dy3 = y0 - y1 + y2 - y3;
+  let g = 0;
+  let hh = 0;
+  const den = dx1 * dy2 - dx2 * dy1;
+  if (Math.abs(den) > 1e-9 && (Math.abs(dx3) > 1e-6 || Math.abs(dy3) > 1e-6)) {
+    g = (dx3 * dy2 - dx2 * dy3) / den;
+    hh = (dx1 * dy3 - dx3 * dy1) / den;
+  }
+  // Unit square → quad (Heckbert), then source band → unit square.
+  const a = x1 - x0 + g * x1;
+  const b = x3 - x0 + hh * x3;
+  const d = y1 - y0 + g * y1;
+  const e = y3 - y0 + hh * y3;
+  const bh = Math.max(1e-6, yb - ya);
+  const n = (v: number) => (Number.isFinite(v) ? +v.toFixed(7) : 0);
+  return `matrix3d(${[a / w, d / w, 0, g / w, b / bh, e / bh, 0, hh / bh, 0, 0, 1, 0, x0 - (b * ya) / bh, y0 - (e * ya) / bh, 0, 1 - (hh * ya) / bh].map(n).join(", ")})`;
+}
+
+/** Copies what cloneNode leaves behind: scroll offsets and canvas pixels. */
+function syncClone(src: HTMLElement, copy: HTMLElement) {
+  const a = src.querySelectorAll<HTMLElement>("*");
+  const b = copy.querySelectorAll<HTMLElement>("*");
+  for (let i = 0; i < a.length && i < b.length; i++) {
+    const s = a[i];
+    const c = b[i];
+    if (s.scrollTop || s.scrollLeft) {
+      c.scrollTop = s.scrollTop;
+      c.scrollLeft = s.scrollLeft;
+    }
+    if (s instanceof HTMLCanvasElement && c instanceof HTMLCanvasElement && s.width && s.height) {
+      try {
+        c.getContext("2d")?.drawImage(s, 0, 0);
+      } catch {
+        /* tainted or webgl canvas: the band shows it blank for 0.6s */
+      }
+    }
+  }
+}
+
+function genieStrips(el: HTMLElement, id: AppId, direction: "in" | "out"): Promise<void> {
+  if (reduceMotion() || !el.parentElement) return Promise.resolve();
+  const target = dockTarget(id);
+  const box = el.getBoundingClientRect();
+  const zoom = windowScale(el);
+  const w = el.offsetWidth;
+  const h = el.offsetHeight;
+  if (!w || !h) return Promise.resolve();
+  const tx = target ? (target.x - box.left) / zoom : w / 2;
+  const ty = target ? (target.y - box.top) / zoom : h + 160;
+  const neck = target ? target.w / zoom : 56;
+
+  fakeGlass(el);
+  const cs = getComputedStyle(el);
+  const layer = document.createElement("div");
+  layer.setAttribute("aria-hidden", "true");
+  layer.inert = true;
+  Object.assign(layer.style, {
+    position: "absolute",
+    left: el.style.left || cs.left,
+    top: el.style.top || cs.top,
+    width: `${w}px`,
+    height: `${h}px`,
+    zIndex: String(Number(cs.zIndex) || 0) + "",
+    pointerEvents: "none",
+    overflow: "visible",
+  } as Partial<CSSStyleDeclaration>);
+  if (el.style.zoom) layer.style.zoom = el.style.zoom;
+
+  // Fewer bands for very heavy windows keeps the clone cost bounded.
+  const bands = el.getElementsByTagName("*").length > 6000 ? 18 : GENIE_BANDS;
+  const strips: HTMLElement[] = [];
+  for (let i = 0; i < bands; i++) {
+    const y0 = (h * i) / bands;
+    const y1 = (h * (i + 1)) / bands;
+    const strip = document.createElement("div");
+    Object.assign(strip.style, {
+      position: "absolute",
+      inset: "0",
+      transformOrigin: "0 0",
+      willChange: "transform",
+      // 0.6px overlap hides seams between neighbouring bands.
+      clipPath: `inset(${Math.max(0, y0 - 0.6)}px -2px ${Math.max(0, h - y1 - 0.6)}px -2px)`,
+    });
+    const copy = el.cloneNode(true) as HTMLElement;
+    copy.removeAttribute("id");
+    copy.removeAttribute("data-window");
+    copy.classList.add("win-anim");
+    Object.assign(copy.style, { position: "absolute", left: "0", top: "0", width: `${w}px`, height: `${h}px`, zoom: "1", transform: "none", margin: "0" });
+    strip.appendChild(copy);
+    layer.appendChild(strip);
+    strips.push(strip);
+  }
+  el.parentElement.insertBefore(layer, el.nextSibling);
+  strips.forEach((s) => syncClone(el, s.firstElementChild as HTMLElement));
+  el.style.visibility = "hidden";
+
+  // Driven per frame (not Web Animations): interpolating matrix3d keyframes decomposes the
+  // perspective and throws bands off the funnel, so every frame sets the exact matrix instead.
+  const duration = direction === "out" ? 620 : 540;
+  // Ease-in-out on the whole clip, like macOS: slow start, fast pour, soft landing in the icon.
+  const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+  const paint = (p: number) => {
+    const g = genieShape(w, h, tx, ty, neck, p);
+    for (let i = 0; i < strips.length; i++) {
+      const ya = (h * i) / bands;
+      const yb = (h * (i + 1)) / bands;
+      const yTop = g.top + ya * g.sy;
+      const yBot = g.top + yb * g.sy;
+      // The band's four corners land exactly on the funnel, so neighbouring bands meet edge to edge.
+      strips[i].style.transform = bandMatrix(w, ya, yb, [g.left(ya), yTop], [g.right(ya), yTop], [g.right(yb), yBot], [g.left(yb), yBot]);
+    }
+    layer.style.opacity = String(g.opacity);
+  };
+  paint(direction === "out" ? 0 : 1);
+
+  return new Promise<void>((resolve) => {
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - t0) / duration);
+      const e = ease(t);
+      paint(direction === "out" ? e : 1 - e);
+      if (t < 1) requestAnimationFrame(tick);
+      else resolve();
+    };
+    requestAnimationFrame(tick);
+  }).then(() => {
+    layer.remove();
+    if (direction === "in") el.style.visibility = "";
+    releaseGlass(el, false);
+  });
+}
+
 const OPEN_FRAMES: Keyframe[] = [
   { opacity: 1, transform: "translateY(16px) scale(0.94)" },
   { opacity: 1, transform: "none" },
@@ -659,9 +842,12 @@ export function WindowShell({
     wasMinimized.current = false;
     const first = !opened.current;
     opened.current = true;
+    if (restoring) {
+      void genieStrips(el, state.id, "in");
+      return;
+    }
     if (canViewTransition()) return; // useWindowManager().open animated the snapshot
-    if (restoring) void runGenie(el, state.id, "in");
-    else if (first) runOpen(el);
+    if (first) runOpen(el);
   }, [state.minimized, state.exiting, state.staged, state.id]);
 
   // FLIP: the window jumps to its new frame at once, then a transform carries it
@@ -736,6 +922,15 @@ export function WindowShell({
     if (busy.current || !el) return;
     busy.current = true;
     wasMinimized.current = true;
+    if (!reduceMotion()) {
+      api.setLeaving(true);
+      void genieStrips(el, state.id, "out").then(() => {
+        busy.current = false;
+        el.style.visibility = "";
+        api.minimize();
+      });
+      return;
+    }
     if (canViewTransition()) {
       // Snapshot the window, drop it from the DOM, and pour the bitmap into the dock.
       const box = el.getBoundingClientRect();
@@ -867,12 +1062,11 @@ export function useWindowManager() {
     };
     const existing = latest.current.find((w) => w.id === id);
     const kind = !existing ? (DEFAULT_GEOMETRY[id] ? "open" : null) : existing.minimized ? "restore" : null;
-    if (!kind || !canViewTransition()) {
+    if (!kind || kind === "restore" || !canViewTransition()) {
       apply();
       return;
     }
-    // Restore reverses the genie out of the dock icon; a first open zooms the snapshot up.
-    const target = kind === "restore" ? dockTarget(id) : null;
+    // A first open zooms the snapshot up (restore plays the genie on the live window instead).
     let box: DOMRect | null = null;
     const transition = startViewTransition(() => {
       flushSync(apply);
@@ -885,11 +1079,7 @@ export function useWindowManager() {
     transition.ready
       .then(() => {
         if (!box) return;
-        if (kind === "restore") {
-          animateSnapshot(id, "new", genieFor(box, target), { duration: 540, easing: "linear", direction: "reverse" });
-        } else {
-          animateSnapshot(id, "new", OPEN_FRAMES, { duration: 360, easing: EASE_OUT });
-        }
+        animateSnapshot(id, "new", OPEN_FRAMES, { duration: 360, easing: EASE_OUT });
       })
       .catch(() => undefined);
     transition.finished.finally(() => {
