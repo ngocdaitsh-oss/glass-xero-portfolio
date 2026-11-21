@@ -894,18 +894,18 @@ input[type="range"] {
 }
 
 /* Edit mode: copy shows it is editable on hover/focus (a tint, not an outline), blocks get a delete button. */
-.g-detail.is-editing .g-editable {
+.is-editing .g-editable {
   border-radius: 6px;
   cursor: text;
   transition: background-color 150ms ease, box-shadow 150ms ease;
 }
-.g-detail.is-editing .g-editable:hover {
-  background-color: color-mix(in srgb, var(--d-fill) 10%, transparent);
+.is-editing .g-editable:hover {
+  background-color: color-mix(in srgb, var(--d-fill, #295ca9) 10%, transparent);
 }
-.g-detail.is-editing .g-editable:focus {
+.is-editing .g-editable:focus {
   outline: none;
-  background-color: color-mix(in srgb, var(--d-fill) 14%, transparent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--d-fill) 14%, transparent);
+  background-color: color-mix(in srgb, var(--d-fill, #295ca9) 14%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--d-fill, #295ca9) 14%, transparent);
 }
 .g-blk.is-editing {
   position: relative;

@@ -75,7 +75,7 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
     setStuck(bar ? bar.getBoundingClientRect().top - rootTop < 16 : false);
     let current = "";
     for (const el of root.querySelectorAll<HTMLElement>("[data-anchor]")) {
-      if (el.getBoundingClientRect().top - rootTop <= 140) current = el.dataset.anchor ?? "";
+      if (el.getBoundingClientRect().top - rootTop <= 240) current = el.dataset.anchor ?? "";
     }
     setActive(current);
   }, []);
@@ -88,7 +88,7 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
     const root = scroller.current;
     const el = root?.querySelector<HTMLElement>(`[data-anchor="${anchor}"]`);
     if (!root || !el) return;
-    scrollToChild(root, el, 120); // room for the pinned filter bar
+    scrollToChild(root, el, 220); // room for the pinned filter bar and rail
     setActive(anchor);
   }, []);
 
@@ -202,6 +202,9 @@ export function GlossaryWindow({ onOpenAi }: { onOpenAi: () => void }) {
         >
           <div className="mx-auto w-[1872px] px-[156px] pt-4 pb-6" style={{ zoom }}>
             <div className="pointer-events-auto rounded-full shadow-[0_12px_32px_rgba(0,0,0,0.28)]">{bar(true)}</div>
+            <div className="pointer-events-auto mt-3 rounded-[24px] bg-[var(--w-card)] px-6 py-4 shadow-[0_12px_32px_rgba(0,0,0,0.28)]">
+              {view === "az" ? <LetterRail results={results} active={active} onJump={jump} /> : <LifecycleTrack results={results} active={active} onJump={jump} />}
+            </div>
           </div>
         </div>
 
@@ -432,9 +435,9 @@ function AZ({ results, onOpen }: { results: Entry[]; onOpen: (slug: string) => v
           className={`flex items-start gap-12 ${i === 0 ? "pb-12" : "border-t border-[var(--g-line)] py-12"}`}
         >
           <Reveal className="flex w-[150px] shrink-0 flex-col gap-3 whitespace-nowrap">
-            <span className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-accent)]">{pad(g.index)}</span>
-            <span className="text-[112px] leading-[104px] font-normal tracking-[-4px]">{g.letter}</span>
-            <span className="font-mono text-[16px] leading-6 tracking-[1.2px] text-[var(--w-muted)]">
+            <span className="font-display text-[18px] leading-[26px] text-[var(--w-accent)]">{pad(g.index)}</span>
+            <span className="font-display text-[112px] leading-[104px]">{g.letter}</span>
+            <span className="font-display text-[16px] leading-6 tracking-[1.2px] text-[var(--w-muted)]">
               {pad(g.items.length)} {t(g.items.length === 1 ? "TERM" : "TERMS")}
             </span>
           </Reveal>
@@ -471,12 +474,12 @@ function ByFunction({ results, onOpen }: { results: Entry[]; onOpen: (slug: stri
             <div className="flex items-end justify-between whitespace-nowrap">
               <div className="flex flex-col gap-3">
                 <div className="flex items-baseline gap-6">
-                  <span className="font-mono text-[18px] leading-[26px] tracking-[0.4px] text-[var(--w-accent)]">{pad(f.index)}</span>
+                  <span className="font-display text-[18px] leading-[26px] text-[var(--w-accent)]">{pad(f.index)}</span>
                   <h3 className="text-[56px] leading-[60px] font-display">{t(f.name)}</h3>
                 </div>
                 <p className="text-[18px] leading-7 tracking-[-0.2px] text-[var(--w-secondary)]">{t(f.blurb)}</p>
               </div>
-              <p className="font-mono text-[24px] leading-8 tracking-[0.4px] text-[var(--w-muted)]">
+              <p className="font-display text-[24px] leading-8 text-[var(--w-muted)]">
                 {pad(items.length)} {t(items.length === 1 ? "TERM" : "TERMS")} · {t(f.stage)}
               </p>
             </div>

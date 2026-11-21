@@ -8,6 +8,7 @@ import { useT } from "@/lib/i18n";
 import { Eyebrow } from "./parts";
 import { WindowControls } from "../AppWindow";
 import { useFitZoom, useTitleBarDrag } from "../window-manager";
+import { PageEditor, usePageEdits } from "../page-edit";
 
 export type TrackItem = { id: string; label: string; group?: string };
 
@@ -176,6 +177,19 @@ export function CaseStudyShell({
   const t = useT();
   const [active, setActive] = useState(0);
   const [onDark, setOnDark] = useState(true);
+  const [editing, setEditing] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const [epoch, setEpoch] = useState(0);
+  const doc = useRef<HTMLDivElement>(null);
+  const edits = usePageEdits(`work-edit:${title}:v1`);
+  useEffect(() => {
+    if (!editing) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !(e.target as HTMLElement | null)?.closest?.("[contenteditable]")) setEditing(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [editing]);
 
   const sync = useCallback(() => {
     const root = scroller.current;
@@ -220,7 +234,7 @@ export function CaseStudyShell({
         {...drag}
         className="relative flex h-14 shrink-0 items-center justify-between border-b border-[var(--w-line)] px-4 select-none"
       >
-        <div className="flex w-[120px] items-center gap-1">
+        <div className="flex w-[240px] items-center gap-1">
           <button
             type="button"
             aria-label={t("Back to works")}
@@ -248,7 +262,21 @@ export function CaseStudyShell({
           <span className="text-[var(--w-muted)]">›</span>
           <span className="font-semibold">{t(title)}</span>
         </nav>
-        <div className="flex w-[120px] justify-end">
+        <div className="flex w-[240px] items-center justify-end gap-2">
+          <button
+            type="button"
+            aria-pressed={editing}
+            onClick={() => setEditing(!editing)}
+            className={`flex h-8 items-center gap-1.5 rounded-lg px-3 text-[14px] leading-5 font-semibold transition-colors duration-200 ${
+              editing ? "bg-[#295ca9] text-white" : "bg-[var(--w-chip)] text-[var(--w-secondary)] hover:text-[var(--w-text)]"
+            }`}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M15.5 4.5l4 4L9 19H5v-4L15.5 4.5Z" />
+              <path d="M13.5 6.5l4 4" />
+            </svg>
+            {editing ? "Đang sửa" : "Sửa trang"}
+          </button>
           <WindowControls buttonClassName="h-8 w-8 text-[var(--w-muted)] hover:bg-[var(--w-chip)]" />
         </div>
       </header>
@@ -256,7 +284,7 @@ export function CaseStudyShell({
         <div
           ref={scroller}
           onScroll={onScroll}
-          className="os-scroll os-scroll-ink work-detail reveal-root h-full overflow-y-scroll"
+          className={`os-scroll os-scroll-ink work-detail reveal-root h-full overflow-y-scroll ${editing ? "is-editing" : ""}`}
           style={{ overflowX: "clip", "--work-brand": brandColor } as CSSProperties}
         >
           <div data-reveal-zoom className="relative mx-auto w-[1872px] overflow-x-clip" style={{ zoom }}>
@@ -264,9 +292,51 @@ export function CaseStudyShell({
             <div className="pointer-events-none sticky top-8 z-20 h-0">
               <ProgressTracker track={track} active={active} onDark={onDark} onJump={jump} />
             </div>
-            {children}
+            <div ref={doc} key={epoch}>{children}</div>
           </div>
         </div>
+        <PageEditor root={doc} editing={editing} edits={edits} text />
+        {editing ? (
+          <div className="pointer-events-none absolute inset-x-0 bottom-6 z-30 flex justify-center">
+            <div className="pointer-events-auto flex items-center gap-3 rounded-full bg-[#0a0a0a] py-2 pr-2 pl-5 text-[14px] leading-5 text-white shadow-[0_16px_40px_rgba(0,0,0,0.35)]">
+              <span>
+                Bấm vào chữ để sửa · rê chuột vào khối để chỉnh gap · tự lưu trên trình duyệt này
+                {edits.changes ? ` · ${edits.changes} thay đổi` : ""}
+              </span>
+              {confirmReset ? (
+                <span className="flex items-center gap-1.5">
+                  <span className="text-white/70">Bỏ hết thay đổi?</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      edits.reset();
+                      setConfirmReset(false);
+                      setEpoch((n) => n + 1); // remount so React rebuilds the copy the editor changed
+                    }}
+                    className="rounded-full bg-[#e5484d] px-3.5 py-1.5 font-semibold text-white"
+                  >
+                    Khôi phục
+                  </button>
+                  <button type="button" onClick={() => setConfirmReset(false)} className="rounded-full px-3 py-1.5 text-white/70 hover:text-white">
+                    Hủy
+                  </button>
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  disabled={!edits.changes}
+                  onClick={() => setConfirmReset(true)}
+                  className="rounded-full px-3.5 py-1.5 text-white/70 transition-colors enabled:hover:text-white disabled:opacity-40"
+                >
+                  Khôi phục bản gốc
+                </button>
+              )}
+              <button type="button" onClick={() => setEditing(false)} className="rounded-full bg-[#295ca9] px-4 py-1.5 font-semibold text-white">
+                Xong
+              </button>
+            </div>
+          </div>
+        ) : null}
       </div>
     </>
   );

@@ -10,6 +10,7 @@ import { ARTICLES, ARTICLE_BY_SLUG } from "./articles";
 import { Blk, EditProvider, htmlText, T, useArticleEdits } from "./edit";
 import type { Article } from "./types";
 import { Icon } from "./ui";
+import { PageEditor, usePageEdits } from "../page-edit";
 
 /*
  * Glossary detail — Figma 2011:28710 "Desktop — Glossary Detail · A/B Testing (Light)": breadcrumb title bar,
@@ -29,6 +30,8 @@ export function GlossaryDetail({ slug, onBack, onOpen }: { slug: string; onBack:
   const scroller = useRef<HTMLDivElement>(null);
   const zoom = useFitZoom(scroller, 1872, true, 1.05);
   const edits = useArticleEdits(slug, article.version);
+  const layout = usePageEdits(`glossary-layout:${slug}:v${article.version}`);
+  const changes = edits.changes + layout.changes;
   const [active, setActive] = useState(sections[0].id);
   const [confirmReset, setConfirmReset] = useState(false);
   const fn = GLOSSARY_FUNCTIONS.find((f) => f.index === article.fn)!;
@@ -202,13 +205,14 @@ export function GlossaryDetail({ slug, onBack, onOpen }: { slug: string; onBack:
           </div>
         </div>
 
+        <PageEditor root={scroller} editing={edits.editing} edits={layout} />
         {edits.editing ? (
           <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
             <div className="pointer-events-auto flex items-center gap-3 rounded-full bg-[var(--d-ink)] py-2 pr-2 pl-5 text-[14px] leading-5 text-[var(--d-ink-fg)] shadow-[0_16px_40px_rgba(0,0,0,0.35)]">
               <Icon name="pencil" size={16} />
               <span>
-                Bấm vào chữ để sửa · nút <b>×</b> để xóa khối · tự lưu trên trình duyệt này
-                {edits.changes ? ` · ${edits.changes} thay đổi` : ""}
+                Bấm vào chữ để sửa · rê chuột vào khối để chỉnh gap · nút <b>×</b> để xóa khối · tự lưu trên trình duyệt này
+                {changes ? ` · ${changes} thay đổi` : ""}
               </span>
               {confirmReset ? (
                 <span className="flex items-center gap-1.5">
@@ -217,6 +221,7 @@ export function GlossaryDetail({ slug, onBack, onOpen }: { slug: string; onBack:
                     type="button"
                     onClick={() => {
                       edits.reset();
+                      layout.reset();
                       setConfirmReset(false);
                     }}
                     className="rounded-full bg-[var(--d-bad)] px-3.5 py-1.5 font-semibold text-white"
@@ -230,7 +235,7 @@ export function GlossaryDetail({ slug, onBack, onOpen }: { slug: string; onBack:
               ) : (
                 <button
                   type="button"
-                  disabled={!edits.changes}
+                  disabled={!changes}
                   onClick={() => setConfirmReset(true)}
                   className="rounded-full px-3.5 py-1.5 text-[var(--d-ink-sub)] transition-colors enabled:hover:text-[var(--d-ink-fg)] disabled:opacity-40"
                 >
