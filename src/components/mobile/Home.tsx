@@ -293,7 +293,7 @@ export function Home({
             <NowPlayingWidget />
           </div>
         </div>
-        <nav aria-label={t("Apps")} className="mt-5 flex flex-wrap justify-between gap-x-[12.667px] gap-y-[18px] px-4">
+        <nav aria-label={t("Apps")} className="mt-5 grid grid-cols-[repeat(4,auto)] justify-between gap-y-[18px] px-4">
           {GRID.filter((app) => !HIDDEN_ON_HOME.has(app.id)).map((app, index) => (
             <AppIcon key={app.id} id={app.id} label={app.label} where="grid" index={index} onOpen={onOpen} longPress={longPress} />
           ))}
