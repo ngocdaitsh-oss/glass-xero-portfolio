@@ -20,6 +20,7 @@ export const GRID: { id: AppId; label: string }[] = [
   { id: "notes", label: "Notes" },
   { id: "terminal", label: "Terminal" },
   { id: "linkedin", label: "LinkedIn" },
+  { id: "glossary", label: "UX Glossary" },
   { id: "photos", label: "Photos" },
   { id: "about", label: "About me" },
 ];

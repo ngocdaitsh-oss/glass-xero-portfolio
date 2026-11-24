@@ -92,6 +92,7 @@ const INLINE: Record<string, ReactNode> = {
     </>
   ),
   x: <path d="M7 7l10 10M17 7 7 17" />,
+  "chevron-down": <path d="M6 9l6 6 6-6" />,
   "arrow-right": <path d="M5 12h14M13 6l6 6-6 6" />,
   pencil: (
     <>
@@ -319,8 +320,8 @@ export function Table({ head, rows, widths = [], firstStrong = true }: { head: s
   const hasIcons = rows.some((r) => r.icon);
   const colStyle = (i: number): CSSProperties => (widths[i] ? { width: widths[i], flex: "none" } : { flex: "1 1 0", minWidth: 0 });
   return (
-    <Blk label="bảng" className="g-card overflow-hidden rounded-[24px] bg-[var(--w-card)]">
-      <div className="flex bg-[var(--d-well)]">
+    <Blk label="bảng" className="g-card g-table overflow-hidden rounded-[24px] bg-[var(--w-card)]">
+      <div className="g-thead flex bg-[var(--d-well)]">
         {head.map((h, i) => (
           <div key={i} className={`py-4 ${i === 0 && hasIcons ? "pr-6 pl-[74px]" : "px-6"}`} style={colStyle(i)}>
             <Eyebrow size={14} className="text-[var(--w-secondary)]">
@@ -332,7 +333,7 @@ export function Table({ head, rows, widths = [], firstStrong = true }: { head: s
       {rows.map((r, ri) => (
         <Blk key={ri} label="hàng" className={`flex border-t border-[var(--d-line)] ${r.highlight ? "bg-[var(--d-soft)]" : ""}`}>
           {r.cells.map((c, ci) => (
-            <div key={ci} className={`flex gap-3.5 px-6 py-[22px] ${ci === 0 ? "items-start" : ""}`} style={colStyle(ci)}>
+            <div key={ci} data-th={ci ? head[ci] : undefined} className={`g-td flex gap-3.5 px-6 py-[22px] ${ci === 0 ? "items-start" : ""}`} style={colStyle(ci)}>
               {ci === 0 && r.icon ? <Tile icon={r.icon} size={36} iconSize={18} radius={10} /> : null}
               {typeof c === "string" ? (
                 <T

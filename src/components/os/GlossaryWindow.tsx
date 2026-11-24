@@ -18,13 +18,13 @@ import { useFitZoom, useTitleBarDrag, WindowShell } from "./window-manager";
  */
 
 type View = "az" | "fn";
-type Entry = GlossaryTerm & { letter: string; azId: string; fnId: string };
+export type Entry = GlossaryTerm & { letter: string; azId: string; fnId: string };
 
-const pad = (n: number) => String(n).padStart(2, "0");
+export const pad = (n: number) => String(n).padStart(2, "0");
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 // Stable ids from the full list (A.01, 03.01) so filtering never renumbers a card.
-const ENTRIES: Entry[] = (() => {
+export const ENTRIES: Entry[] = (() => {
   const perLetter = new Map<string, number>();
   const perFn = new Map<number, number>();
   return GLOSSARY.map((t) => {
@@ -36,10 +36,10 @@ const ENTRIES: Entry[] = (() => {
     return { ...t, letter, azId: `${letter}.${pad(a)}`, fnId: `${pad(t.fn)}.${pad(f)}` };
   });
 })();
-const LETTERS = ALPHABET.filter((l) => ENTRIES.some((e) => e.letter === l));
-const FUNCTION_BY_INDEX = new Map(GLOSSARY_FUNCTIONS.map((f) => [f.index, f]));
+export const LETTERS = ALPHABET.filter((l) => ENTRIES.some((e) => e.letter === l));
+export const FUNCTION_BY_INDEX = new Map(GLOSSARY_FUNCTIONS.map((f) => [f.index, f]));
 
-const normalize = (s: string) =>
+export const normalize = (s: string) =>
   s
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")

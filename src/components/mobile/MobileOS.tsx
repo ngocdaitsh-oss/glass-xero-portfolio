@@ -19,6 +19,7 @@ import { DETAIL_READY } from "@/components/os/work-detail/WorkDetail";
 import { warmDockLottie } from "@/components/os/DockLottie";
 import { AboutPage } from "./AboutPage";
 import { AiwPage } from "./AiwPage";
+import { GlossaryPage } from "./GlossaryPage";
 import { NotOptimizedPage } from "./NotOptimizedPage";
 import { Home, type Press } from "./Home";
 import { LongPressMenu } from "./LongPressMenu";
@@ -317,6 +318,8 @@ export function MobileOS({
         return <PhotosPage onHome={goHome} onSearch={() => setSearch(true)} onMore={moreAt} onOpenWork={(id) => open("projects", null, id)} />;
       case "ai-workflow":
         return <AiwPage onHome={goHome} />;
+      case "glossary":
+        return <GlossaryPage onHome={goHome} />;
       case "projects":
         // Case studies have no phone layout: Figma's "not optimized" notice (418:30331) instead.
         return s.detail ? (

@@ -2659,3 +2659,39 @@ html[data-perf="low"] [data-window]::before {
 html[data-perf="low"][data-theme="light"] [data-window]::before {
   background: rgb(232 238 247 / 0.97);
 }
+
+/*
+ * Mobile — UX Glossary article bodies (src/components/mobile/GlossaryPage.tsx). The desktop bodies are laid out
+ * for a 1188px column; inside `.g-m` they reflow to the 358px phone column: grids go single-column, rows wrap,
+ * fixed widths give way, type steps down to the phone scale (16px body) and wide tables / diagrams scroll sideways.
+ */
+.g-m { min-width: 0; }
+.g-m > div { gap: 56px !important; }
+.g-m .grid { grid-template-columns: minmax(0, 1fr) !important; grid-auto-flow: row !important; }
+.g-m .grid > * { grid-column: auto !important; grid-row: auto !important; }
+.g-m .flex:not(.flex-col) { flex-wrap: wrap; }
+.g-m .flex:not(.flex-col) > .flex-1 { min-width: min(100%, 220px); }
+.g-m [class*="w-["], .g-m [style*="width"] { max-width: 100%; }
+.g-m [class*="min-h-["], .g-m [style*="min-height"] { min-height: 0 !important; }
+.g-m .g-card { overflow-x: auto; scrollbar-width: none; }
+.g-m [class*="text-[48px]"] { font-size: 28px !important; line-height: 34px !important; letter-spacing: -1px !important; }
+.g-m [class*="text-[56px]"], .g-m [class*="text-[64px]"], .g-m [class*="text-[72px]"], .g-m [class*="text-[80px]"], .g-m [class*="text-[96px]"] { font-size: 36px !important; line-height: 40px !important; letter-spacing: -1px !important; }
+.g-m [class*="text-[40px]"], .g-m [class*="text-[44px]"] { font-size: 30px !important; line-height: 36px !important; letter-spacing: -1px !important; }
+.g-m [class*="text-[32px]"], .g-m [class*="text-[34px]"], .g-m [class*="text-[36px]"] { font-size: 24px !important; line-height: 30px !important; }
+.g-m [class*="text-[28px]"], .g-m [class*="text-[30px]"] { font-size: 22px !important; line-height: 28px !important; letter-spacing: -0.5px !important; }
+.g-m [class*="text-[24px]"], .g-m [class*="text-[26px]"] { font-size: 20px !important; line-height: 28px !important; }
+.g-m [class*="text-[22px]"] { font-size: 18px !important; line-height: 26px !important; letter-spacing: -0.3px !important; }
+.g-m [class*="text-[20px]"], .g-m [class*="text-[19px]"], .g-m [class*="text-[18px]"], .g-m [class*="text-[17px]"] { font-size: 16px !important; line-height: 24px !important; letter-spacing: -0.1px !important; }
+.g-m [class~="p-7"], .g-m [class~="p-8"], .g-m [class~="p-9"], .g-m [class~="p-10"], .g-m [class~="p-12"], .g-m [class~="p-14"] { padding: 20px !important; }
+.g-m [class~="px-7"], .g-m [class~="px-8"], .g-m [class~="px-9"], .g-m [class~="px-10"], .g-m [class~="px-12"], .g-m [class~="px-14"] { padding-left: 20px !important; padding-right: 20px !important; }
+.g-m [class~="py-8"], .g-m [class~="py-9"], .g-m [class~="py-10"], .g-m [class~="py-12"], .g-m [class~="pt-8"], .g-m [class~="pb-9"] { padding-top: 20px !important; padding-bottom: 20px !important; }
+.g-m [class~="gap-10"], .g-m [class~="gap-12"], .g-m [class~="gap-14"], .g-m [class~="gap-16"], .g-m [class*="gap-[72px]"], .g-m [class*="gap-[56px]"] { gap: 24px !important; }
+.g-m [class~="gap-8"], .g-m [class~="gap-6"] { gap: 16px !important; }
+.g-m [class*="rounded-[28px]"], .g-m [class*="rounded-[24px]"] { border-radius: 20px !important; }
+/* Tables: each row becomes a stacked block; the header row hides and every later cell carries its column name. */
+.g-m .g-table .g-thead { display: none; }
+.g-m .g-table > .flex { flex-direction: column; flex-wrap: nowrap; padding: 16px 20px; gap: 10px; }
+.g-m .g-table .g-td { width: auto !important; flex: none !important; padding: 0 !important; flex-wrap: nowrap; }
+.g-m .g-table .g-td[data-th] { flex-direction: column; gap: 2px; }
+.g-m .g-table .g-td[data-th]::before { content: attr(data-th); font-family: var(--font-mono, ui-monospace, monospace); font-size: 14px; line-height: 20px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--w-muted); }
+.g-m .g-table .g-td > .min-w-0 { min-width: 0 !important; }
